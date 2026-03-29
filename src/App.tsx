@@ -14,6 +14,7 @@ import {
   DatabaseOutlined,
   FallOutlined,
   ProductOutlined,
+  RiseOutlined,
   SettingOutlined,
   ShopOutlined,
   UserOutlined,
@@ -40,6 +41,7 @@ import { Product } from "./pages/products";
 import { Purchase } from "./pages/purchases";
 import { Register } from "./pages/register";
 import { Role } from "./pages/roles";
+import { Sale } from "./pages/sales";
 import { Supplier } from "./pages/suppliers";
 import { User } from "./pages/users";
 import { authProvider, dataProvider } from "./providers";
@@ -100,6 +102,14 @@ function App() {
                     edit: "/purchases/edit/:id",
                     show: "/purchases/show/:id",
                     meta: { canDelete: true, icon: <FallOutlined /> },
+                  },
+                  {
+                    name: "sales",
+                    list: "/sales",
+                    create: "/sales/create",
+                    edit: "/sales/edit/:id",
+                    show: "/sales/show/:id",
+                    meta: { canDelete: true, icon: <RiseOutlined /> },
                   },
                   {
                     name: "customers",
@@ -209,6 +219,12 @@ function App() {
                       <Route path="create" element={<Purchase.Create />} />
                       <Route path="edit/:id" element={<Purchase.Edit />} />
                       <Route path="show/:id" element={<Purchase.Show />} />
+                    </Route>
+                    <Route path="/sales">
+                      <Route index element={<Sale.List />} />
+                      <Route path="create" element={<Sale.Create />} />
+                      <Route path="edit/:id" element={<Sale.Edit />} />
+                      <Route path="show/:id" element={<Sale.Show />} />
                     </Route>
                     <Route path="/customers">
                       <Route index element={<Customer.List />} />

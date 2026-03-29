@@ -288,5 +288,14 @@
       "edit": "Giao dịch kho",
       "show": "Chi tiết giao dịch kho"
     }
+  },
+  "sales": {
+    "sales": "Phiếu bán",
+    "titles": {
+      "list": "Phiếu bán",
+      "create": "Tạo phiếu bán",
+      "edit": "Sửa phiếu bán",
+      "show": "Chi tiết phiếu bán"
+    }
   }
 }
