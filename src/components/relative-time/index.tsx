@@ -5,7 +5,7 @@ import { useEffect, useMemo, useState } from "react";
 import {
   formatRelativeTimeVi,
   type RelativeTimeInput,
-} from "../../utils/formatRelativeTimeVi";
+} from "@/utils/formatRelativeTimeVi";
 
 export type RelativeTimeProps = {
   /** Thời điểm cần hiển thị (ISO string, timestamp, Date). */

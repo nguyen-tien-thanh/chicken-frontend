@@ -1,13 +1,13 @@
-import type { DataProvider, HttpError } from "@refinedev/core";
-import type { AxiosInstance } from "axios";
-import { stringify } from "query-string";
 import {
   axiosInstance,
   buildPrismaGetManyQueryParams,
   buildPrismaGetOneQueryParams,
   buildPrismaListQueryParams,
   transformHttpError,
-} from "../utils";
+} from "@/utils";
+import type { DataProvider, HttpError } from "@refinedev/core";
+import type { AxiosInstance } from "axios";
+import { stringify } from "query-string";
 
 export const dataProvider = (
   apiUrl: string,

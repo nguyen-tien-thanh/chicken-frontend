@@ -1,6 +1,6 @@
+import { TOKEN_KEY } from "@/providers/constants";
 import type { HttpError } from "@refinedev/core";
 import axios from "axios";
-import { TOKEN_KEY } from "../providers/constants";
 
 export const axiosInstance = axios.create();
 

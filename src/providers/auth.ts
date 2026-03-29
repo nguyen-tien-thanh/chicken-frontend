@@ -1,6 +1,6 @@
 import type { AuthProvider, HttpError } from "@refinedev/core";
 
-import { axiosInstance } from "../utils/axios";
+import { axiosInstance } from "@/utils/axios";
 import { TOKEN_KEY } from "./constants";
 
 const apiUrl = import.meta.env.VITE_API_URL as string;

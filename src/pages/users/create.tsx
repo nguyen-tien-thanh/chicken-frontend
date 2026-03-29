@@ -2,7 +2,7 @@ import { Create as AntdCreate, useForm } from "@refinedev/antd";
 import { useSelect } from "@refinedev/core";
 import { Form, Input, Select } from "antd";
 
-import type { IRole } from "../../types";
+import type { IRole } from "@/types";
 
 export const Create = () => {
   const { formProps, saveButtonProps } = useForm({

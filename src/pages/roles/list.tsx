@@ -7,7 +7,8 @@ import {
 } from "@refinedev/antd";
 import { Space, Table } from "antd";
 
-import type { IRole } from "../../types";
+import { RelativeTime } from "@/components/relative-time";
+import type { IRole } from "@/types";
 
 export const List = () => {
   const { tableProps } = useTable<IRole>({
@@ -27,9 +28,7 @@ export const List = () => {
           dataIndex="createdAt"
           title="Ngày tạo"
           sorter
-          render={(v: string) =>
-            v ? new Date(v).toLocaleString("vi-VN") : "—"
-          }
+          render={(v: string) => (v ? <RelativeTime value={v} /> : "—")}
         />
         <Table.Column
           title="Thao tác"

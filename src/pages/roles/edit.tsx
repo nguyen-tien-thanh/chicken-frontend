@@ -2,7 +2,7 @@ import { Edit as AntdEdit, useForm } from "@refinedev/antd";
 import { Form, Input } from "antd";
 import { useEffect } from "react";
 
-import type { IRole } from "../../types";
+import type { IRole } from "@/types";
 import { PermissionIdsField } from "./permission-ids-field";
 
 export const Edit = () => {

@@ -3,7 +3,7 @@ import { useSelect } from "@refinedev/core";
 import type { FormProps } from "antd";
 import { Form, Input, Select } from "antd";
 
-import type { IRole } from "../../types";
+import type { IRole } from "@/types";
 
 export const Edit = () => {
   const { formProps, saveButtonProps } = useForm({

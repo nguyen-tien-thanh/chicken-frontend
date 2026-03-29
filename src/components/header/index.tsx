@@ -1,3 +1,4 @@
+import { ColorModeContext } from "@/contexts/color-mode";
 import type { RefineThemedLayoutHeaderProps } from "@refinedev/antd";
 import { useGetIdentity } from "@refinedev/core";
 import {
@@ -9,7 +10,6 @@ import {
   Typography,
 } from "antd";
 import React, { useContext } from "react";
-import { ColorModeContext } from "../../contexts/color-mode";
 
 const { Text } = Typography;
 const { useToken } = theme;

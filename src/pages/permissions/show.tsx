@@ -2,7 +2,8 @@ import { Show as AntdShow, TextField } from "@refinedev/antd";
 import { useShow } from "@refinedev/core";
 import { Tag, Typography } from "antd";
 
-import type { IPermission } from "../../types";
+import { RelativeTime } from "@/components/relative-time";
+import type { IPermission } from "@/types";
 
 const { Title } = Typography;
 
@@ -23,21 +24,9 @@ export const Show = () => {
       <Title level={5}>Mặc định</Title>
       <TextField value={record?.default ? "Có" : "Không"} />
       <Title level={5}>Ngày tạo</Title>
-      <TextField
-        value={
-          record?.createdAt
-            ? new Date(record.createdAt).toLocaleString("vi-VN")
-            : undefined
-        }
-      />
+      <RelativeTime value={record?.createdAt} />
       <Title level={5}>Cập nhật</Title>
-      <TextField
-        value={
-          record?.updatedAt
-            ? new Date(record.updatedAt).toLocaleString("vi-VN")
-            : undefined
-        }
-      />
+      <RelativeTime value={record?.updatedAt} />
     </AntdShow>
   );
 };

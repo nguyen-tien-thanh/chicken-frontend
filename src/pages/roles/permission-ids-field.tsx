@@ -1,7 +1,7 @@
 import { useSelect } from "@refinedev/core";
 import { Form, Select } from "antd";
 
-import type { IPermission } from "../../types";
+import type { IPermission } from "@/types";
 
 type Props = {
   name?: string;
