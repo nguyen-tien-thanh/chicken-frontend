@@ -8,13 +8,9 @@ export const Edit = () => {
     <AntdEdit saveButtonProps={saveButtonProps}>
       <Form {...formProps} layout="vertical">
         <Form.Item
-          label={"Name"}
+          label="Tên danh mục"
           name={["name"]}
-          rules={[
-            {
-              required: true,
-            },
-          ]}
+          rules={[{ required: true, message: "Vui lòng nhập tên danh mục" }]}
         >
           <Input />
         </Form.Item>

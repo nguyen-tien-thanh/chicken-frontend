@@ -6,18 +6,24 @@ import {
   useTable,
 } from "@refinedev/antd";
 import { Space, Table, Tag } from "antd";
+import { Link } from "react-router";
 
 import { RelativeTime } from "@/components/relative-time";
-import type { IPermission } from "@/types";
+import { PRODUCT_TYPE_LABELS, type IProduct, type ProductType } from "@/types";
 
 export const List = () => {
-  const { tableProps } = useTable<IPermission>({
+  const { tableProps } = useTable<IProduct>({
     syncWithLocation: true,
-    resource: "permissions",
+    resource: "products",
+    meta: {
+      include: {
+        category: { select: { id: true, name: true } },
+      },
+    },
     filters: {
       initial: [
-        { field: "path", operator: "contains", value: undefined },
-        { field: "method", operator: "eq", value: undefined },
+        { field: "name", operator: "contains", value: undefined },
+        { field: "type", operator: "eq", value: undefined },
       ],
     },
   });
@@ -25,18 +31,23 @@ export const List = () => {
   return (
     <AntdList>
       <Table {...tableProps} rowKey="id">
-        <Table.Column dataIndex="path" title="Đường dẫn" sorter ellipsis />
+        <Table.Column dataIndex="name" title="Tên sản phẩm" sorter />
         <Table.Column
-          dataIndex="method"
-          title="Phương thức"
-          sorter
-          render={(m: IPermission["method"]) => <Tag color="blue">{m}</Tag>}
+          dataIndex="type"
+          title="Loại"
+          render={(t: ProductType) => <Tag>{PRODUCT_TYPE_LABELS[t] ?? t}</Tag>}
         />
-        <Table.Column dataIndex="description" title="Mô tả" ellipsis />
         <Table.Column
-          dataIndex="default"
-          title="Mặc định"
-          render={(v: boolean) => (v ? "Có" : "Không")}
+          title="Danh mục"
+          render={(_, r: IProduct) =>
+            r.category ? (
+              <Link to={`/product-categories/show/${r.category.id}`}>
+                {r.category.name}
+              </Link>
+            ) : (
+              "—"
+            )
+          }
         />
         <Table.Column
           dataIndex="createdAt"

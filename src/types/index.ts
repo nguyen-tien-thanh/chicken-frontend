@@ -1,49 +1,22 @@
-import type { BaseRecord } from "@refinedev/core";
-
-/** Khớp Prisma `enum Method` (HTTP verb). */
-export type HttpMethod = "GET" | "POST" | "PUT" | "PATCH" | "DELETE";
-
-export interface IRole extends BaseRecord {
-  id: string;
-  name: string;
-  description?: string | null;
-  createdAt: string;
-  updatedAt: string;
-  /** Gửi kèm body create/update role để đồng bộ quyền (API tự xử lý bảng nối). */
-  permissionIds?: string[];
-  users?: IUser[];
-  rolesPermissions?: IRolesPermission[];
-}
-
-export interface IUser extends BaseRecord {
-  id: string;
-  email: string;
-  name: string;
-  roleId: string;
-  /** Chỉ có khi tạo/cập nhật; API list/show thường không trả về. */
-  password?: string;
-  createdAt: string;
-  updatedAt: string;
-  role?: Pick<IRole, "id" | "name" | "description">;
-}
-
-export interface IPermission extends BaseRecord {
-  id: string;
-  path: string;
-  method: HttpMethod;
-  description?: string | null;
-  default: boolean;
-  createdAt: string;
-  updatedAt: string;
-  rolesPermissions?: IRolesPermission[];
-}
-
-export interface IRolesPermission extends BaseRecord {
-  id: string;
-  roleId: string;
-  permissionId: string;
-  createdAt: string;
-  updatedAt: string;
-  role?: Pick<IRole, "id" | "name" | "description">;
-  permission?: Pick<IPermission, "id" | "path" | "method" | "description">;
-}
+export type { ICustomer } from "./customer";
+export type { HttpMethod } from "./http-method";
+export {
+  INVENTORY_TX_DIRECTION_LABELS,
+  INVENTORY_TX_TYPE_LABELS,
+} from "./inventory-enums";
+export type {
+  InventoryTransactionDirection,
+  InventoryTransactionType,
+} from "./inventory-enums";
+export type { IInventoryTransaction } from "./inventory-transaction";
+export type { IPermission } from "./permission";
+export type { IProduct } from "./product";
+export type { IProductCategory } from "./product-category";
+export { PRODUCT_TYPE_LABELS, PRODUCT_TYPE_OPTIONS } from "./product-type";
+export type { ProductType } from "./product-type";
+export type { IPurchase } from "./purchase";
+export type { IPurchaseItem } from "./purchase-item";
+export type { IRole } from "./role";
+export type { IRolesPermission } from "./roles-permission";
+export type { ISupplier } from "./supplier";
+export type { IUser } from "./user";

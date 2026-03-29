@@ -5,19 +5,20 @@ import {
   ShowButton,
   useTable,
 } from "@refinedev/antd";
-import { Space, Table, Tag } from "antd";
+import { Space, Table } from "antd";
+import { Link } from "react-router";
 
 import { RelativeTime } from "@/components/relative-time";
-import type { IPermission } from "@/types";
+import type { ISupplier } from "@/types";
 
 export const List = () => {
-  const { tableProps } = useTable<IPermission>({
+  const { tableProps } = useTable<ISupplier>({
     syncWithLocation: true,
-    resource: "permissions",
+    resource: "suppliers",
     filters: {
       initial: [
-        { field: "path", operator: "contains", value: undefined },
-        { field: "method", operator: "eq", value: undefined },
+        { field: "name", operator: "contains", value: undefined },
+        { field: "phone", operator: "contains", value: undefined },
       ],
     },
   });
@@ -25,24 +26,20 @@ export const List = () => {
   return (
     <AntdList>
       <Table {...tableProps} rowKey="id">
-        <Table.Column dataIndex="path" title="Đường dẫn" sorter ellipsis />
-        <Table.Column
-          dataIndex="method"
-          title="Phương thức"
-          sorter
-          render={(m: IPermission["method"]) => <Tag color="blue">{m}</Tag>}
-        />
-        <Table.Column dataIndex="description" title="Mô tả" ellipsis />
-        <Table.Column
-          dataIndex="default"
-          title="Mặc định"
-          render={(v: boolean) => (v ? "Có" : "Không")}
-        />
+        <Table.Column dataIndex="name" title="Tên nhà cung cấp" sorter />
+        <Table.Column dataIndex="phone" title="Điện thoại" sorter />
+        <Table.Column dataIndex="address" title="Địa chỉ" ellipsis />
         <Table.Column
           dataIndex="createdAt"
           title="Ngày tạo"
           sorter
           render={(v: string) => (v ? <RelativeTime value={v} /> : "—")}
+        />
+        <Table.Column
+          title="Nghiệp vụ"
+          render={(_, r: ISupplier) => (
+            <Link to={`/purchases/create?supplierId=${r.id}`}>Nhập hàng</Link>
+          )}
         />
         <Table.Column
           title="Thao tác"

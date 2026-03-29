@@ -20,18 +20,18 @@ export const List = () => {
   return (
     <AntdList>
       <Table {...tableProps} rowKey="id">
-        <Table.Column dataIndex="id" title={"ID"} />
+        <Table.Column dataIndex="id" title="Mã" />
         <Table.Column
           dataIndex="name"
-          title={"name"}
+          title="Tên danh mục"
           sorter
           filterDropdown={(props) => (
             <FilterDropdown {...props} children={<Input.Search />} />
           )}
         />
-        <Table.Column dataIndex="deletedAt" title={"deletedAt"} />
+        <Table.Column dataIndex="deletedAt" title="Ngày xóa mềm" />
         <Table.Column
-          title={"Actions"}
+          title="Thao tác"
           dataIndex="actions"
           render={(_, record: BaseRecord) => (
             <Space>

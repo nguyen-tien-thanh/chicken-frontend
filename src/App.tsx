@@ -10,7 +10,7 @@ import {
 } from "@refinedev/antd";
 import "@refinedev/antd/dist/reset.css";
 
-import { SettingOutlined } from "@ant-design/icons";
+import { SettingOutlined, ShopOutlined } from "@ant-design/icons";
 import routerProvider, {
   CatchAllNavigate,
   DocumentTitleHandler,
@@ -23,12 +23,17 @@ import { Header } from "./components/header";
 import { ColorModeContextProvider } from "./contexts/color-mode";
 
 import { useTranslation } from "react-i18next";
+import { Customer } from "./pages/customers";
 import { ForgotPassword } from "./pages/forgotPassword";
+import { InventoryTransaction } from "./pages/inventory-transactions";
 import { Login } from "./pages/login";
 import { Permission } from "./pages/permissions";
 import { ProductCategory } from "./pages/product-categories";
+import { Product } from "./pages/products";
+import { Purchase } from "./pages/purchases";
 import { Register } from "./pages/register";
 import { Role } from "./pages/roles";
+import { Supplier } from "./pages/suppliers";
 import { User } from "./pages/users";
 import { authProvider, dataProvider } from "./providers";
 
@@ -74,12 +79,57 @@ function App() {
                 i18nProvider={i18nProvider}
                 resources={[
                   {
+                    name: "business",
+                    meta: {
+                      label: "Kinh doanh",
+                      icon: <ShopOutlined />,
+                    },
+                  },
+                  {
+                    name: "suppliers",
+                    list: "/suppliers",
+                    create: "/suppliers/create",
+                    edit: "/suppliers/edit/:id",
+                    show: "/suppliers/show/:id",
+                    meta: { canDelete: true, parent: "business" },
+                  },
+                  {
+                    name: "purchases",
+                    list: "/purchases",
+                    create: "/purchases/create",
+                    edit: "/purchases/edit/:id",
+                    show: "/purchases/show/:id",
+                    meta: { canDelete: true, parent: "business" },
+                  },
+                  {
+                    name: "customers",
+                    list: "/customers",
+                    create: "/customers/create",
+                    edit: "/customers/edit/:id",
+                    show: "/customers/show/:id",
+                    meta: { canDelete: true, parent: "business" },
+                  },
+                  {
+                    name: "products",
+                    list: "/products",
+                    create: "/products/create",
+                    edit: "/products/edit/:id",
+                    show: "/products/show/:id",
+                    meta: { canDelete: true, parent: "business" },
+                  },
+                  {
                     name: "product-categories",
                     list: "/product-categories",
                     create: "/product-categories/create",
                     edit: "/product-categories/edit/:id",
                     show: "/product-categories/show/:id",
-                    meta: { canDelete: true },
+                    meta: { canDelete: true, parent: "business" },
+                  },
+                  {
+                    name: "inventory-transactions",
+                    list: "/inventory-transactions",
+                    show: "/inventory-transactions/show/:id",
+                    meta: { parent: "business" },
                   },
                   {
                     name: "management",
@@ -146,8 +196,39 @@ function App() {
                   >
                     <Route
                       index
-                      element={<NavigateToResource resource="users" />}
+                      element={<NavigateToResource resource="suppliers" />}
                     />
+                    <Route path="/suppliers">
+                      <Route index element={<Supplier.List />} />
+                      <Route path="create" element={<Supplier.Create />} />
+                      <Route path="edit/:id" element={<Supplier.Edit />} />
+                      <Route path="show/:id" element={<Supplier.Show />} />
+                    </Route>
+                    <Route path="/purchases">
+                      <Route index element={<Purchase.List />} />
+                      <Route path="create" element={<Purchase.Create />} />
+                      <Route path="edit/:id" element={<Purchase.Edit />} />
+                      <Route path="show/:id" element={<Purchase.Show />} />
+                    </Route>
+                    <Route path="/customers">
+                      <Route index element={<Customer.List />} />
+                      <Route path="create" element={<Customer.Create />} />
+                      <Route path="edit/:id" element={<Customer.Edit />} />
+                      <Route path="show/:id" element={<Customer.Show />} />
+                    </Route>
+                    <Route path="/products">
+                      <Route index element={<Product.List />} />
+                      <Route path="create" element={<Product.Create />} />
+                      <Route path="edit/:id" element={<Product.Edit />} />
+                      <Route path="show/:id" element={<Product.Show />} />
+                    </Route>
+                    <Route path="/inventory-transactions">
+                      <Route index element={<InventoryTransaction.List />} />
+                      <Route
+                        path="show/:id"
+                        element={<InventoryTransaction.Show />}
+                      />
+                    </Route>
                     <Route path="/users">
                       <Route index element={<User.List />} />
                       <Route path="create" element={<User.Create />} />

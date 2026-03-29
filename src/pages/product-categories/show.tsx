@@ -10,9 +10,9 @@ export const Show = () => {
 
   return (
     <AntdShow isLoading={isLoading}>
-      <Title level={5}>{"ID"}</Title>
+      <Title level={5}>Mã</Title>
       <TextField value={record?.id} />
-      <Title level={5}>{"Name"}</Title>
+      <Title level={5}>Tên danh mục</Title>
       <TextField value={record?.name} />
     </AntdShow>
   );

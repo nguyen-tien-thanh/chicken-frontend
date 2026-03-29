@@ -31,7 +31,7 @@ export const Show = () => {
 
   return (
     <AntdShow isLoading={isLoading}>
-      <Title level={5}>ID</Title>
+      <Title level={5}>Mã</Title>
       <TextField value={record?.id} />
       <Title level={5}>Tên</Title>
       <TextField value={record?.name} />

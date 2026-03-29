@@ -8,10 +8,9 @@ export const transformHttpError = (error: any): HttpError => {
   const errorMessages = error.response.data.message;
 
   const errors = transformErrorMessages(errorMessages);
-
   const httpError: HttpError = {
     statusCode,
-    message,
+    message: errorMessages?.[0] || message,
     errors,
   };
 
