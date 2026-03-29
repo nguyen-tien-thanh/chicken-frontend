@@ -1,0 +1,132 @@
+{
+  "pages": {
+    "login": {
+      "title": "Đăng nhập vào tài khoản",
+      "signin": "Đăng nhập",
+      "signup": "Đăng ký",
+      "divider": "hoặc",
+      "fields": {
+        "email": "Email",
+        "password": "Mật khẩu"
+      },
+      "errors": {
+        "requiredEmail": "Vui lòng nhập email",
+        "validEmail": "Email không hợp lệ",
+        "requiredPassword": "Vui lòng nhập mật khẩu"
+      },
+      "buttons": {
+        "forgotPassword": "Quên mật khẩu?",
+        "noAccount": "Chưa có tài khoản?",
+        "rememberMe": "Ghi nhớ đăng nhập",
+        "haveAccount": "Đã có tài khoản?"
+      }
+    },
+    "forgotPassword": {
+      "title": "Quên mật khẩu?",
+      "fields": {
+        "email": "Email"
+      },
+      "errors": {
+        "requiredEmail": "Vui lòng nhập email",
+        "validEmail": "Email không hợp lệ"
+      },
+      "buttons": {
+        "submit": "Gửi hướng dẫn đặt lại mật khẩu",
+        "haveAccount": "Đã có tài khoản? "
+      },
+      "signin": "Đăng nhập"
+    },
+    "register": {
+      "title": "Đăng ký tài khoản",
+      "divider": "hoặc",
+      "email": "Email",
+      "fields": {
+        "email": "Email",
+        "password": "Mật khẩu"
+      },
+      "errors": {
+        "requiredEmail": "Vui lòng nhập email",
+        "validEmail": "Email không hợp lệ",
+        "requiredPassword": "Vui lòng nhập mật khẩu"
+      },
+      "buttons": {
+        "submit": "Đăng ký",
+        "haveAccount": "Đã có tài khoản?"
+      },
+      "signin": "Đăng nhập"
+    },
+    "updatePassword": {
+      "title": "Đặt mật khẩu mới",
+      "fields": {
+        "password": "Mật khẩu mới",
+        "confirmPassword": "Xác nhận mật khẩu mới"
+      },
+      "errors": {
+        "requiredPassword": "Vui lòng nhập mật khẩu",
+        "requiredConfirmPassword": "Vui lòng xác nhận mật khẩu",
+        "confirmPasswordNotMatch": "Hai mật khẩu không khớp"
+      },
+      "buttons": {
+        "submit": "Cập nhật"
+      }
+    },
+    "error": {
+      "info": "Có thể bạn chưa thêm component {{action}} cho resource \"{{resource}}\".",
+      "404": "Trang bạn truy cập không tồn tại.",
+      "backHome": "Về trang chủ"
+    }
+  },
+  "actions": {
+    "list": "Danh sách",
+    "create": "Tạo mới",
+    "edit": "Sửa",
+    "show": "Xem",
+    "delete": "Xóa"
+  },
+  "buttons": {
+    "add": "Thêm",
+    "create": "Tạo mới",
+    "save": "Lưu",
+    "logout": "Đăng xuất",
+    "delete": "Xóa",
+    "edit": "Sửa",
+    "cancel": "Hủy",
+    "confirm": "Bạn có chắc không?",
+    "filter": "Lọc",
+    "clear": "Xóa bộ lọc",
+    "refresh": "Làm mới",
+    "show": "Xem",
+    "notAccessTitle": "Không có quyền truy cập"
+  },
+  "warnWhenUnsavedChanges": "Bạn có chắc muốn rời trang? Có thay đổi chưa được lưu.",
+  "notifications": {
+    "success": "Thành công",
+    "error": "Lỗi (mã: {{statusCode}})",
+    "createSuccess": "Đã tạo {{resource}}",
+    "createError": "Lỗi khi tạo {{resource}} (mã: {{statusCode}})",
+    "deleteSuccess": "Đã xóa {{resource}}",
+    "deleteError": "Lỗi khi xóa {{resource}} (mã: {{statusCode}})",
+    "editSuccess": "Đã cập nhật {{resource}}",
+    "editError": "Lỗi khi cập nhật {{resource}} (mã: {{statusCode}})"
+  },
+  "documentTitle": {
+    "default": "Refine",
+    "suffix": " | Refine",
+    "product-categories": {
+      "list": "Danh mục sản phẩm | Refine",
+      "create": "Tạo danh mục sản phẩm | Refine",
+      "edit": "Sửa danh mục sản phẩm #{{id}} | Refine",
+      "show": "Chi tiết danh mục sản phẩm #{{id}} | Refine",
+      "clone": "Nhân bản danh mục sản phẩm #{{id}} | Refine"
+    }
+  },
+  "product-categories": {
+    "product-categories": "Danh mục sản phẩm",
+    "titles": {
+      "list": "Danh mục sản phẩm",
+      "create": "Thêm danh mục sản phẩm",
+      "edit": "Sửa danh mục sản phẩm",
+      "show": "Chi tiết danh mục sản phẩm"
+    }
+  }
+}

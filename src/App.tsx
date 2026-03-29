@@ -21,6 +21,7 @@ import { BrowserRouter, Outlet, Route, Routes } from "react-router";
 import { Header } from "./components/header";
 import { ColorModeContextProvider } from "./contexts/color-mode";
 
+import { useTranslation } from "react-i18next";
 import { ForgotPassword } from "./pages/forgotPassword";
 import { Login } from "./pages/login";
 import { ProductCategory } from "./pages/product-categories";
@@ -30,6 +31,30 @@ import { authProvider, dataProvider } from "./providers";
 function App() {
   const API_URL = import.meta.env.VITE_API_URL;
   const dp = dataProvider(API_URL);
+
+  const { t } = useTranslation();
+
+  const i18nProvider = {
+    translate: (key: string, options?: unknown, defaultMessage?: string) => {
+      if (typeof options === "string" && defaultMessage === undefined) {
+        return String(t(key, { defaultValue: options }));
+      }
+      const interpolation =
+        options && typeof options === "object" && !Array.isArray(options)
+          ? (options as Record<string, unknown>)
+          : {};
+      return String(
+        t(key, {
+          ...interpolation,
+          ...(defaultMessage !== undefined
+            ? { defaultValue: defaultMessage }
+            : {}),
+        })
+      );
+    },
+    changeLocale: () => Promise.resolve(),
+    getLocale: () => "vi",
+  };
 
   return (
     <BrowserRouter>
@@ -42,6 +67,7 @@ function App() {
                 notificationProvider={useNotificationProvider}
                 routerProvider={routerProvider}
                 authProvider={authProvider}
+                i18nProvider={i18nProvider}
                 resources={[
                   {
                     name: "product-categories",
