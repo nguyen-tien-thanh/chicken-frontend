@@ -27,6 +27,7 @@ export const List = () => {
         { field: "direction", operator: "eq", value: undefined },
       ],
     },
+    sorters: { initial: [{ field: "transactionDate", order: "desc" }] },
   });
 
   return (
@@ -36,6 +37,7 @@ export const List = () => {
           dataIndex="transactionDate"
           title="Ngày giao dịch"
           sorter
+          defaultSortOrder="descend"
           render={(v: string) =>
             v ? dayjs(v).format("DD/MM/YYYY HH:mm") : "—"
           }

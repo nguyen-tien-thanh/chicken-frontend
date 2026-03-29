@@ -38,6 +38,7 @@ export const List = () => {
         : {}),
       initial: [],
     },
+    sorters: { initial: [{ field: "purchaseDate", order: "desc" }] },
   });
 
   return (
@@ -47,9 +48,8 @@ export const List = () => {
           dataIndex="purchaseDate"
           title="Ngày nhập"
           sorter
-          render={(v: string) =>
-            v ? dayjs(v).format("DD/MM/YYYY HH:mm") : "—"
-          }
+          defaultSortOrder="descend"
+          render={(v: string) => (v ? dayjs(v).format("DD/MM/YYYY") : "—")}
         />
         <Table.Column
           title="Nhà cung cấp"

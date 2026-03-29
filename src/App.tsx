@@ -10,7 +10,14 @@ import {
 } from "@refinedev/antd";
 import "@refinedev/antd/dist/reset.css";
 
-import { SettingOutlined, ShopOutlined } from "@ant-design/icons";
+import {
+  DatabaseOutlined,
+  FallOutlined,
+  ProductOutlined,
+  SettingOutlined,
+  ShopOutlined,
+  UserOutlined,
+} from "@ant-design/icons";
 import routerProvider, {
   CatchAllNavigate,
   DocumentTitleHandler,
@@ -79,19 +86,12 @@ function App() {
                 i18nProvider={i18nProvider}
                 resources={[
                   {
-                    name: "business",
-                    meta: {
-                      label: "Kinh doanh",
-                      icon: <ShopOutlined />,
-                    },
-                  },
-                  {
                     name: "suppliers",
                     list: "/suppliers",
                     create: "/suppliers/create",
                     edit: "/suppliers/edit/:id",
                     show: "/suppliers/show/:id",
-                    meta: { canDelete: true, parent: "business" },
+                    meta: { canDelete: true, icon: <ShopOutlined /> },
                   },
                   {
                     name: "purchases",
@@ -99,7 +99,7 @@ function App() {
                     create: "/purchases/create",
                     edit: "/purchases/edit/:id",
                     show: "/purchases/show/:id",
-                    meta: { canDelete: true, parent: "business" },
+                    meta: { canDelete: true, icon: <FallOutlined /> },
                   },
                   {
                     name: "customers",
@@ -107,7 +107,7 @@ function App() {
                     create: "/customers/create",
                     edit: "/customers/edit/:id",
                     show: "/customers/show/:id",
-                    meta: { canDelete: true, parent: "business" },
+                    meta: { canDelete: true, icon: <UserOutlined /> },
                   },
                   {
                     name: "products",
@@ -115,7 +115,7 @@ function App() {
                     create: "/products/create",
                     edit: "/products/edit/:id",
                     show: "/products/show/:id",
-                    meta: { canDelete: true, parent: "business" },
+                    meta: { canDelete: true, icon: <ProductOutlined /> },
                   },
                   {
                     name: "product-categories",
@@ -123,13 +123,13 @@ function App() {
                     create: "/product-categories/create",
                     edit: "/product-categories/edit/:id",
                     show: "/product-categories/show/:id",
-                    meta: { canDelete: true, parent: "business" },
+                    meta: { canDelete: true },
                   },
                   {
                     name: "inventory-transactions",
                     list: "/inventory-transactions",
                     show: "/inventory-transactions/show/:id",
-                    meta: { parent: "business" },
+                    meta: { icon: <DatabaseOutlined /> },
                   },
                   {
                     name: "management",

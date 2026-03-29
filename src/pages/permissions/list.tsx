@@ -20,6 +20,7 @@ export const List = () => {
         { field: "method", operator: "eq", value: undefined },
       ],
     },
+    sorters: { initial: [{ field: "createdAt", order: "desc" }] },
   });
 
   return (
@@ -42,6 +43,7 @@ export const List = () => {
           dataIndex="createdAt"
           title="Ngày tạo"
           sorter
+          defaultSortOrder="descend"
           render={(v: string) => (v ? <RelativeTime value={v} /> : "—")}
         />
         <Table.Column

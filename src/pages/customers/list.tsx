@@ -2,10 +2,11 @@ import {
   List as AntdList,
   DeleteButton,
   EditButton,
+  FilterDropdown,
   ShowButton,
   useTable,
 } from "@refinedev/antd";
-import { Space, Table } from "antd";
+import { Input, Space, Table } from "antd";
 
 import { RelativeTime } from "@/components/relative-time";
 import type { ICustomer } from "@/types";
@@ -20,13 +21,26 @@ export const List = () => {
         { field: "phone", operator: "contains", value: undefined },
       ],
     },
+    sorters: { initial: [{ field: "name", order: "asc" }] },
   });
 
   return (
     <AntdList>
       <Table {...tableProps} rowKey="id">
-        <Table.Column dataIndex="name" title="Tên" sorter />
-        <Table.Column dataIndex="phone" title="Điện thoại" sorter />
+        <Table.Column
+          dataIndex="name"
+          title="Tên"
+          sorter
+          defaultSortOrder="ascend"
+        />
+        <Table.Column
+          dataIndex="phone"
+          title="Điện thoại"
+          sorter
+          filterDropdown={(props) => (
+            <FilterDropdown {...props} children={<Input.Search />} />
+          )}
+        />
         <Table.Column dataIndex="address" title="Địa chỉ" ellipsis />
         <Table.Column
           dataIndex="createdAt"
