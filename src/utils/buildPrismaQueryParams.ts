@@ -1,16 +1,17 @@
 import type { CrudFilters, CrudSorting, Pagination } from "@refinedev/core";
 
 import { filtersToPrismaWhere } from "./handleFilter";
-import type { JoinInput } from "./handleJoin";
-import { joinToPrismaInclude } from "./handleJoin";
 import { paginationToPrismaSkipTake } from "./handlePagination";
 import { crudSortingToPrismaOrderBy } from "./handleSort";
+import {
+  type PrismaIncludeSelectMeta,
+  resolvePrismaIncludeSelect,
+} from "./resolvePrismaIncludeSelect";
 
-export type PrismaListQueryOptions = {
+export type PrismaListQueryOptions = PrismaIncludeSelectMeta & {
   filters?: CrudFilters;
   sorters?: CrudSorting;
   pagination?: Pagination;
-  join?: JoinInput;
 };
 
 const appendIfPresent = (
@@ -28,7 +29,7 @@ const appendIfPresent = (
   params.set(key, JSON.stringify(value));
 };
 
-/** Serializes Prisma-style list query pieces as URL search params (`where`, `orderBy`, `include`, `skip`, `take`). */
+/** Serializes Prisma-style list query params (`where`, `orderBy`, `include` XOR `select`, `skip`, `take`). */
 export const buildPrismaListQueryParams = (
   options: PrismaListQueryOptions
 ): URLSearchParams => {
@@ -40,7 +41,8 @@ export const buildPrismaListQueryParams = (
   const orderBy = crudSortingToPrismaOrderBy(options.sorters);
   appendIfPresent(params, "orderBy", orderBy);
 
-  const include = joinToPrismaInclude(options.join);
+  const { include, select } = resolvePrismaIncludeSelect(options);
+  appendIfPresent(params, "select", select);
   appendIfPresent(params, "include", include);
 
   const { skip, take } = paginationToPrismaSkipTake(options.pagination);
@@ -52,22 +54,24 @@ export const buildPrismaListQueryParams = (
 
 export const buildPrismaGetManyQueryParams = (
   ids: (string | number)[],
-  join?: JoinInput
+  meta?: PrismaIncludeSelectMeta
 ): URLSearchParams => {
   const params = new URLSearchParams();
   params.set("where", JSON.stringify({ id: { in: ids } }));
 
-  const include = joinToPrismaInclude(join);
+  const { include, select } = resolvePrismaIncludeSelect(meta);
+  appendIfPresent(params, "select", select);
   appendIfPresent(params, "include", include);
 
   return params;
 };
 
 export const buildPrismaGetOneQueryParams = (
-  join?: JoinInput
+  meta?: PrismaIncludeSelectMeta
 ): URLSearchParams => {
   const params = new URLSearchParams();
-  const include = joinToPrismaInclude(join);
+  const { include, select } = resolvePrismaIncludeSelect(meta);
+  appendIfPresent(params, "select", select);
   appendIfPresent(params, "include", include);
   return params;
 };

@@ -10,6 +10,7 @@ import {
 } from "@refinedev/antd";
 import "@refinedev/antd/dist/reset.css";
 
+import { SettingOutlined } from "@ant-design/icons";
 import routerProvider, {
   CatchAllNavigate,
   DocumentTitleHandler,
@@ -24,8 +25,11 @@ import { ColorModeContextProvider } from "./contexts/color-mode";
 import { useTranslation } from "react-i18next";
 import { ForgotPassword } from "./pages/forgotPassword";
 import { Login } from "./pages/login";
+import { Permission } from "./pages/permissions";
 import { ProductCategory } from "./pages/product-categories";
 import { Register } from "./pages/register";
+import { Role } from "./pages/roles";
+import { User } from "./pages/users";
 import { authProvider, dataProvider } from "./providers";
 
 function App() {
@@ -75,8 +79,46 @@ function App() {
                     create: "/product-categories/create",
                     edit: "/product-categories/edit/:id",
                     show: "/product-categories/show/:id",
+                    meta: { canDelete: true },
+                  },
+                  {
+                    name: "management",
+                    meta: {
+                      label: "Quản lý",
+                      icon: <SettingOutlined />,
+                    },
+                  },
+                  {
+                    name: "users",
+                    list: "/users",
+                    create: "/users/create",
+                    edit: "/users/edit/:id",
+                    show: "/users/show/:id",
                     meta: {
                       canDelete: true,
+                      parent: "management",
+                    },
+                  },
+                  {
+                    name: "roles",
+                    list: "/roles",
+                    create: "/roles/create",
+                    edit: "/roles/edit/:id",
+                    show: "/roles/show/:id",
+                    meta: {
+                      canDelete: true,
+                      parent: "management",
+                    },
+                  },
+                  {
+                    name: "permissions",
+                    list: "/permissions",
+                    create: "/permissions/create",
+                    edit: "/permissions/edit/:id",
+                    show: "/permissions/show/:id",
+                    meta: {
+                      canDelete: true,
+                      parent: "management",
                     },
                   },
                 ]}
@@ -104,10 +146,26 @@ function App() {
                   >
                     <Route
                       index
-                      element={
-                        <NavigateToResource resource="product-categories" />
-                      }
+                      element={<NavigateToResource resource="users" />}
                     />
+                    <Route path="/users">
+                      <Route index element={<User.List />} />
+                      <Route path="create" element={<User.Create />} />
+                      <Route path="edit/:id" element={<User.Edit />} />
+                      <Route path="show/:id" element={<User.Show />} />
+                    </Route>
+                    <Route path="/roles">
+                      <Route index element={<Role.List />} />
+                      <Route path="create" element={<Role.Create />} />
+                      <Route path="edit/:id" element={<Role.Edit />} />
+                      <Route path="show/:id" element={<Role.Show />} />
+                    </Route>
+                    <Route path="/permissions">
+                      <Route index element={<Permission.List />} />
+                      <Route path="create" element={<Permission.Create />} />
+                      <Route path="edit/:id" element={<Permission.Edit />} />
+                      <Route path="show/:id" element={<Permission.Show />} />
+                    </Route>
                     <Route path="/product-categories">
                       <Route index element={<ProductCategory.List />} />
                       <Route

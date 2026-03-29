@@ -113,11 +113,39 @@
     "default": "Refine",
     "suffix": " | Refine",
     "product-categories": {
-      "list": "Danh mục sản phẩm | Refine",
-      "create": "Tạo danh mục sản phẩm | Refine",
-      "edit": "Sửa danh mục sản phẩm #{{id}} | Refine",
-      "show": "Chi tiết danh mục sản phẩm #{{id}} | Refine",
-      "clone": "Nhân bản danh mục sản phẩm #{{id}} | Refine"
+      "list": "Danh mục sản phẩm",
+      "create": "Tạo danh mục sản phẩm",
+      "edit": "Sửa danh mục sản phẩm #{{id}}",
+      "show": "Chi tiết danh mục sản phẩm #{{id}}",
+      "clone": "Nhân bản danh mục sản phẩm #{{id}}"
+    },
+    "management": {
+      "list": "Quản lý",
+      "create": "Quản lý",
+      "edit": "Quản lý",
+      "show": "Quản lý",
+      "clone": "Quản lý"
+    },
+    "users": {
+      "list": "Người dùng",
+      "create": "Thêm người dùng",
+      "edit": "Sửa người dùng #{{id}}",
+      "show": "Chi tiết người dùng #{{id}}",
+      "clone": "Nhân bản người dùng #{{id}}"
+    },
+    "roles": {
+      "list": "Vai trò",
+      "create": "Thêm vai trò",
+      "edit": "Sửa vai trò #{{id}}",
+      "show": "Chi tiết vai trò #{{id}}",
+      "clone": "Nhân bản vai trò #{{id}}"
+    },
+    "permissions": {
+      "list": "Quyền",
+      "create": "Thêm quyền",
+      "edit": "Sửa quyền #{{id}}",
+      "show": "Chi tiết quyền #{{id}}",
+      "clone": "Nhân bản quyền #{{id}}"
     }
   },
   "product-categories": {
@@ -127,6 +155,42 @@
       "create": "Thêm danh mục sản phẩm",
       "edit": "Sửa danh mục sản phẩm",
       "show": "Chi tiết danh mục sản phẩm"
+    }
+  },
+  "management": {
+    "management": "Quản lý",
+    "titles": {
+      "list": "Quản lý",
+      "create": "Quản lý",
+      "edit": "Quản lý",
+      "show": "Quản lý"
+    }
+  },
+  "users": {
+    "users": "Người dùng",
+    "titles": {
+      "list": "Người dùng",
+      "create": "Thêm người dùng",
+      "edit": "Sửa người dùng",
+      "show": "Chi tiết người dùng"
+    }
+  },
+  "roles": {
+    "roles": "Vai trò",
+    "titles": {
+      "list": "Vai trò",
+      "create": "Thêm vai trò",
+      "edit": "Sửa vai trò",
+      "show": "Chi tiết vai trò"
+    }
+  },
+  "permissions": {
+    "permissions": "Quyền",
+    "titles": {
+      "list": "Quyền",
+      "create": "Thêm quyền",
+      "edit": "Sửa quyền",
+      "show": "Chi tiết quyền"
     }
   }
 }

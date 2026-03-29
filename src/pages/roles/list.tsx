@@ -2,16 +2,17 @@ import {
   List as AntdList,
   DeleteButton,
   EditButton,
-  FilterDropdown,
   ShowButton,
   useTable,
 } from "@refinedev/antd";
-import type { BaseRecord } from "@refinedev/core";
-import { Input, Space, Table } from "antd";
+import { Space, Table } from "antd";
+
+import type { IRole } from "../../types";
 
 export const List = () => {
-  const { tableProps } = useTable({
+  const { tableProps } = useTable<IRole>({
     syncWithLocation: true,
+    resource: "roles",
     filters: {
       initial: [{ field: "name", operator: "contains", value: undefined }],
     },
@@ -20,20 +21,21 @@ export const List = () => {
   return (
     <AntdList>
       <Table {...tableProps} rowKey="id">
-        <Table.Column dataIndex="id" title={"ID"} />
+        <Table.Column dataIndex="name" title="Tên" sorter />
+        <Table.Column dataIndex="description" title="Mô tả" ellipsis />
         <Table.Column
-          dataIndex="name"
-          title={"name"}
+          dataIndex="createdAt"
+          title="Ngày tạo"
           sorter
-          filterDropdown={(props) => (
-            <FilterDropdown {...props} children={<Input.Search />} />
-          )}
+          render={(v: string) =>
+            v ? new Date(v).toLocaleString("vi-VN") : "—"
+          }
         />
-        <Table.Column dataIndex="deletedAt" title={"deletedAt"} />
         <Table.Column
-          title={"Actions"}
+          title="Thao tác"
           dataIndex="actions"
-          render={(_, record: BaseRecord) => (
+          fixed="right"
+          render={(_, record) => (
             <Space>
               <EditButton hideText size="small" recordItemId={record.id} />
               <ShowButton hideText size="small" recordItemId={record.id} />

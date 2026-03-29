@@ -20,7 +20,8 @@ export const dataProvider = (
       filters,
       sorters,
       pagination,
-      join: meta?.join,
+      include: meta?.include as Record<string, unknown> | undefined,
+      select: meta?.select as Record<string, unknown> | undefined,
     });
     const qs = searchParams.toString();
 
@@ -41,7 +42,10 @@ export const dataProvider = (
   getMany: async ({ resource, ids, meta }) => {
     const url = `${apiUrl}/${resource}`;
 
-    const searchParams = buildPrismaGetManyQueryParams(ids, meta?.join);
+    const searchParams = buildPrismaGetManyQueryParams(ids, {
+      include: meta?.include as Record<string, unknown> | undefined,
+      select: meta?.select as Record<string, unknown> | undefined,
+    });
     const qs = searchParams.toString();
 
     const { data } = await httpClient.get(qs ? `${url}?${qs}` : url);
@@ -129,7 +133,10 @@ export const dataProvider = (
   getOne: async ({ resource, id, meta }) => {
     const url = `${apiUrl}/${resource}/${id}`;
 
-    const searchParams = buildPrismaGetOneQueryParams(meta?.join);
+    const searchParams = buildPrismaGetOneQueryParams({
+      include: meta?.include as Record<string, unknown> | undefined,
+      select: meta?.select as Record<string, unknown> | undefined,
+    });
     const qs = searchParams.toString();
 
     const { data } = await httpClient.get(qs ? `${url}?${qs}` : url);
@@ -176,7 +183,8 @@ export const dataProvider = (
     const searchParams = buildPrismaListQueryParams({
       filters,
       sorters,
-      join: meta?.join,
+      include: meta?.include as Record<string, unknown> | undefined,
+      select: meta?.select as Record<string, unknown> | undefined,
     });
     const prismaQs = searchParams.toString();
 
