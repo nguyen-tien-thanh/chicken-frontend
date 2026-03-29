@@ -1,1 +1,1 @@
-export const TOKEN_KEY = "refine-auth";
+export const TOKEN_KEY = "token";

@@ -1,19 +1,19 @@
-import { Show, TextField } from "@refinedev/antd";
+import { Show as AntdShow, TextField } from "@refinedev/antd";
 import { useShow } from "@refinedev/core";
 import { Typography } from "antd";
 
 const { Title } = Typography;
 
-export const CategoryShow = () => {
+export const Show = () => {
   const { result: record, query } = useShow({});
   const { isLoading } = query;
 
   return (
-    <Show isLoading={isLoading}>
+    <AntdShow isLoading={isLoading}>
       <Title level={5}>{"ID"}</Title>
       <TextField value={record?.id} />
-      <Title level={5}>{"Title"}</Title>
-      <TextField value={record?.title} />
-    </Show>
+      <Title level={5}>{"Name"}</Title>
+      <TextField value={record?.name} />
+    </AntdShow>
   );
 };
