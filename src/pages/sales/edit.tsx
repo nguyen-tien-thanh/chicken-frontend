@@ -276,7 +276,7 @@ export const Edit = () => {
             <Form.Item
               label="Ngày bán"
               name="saleDate"
-              rules={[{ required: true }]}
+              rules={[{ required: true, message: "Chọn ngày bán" }]}
               getValueProps={(value) => ({
                 value:
                   value && dayjs(value as string).isValid()

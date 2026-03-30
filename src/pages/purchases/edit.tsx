@@ -21,7 +21,7 @@ import dayjs from "dayjs";
 import { useEffect, useState } from "react";
 
 import { InputMoney } from "@/components";
-import type { IPurchase, IPurchaseItem, IProduct, ISupplier } from "@/types";
+import type { IProduct, IPurchase, IPurchaseItem, ISupplier } from "@/types";
 import { formatMoney } from "@/utils";
 
 const { Text } = Typography;
@@ -272,7 +272,7 @@ export const Edit = () => {
             <Form.Item
               label="Ngày nhập"
               name="purchaseDate"
-              rules={[{ required: true }]}
+              rules={[{ required: true, message: "Chọn ngày nhập" }]}
               getValueProps={(value) => ({
                 value:
                   value && dayjs(value as string).isValid()
@@ -281,9 +281,9 @@ export const Edit = () => {
               })}
             >
               <DatePicker
-                showTime
+                showTime={false}
                 style={{ width: "100%" }}
-                format="DD/MM/YYYY HH:mm"
+                format="DD/MM/YYYY"
               />
             </Form.Item>
           </Col>
@@ -293,7 +293,12 @@ export const Edit = () => {
               name="averageWeight"
               rules={[{ required: true }]}
             >
-              <InputNumber suffix="kg/con" min={0} step={0.1} style={{ width: "100%" }} />
+              <InputNumber
+                suffix="kg/con"
+                min={0}
+                step={0.1}
+                style={{ width: "100%" }}
+              />
             </Form.Item>
           </Col>
         </Row>
@@ -314,7 +319,12 @@ export const Edit = () => {
               name="cagesWeight"
               rules={[{ required: true }]}
             >
-              <InputNumber suffix="kg" min={0} step={0.1} style={{ width: "100%" }} />
+              <InputNumber
+                suffix="kg"
+                min={0}
+                step={0.1}
+                style={{ width: "100%" }}
+              />
             </Form.Item>
           </Col>
         </Row>

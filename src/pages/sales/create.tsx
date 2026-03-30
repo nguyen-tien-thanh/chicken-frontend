@@ -272,7 +272,7 @@ export const Create = () => {
             <Form.Item
               label="Ngày bán"
               name="saleDate"
-              rules={[{ required: true }]}
+              rules={[{ required: true, message: "Chọn ngày bán" }]}
             >
               <DatePicker
                 showTime

@@ -265,12 +265,12 @@ export const Create = () => {
             <Form.Item
               label="Ngày nhập"
               name="purchaseDate"
-              rules={[{ required: true }]}
+              rules={[{ required: true, message: "Chọn ngày nhập" }]}
             >
               <DatePicker
-                showTime
+                showTime={false}
                 style={{ width: "100%" }}
-                format="DD/MM/YYYY HH:mm"
+                format="DD/MM/YYYY"
               />
             </Form.Item>
           </Col>

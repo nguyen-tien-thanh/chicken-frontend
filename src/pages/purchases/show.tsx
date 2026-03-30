@@ -52,7 +52,7 @@ export const Show = () => {
           </Descriptions.Item>
           <Descriptions.Item label="Ngày nhập">
             {record?.purchaseDate
-              ? dayjs(record.purchaseDate).format("DD/MM/YYYY HH:mm")
+              ? dayjs(record.purchaseDate).format("DD/MM/YYYY")
               : "—"}
           </Descriptions.Item>
           <Descriptions.Item label="Nhà cung cấp" span={2}>

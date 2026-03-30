@@ -71,7 +71,7 @@ export const List = () => {
         next.delete("show");
         return next;
       },
-      { replace: true }
+      { replace: true },
     );
   }, [searchParams, setSearchParams]);
 
@@ -96,7 +96,6 @@ export const List = () => {
       }
     >
       <Table {...tableProps} rowKey="id">
-        <Table.Column dataIndex="id" title="Mã" />
         <Table.Column
           dataIndex="name"
           title="Tên danh mục"
@@ -104,6 +103,13 @@ export const List = () => {
           filterDropdown={(props) => (
             <FilterDropdown {...props} children={<Input.Search />} />
           )}
+        />
+        <Table.Column
+          dataIndex="createdAt"
+          title="Ngày tạo"
+          render={(v: string | null) =>
+            v ? dayjs(v).format("DD/MM/YYYY HH:mm") : "—"
+          }
         />
         <Table.Column
           dataIndex="deletedAt"
