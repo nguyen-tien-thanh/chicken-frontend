@@ -118,8 +118,8 @@ export const List = () => {
             )
           }
         />
-        <Table.Column dataIndex="quantity" title="Số lượng" />
-        <Table.Column dataIndex="quantityUnit" title="Đơn vị" />
+        <Table.Column dataIndex="quantity" title="Số lượng" align="right" />
+        <Table.Column dataIndex="quantityUnit" title="Đơn vị" width={80} />
         <Table.Column
           dataIndex="totalCost"
           title="Tổng giá vốn"
