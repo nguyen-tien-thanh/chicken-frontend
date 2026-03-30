@@ -1,4 +1,5 @@
 import type { BaseRecord } from "@refinedev/core";
+import { BankName } from "./bank-name-enum";
 
 export interface ISupplier extends BaseRecord {
   id: string;
@@ -6,7 +7,7 @@ export interface ISupplier extends BaseRecord {
   phone: string;
   address?: string | null;
   bankAccount?: string | null;
-  bankName?: string | null;
+  bankName?: BankName | null;
   createdAt: string;
   updatedAt: string;
   deletedAt?: string | null;

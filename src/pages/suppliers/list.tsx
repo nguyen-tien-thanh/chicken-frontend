@@ -13,6 +13,7 @@ import {
   Drawer,
   Form,
   Input,
+  Select,
   Space,
   Spin,
   Table,
@@ -22,7 +23,8 @@ import { useEffect, useState } from "react";
 import { Link, useSearchParams } from "react-router";
 
 import { RelativeTime } from "@/components/relative-time";
-import type { ISupplier } from "@/types";
+import { type ISupplier } from "@/types";
+import { BankNameOptions } from "@/types/bank-name-enum";
 
 const DRAWER_WIDTH = "45vw";
 
@@ -43,7 +45,7 @@ function SupplierFormFields() {
         <Input.TextArea rows={2} />
       </Form.Item>
       <Form.Item label="Tên ngân hàng" name="bankName">
-        <Input />
+        <Select options={BankNameOptions} showSearch />
       </Form.Item>
       <Form.Item label="Số tài khoản ngân hàng" name="bankAccount">
         <Input />

@@ -1,3 +1,4 @@
+export { BankName } from "./bank-name-enum";
 export type { ICustomer } from "./customer";
 export type { HttpMethod } from "./http-method";
 export {
