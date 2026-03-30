@@ -7,5 +7,6 @@ export * from "./handlePagination";
 export * from "./handleSort";
 export * from "./mapOperator";
 export * from "./resolvePrismaIncludeSelect";
+export * from "./normalizeVietnamese";
 export * from "./transformErrorMessages";
 export * from "./transformHttpError";

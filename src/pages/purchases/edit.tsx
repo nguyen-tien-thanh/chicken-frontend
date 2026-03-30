@@ -33,7 +33,6 @@ type LineItem = {
   quantity: number;
   quantityUnit: "kg" | "con";
   unitPrice: number;
-  avgWeightPerUnit: number;
   note?: string;
 };
 
@@ -46,7 +45,6 @@ function fromExisting(item: IPurchaseItem): LineItem {
     quantity: item.quantity,
     quantityUnit: item.quantityUnit as "kg" | "con",
     unitPrice: item.unitPrice,
-    avgWeightPerUnit: item.avgWeightPerUnit,
     note: item.note ?? undefined,
   };
 }
@@ -56,7 +54,6 @@ function newRow(): LineItem {
     quantityUnit: "kg",
     quantity: 1,
     unitPrice: 0,
-    avgWeightPerUnit: 0,
   };
 }
 
@@ -148,7 +145,6 @@ export const Edit = () => {
       quantityUnit: row.quantityUnit,
       unitPrice: row.unitPrice,
       amount: row.quantity * row.unitPrice,
-      avgWeightPerUnit: row.avgWeightPerUnit,
       note: row.note ?? null,
     }));
     return formProps.onFinish?.(next as never);
@@ -224,19 +220,6 @@ export const Edit = () => {
       width: 160,
       render: (_: unknown, row: LineItem) => (
         <Text strong>{formatMoneyVnd(row.quantity * row.unitPrice)}</Text>
-      ),
-    },
-    {
-      title: "TB TL/ĐV",
-      width: 140,
-      render: (_: unknown, row: LineItem) => (
-        <InputNumber
-          min={0}
-          step={0.01}
-          style={{ width: "100%" }}
-          value={row.avgWeightPerUnit}
-          onChange={(v) => updateLine(row.key, "avgWeightPerUnit", v ?? 0)}
-        />
       ),
     },
     {

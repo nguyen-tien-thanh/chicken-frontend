@@ -8,7 +8,6 @@ export interface IPurchaseItem extends BaseRecord {
   quantityUnit: string;
   unitPrice: number;
   amount: number;
-  avgWeightPerUnit: number;
   note?: string | null;
   purchaseId: string;
   productId: string;

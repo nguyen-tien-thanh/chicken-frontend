@@ -33,7 +33,6 @@ type LineItem = {
   quantity: number;
   quantityUnit: "kg" | "con";
   unitPrice: number;
-  avgWeightPerUnit: number;
   note?: string;
 };
 
@@ -53,7 +52,6 @@ function newRow(): LineItem {
     quantityUnit: "kg",
     quantity: 1,
     unitPrice: 0,
-    avgWeightPerUnit: 0,
   };
 }
 
@@ -127,7 +125,6 @@ export const Create = () => {
       quantityUnit: row.quantityUnit,
       unitPrice: row.unitPrice,
       amount: row.quantity * row.unitPrice,
-      avgWeightPerUnit: row.avgWeightPerUnit,
       note: row.note ?? null,
     }));
     const payload = {
@@ -214,19 +211,6 @@ export const Create = () => {
       width: 160,
       render: (_: unknown, row: LineItem) => (
         <Text strong>{formatMoneyVnd(row.quantity * row.unitPrice)}</Text>
-      ),
-    },
-    {
-      title: "TB TL/ĐV",
-      width: 140,
-      render: (_: unknown, row: LineItem) => (
-        <InputNumber
-          min={0}
-          step={0.01}
-          style={{ width: "100%" }}
-          value={row.avgWeightPerUnit}
-          onChange={(v) => updateLine(row.key, "avgWeightPerUnit", v ?? 0)}
-        />
       ),
     },
     {

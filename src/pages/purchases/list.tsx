@@ -1,11 +1,12 @@
 import {
+  FilterDropdown,
   List as AntdList,
   DeleteButton,
   EditButton,
   ShowButton,
   useTable,
 } from "@refinedev/antd";
-import { Space, Table, Typography } from "antd";
+import { Input, Space, Table, Typography } from "antd";
 import dayjs from "dayjs";
 import { Link, useSearchParams } from "react-router";
 
@@ -37,7 +38,13 @@ export const List = () => {
             ],
           }
         : {}),
-      initial: [],
+      initial: [
+        { field: "purchaseDate", operator: "contains", value: undefined },
+        { field: "supplier.name", operator: "contains", value: undefined },
+        { field: "totalAmount", operator: "contains", value: undefined },
+        { field: "note", operator: "contains", value: undefined },
+        { field: "createdAt", operator: "contains", value: undefined },
+      ],
     },
     sorters: { initial: [{ field: "purchaseDate", order: "desc" }] },
   });
@@ -51,9 +58,16 @@ export const List = () => {
           sorter
           defaultSortOrder="descend"
           render={(v: string) => (v ? dayjs(v).format("DD/MM/YYYY") : "—")}
+          filterDropdown={(props) => (
+            <FilterDropdown {...props}>
+              <Input.Search placeholder="Tìm ngày nhập..." />
+            </FilterDropdown>
+          )}
         />
         <Table.Column
           title="Nhà cung cấp"
+          dataIndex={["supplier", "name"]}
+          sorter
           render={(_, r: IPurchase) =>
             r.supplier ? (
               <Link to={`/suppliers/show/${r.supplier.id}`}>
@@ -63,6 +77,11 @@ export const List = () => {
               r.supplierId ?? "—"
             )
           }
+          filterDropdown={(props) => (
+            <FilterDropdown {...props}>
+              <Input.Search placeholder="Tìm nhà cung cấp..." />
+            </FilterDropdown>
+          )}
         />
         <Table.Column
           title="Tổng tiền"
@@ -73,14 +92,34 @@ export const List = () => {
               {formatMoney(r.totalAmount)}
             </Typography.Text>
           )}
+          filterDropdown={(props) => (
+            <FilterDropdown {...props}>
+              <Input.Search placeholder="Tìm tổng tiền..." />
+            </FilterDropdown>
+          )}
         />
-        <Table.Column dataIndex="note" title="Ghi chú" ellipsis />
+        <Table.Column
+          dataIndex="note"
+          title="Ghi chú"
+          ellipsis
+          sorter
+          filterDropdown={(props) => (
+            <FilterDropdown {...props}>
+              <Input.Search placeholder="Tìm ghi chú..." />
+            </FilterDropdown>
+          )}
+        />
         <Table.Column
           dataIndex="createdAt"
           title="Ngày tạo"
           sorter
           responsive={["xl"]}
           render={(v: string) => (v ? <RelativeTime value={v} /> : "—")}
+          filterDropdown={(props) => (
+            <FilterDropdown {...props}>
+              <Input.Search placeholder="Tìm ngày tạo..." />
+            </FilterDropdown>
+          )}
         />
         <Table.Column
           title="Thao tác"

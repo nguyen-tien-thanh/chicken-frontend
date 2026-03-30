@@ -131,10 +131,6 @@ export const Show = () => {
             title: "Thành tiền",
             render: (n: number) => formatMoney(n),
           },
-          {
-            dataIndex: "avgWeightPerUnit",
-            title: "TB trọng lượng/ĐV",
-          },
           { dataIndex: "note", title: "Ghi chú", ellipsis: true },
         ]}
       />
