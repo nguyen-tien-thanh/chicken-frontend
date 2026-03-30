@@ -1,5 +1,6 @@
 export * from "./axios";
 export * from "./buildPrismaQueryParams";
+export * from "./formatMoney";
 export * from "./formatRelativeTimeVi";
 export * from "./handleFilter";
 export * from "./handlePagination";

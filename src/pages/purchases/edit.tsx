@@ -33,6 +33,7 @@ export const Edit = () => {
     if (pd != null && dayjs.isDayjs(pd)) {
       next.purchaseDate = (pd as dayjs.Dayjs).toISOString();
     }
+    delete next.totalAmount;
     return formProps.onFinish?.(next as never);
   };
 
@@ -75,7 +76,7 @@ export const Edit = () => {
           name="totalAmount"
           rules={[{ required: true }]}
         >
-          <InputNumber min={0} step={1000} style={{ width: "100%" }} />
+          <InputNumber min={0} step={1000} style={{ width: "100%" }} readOnly />
         </Form.Item>
         <Form.Item label="Ghi chú" name="note">
           <Input.TextArea rows={2} />

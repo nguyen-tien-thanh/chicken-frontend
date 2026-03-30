@@ -27,6 +27,7 @@ import routerProvider, {
 } from "@refinedev/react-router";
 import { App as AntdApp } from "antd";
 import { BrowserRouter, Outlet, Route, Routes } from "react-router";
+import { ShowRedirectDrawer } from "./components";
 import { Header } from "./components/header";
 import { ColorModeContextProvider } from "./contexts/color-mode";
 
@@ -90,9 +91,6 @@ function App() {
                   {
                     name: "suppliers",
                     list: "/suppliers",
-                    create: "/suppliers/create",
-                    edit: "/suppliers/edit/:id",
-                    show: "/suppliers/show/:id",
                     meta: { canDelete: true, icon: <ShopOutlined /> },
                   },
                   {
@@ -114,25 +112,16 @@ function App() {
                   {
                     name: "customers",
                     list: "/customers",
-                    create: "/customers/create",
-                    edit: "/customers/edit/:id",
-                    show: "/customers/show/:id",
                     meta: { canDelete: true, icon: <UserOutlined /> },
                   },
                   {
                     name: "products",
                     list: "/products",
-                    create: "/products/create",
-                    edit: "/products/edit/:id",
-                    show: "/products/show/:id",
                     meta: { canDelete: true, icon: <ProductOutlined /> },
                   },
                   {
                     name: "product-categories",
                     list: "/product-categories",
-                    create: "/product-categories/create",
-                    edit: "/product-categories/edit/:id",
-                    show: "/product-categories/show/:id",
                     meta: { canDelete: true },
                   },
                   {
@@ -210,9 +199,10 @@ function App() {
                     />
                     <Route path="/suppliers">
                       <Route index element={<Supplier.List />} />
-                      <Route path="create" element={<Supplier.Create />} />
-                      <Route path="edit/:id" element={<Supplier.Edit />} />
-                      <Route path="show/:id" element={<Supplier.Show />} />
+                      <Route
+                        path="show/:id"
+                        element={<ShowRedirectDrawer listPath="/suppliers" />}
+                      />
                     </Route>
                     <Route path="/purchases">
                       <Route index element={<Purchase.List />} />
@@ -228,15 +218,17 @@ function App() {
                     </Route>
                     <Route path="/customers">
                       <Route index element={<Customer.List />} />
-                      <Route path="create" element={<Customer.Create />} />
-                      <Route path="edit/:id" element={<Customer.Edit />} />
-                      <Route path="show/:id" element={<Customer.Show />} />
+                      <Route
+                        path="show/:id"
+                        element={<ShowRedirectDrawer listPath="/customers" />}
+                      />
                     </Route>
                     <Route path="/products">
                       <Route index element={<Product.List />} />
-                      <Route path="create" element={<Product.Create />} />
-                      <Route path="edit/:id" element={<Product.Edit />} />
-                      <Route path="show/:id" element={<Product.Show />} />
+                      <Route
+                        path="show/:id"
+                        element={<ShowRedirectDrawer listPath="/products" />}
+                      />
                     </Route>
                     <Route path="/inventory-transactions">
                       <Route index element={<InventoryTransaction.List />} />
@@ -266,16 +258,10 @@ function App() {
                     <Route path="/product-categories">
                       <Route index element={<ProductCategory.List />} />
                       <Route
-                        path="create"
-                        element={<ProductCategory.Create />}
-                      />
-                      <Route
-                        path="edit/:id"
-                        element={<ProductCategory.Edit />}
-                      />
-                      <Route
                         path="show/:id"
-                        element={<ProductCategory.Show />}
+                        element={
+                          <ShowRedirectDrawer listPath="/product-categories" />
+                        }
                       />
                     </Route>
                     <Route path="*" element={<ErrorComponent />} />

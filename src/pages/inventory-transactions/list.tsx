@@ -11,6 +11,7 @@ import {
   type InventoryTransactionDirection,
   type InventoryTransactionType,
 } from "@/types";
+import { formatMoney } from "@/utils";
 
 export const List = () => {
   const { tableProps } = useTable<IInventoryTransaction>({
@@ -72,13 +73,11 @@ export const List = () => {
           }
         />
         <Table.Column dataIndex="quantity" title="Số lượng" />
-        <Table.Column dataIndex="quantityUnit" title="ĐVT" />
+        <Table.Column dataIndex="quantityUnit" title="Đơn vị" />
         <Table.Column
           dataIndex="totalCost"
           title="Tổng giá vốn"
-          render={(n: number) =>
-            n != null ? Number(n).toLocaleString("vi-VN") : "—"
-          }
+          render={(n: number) => (n != null ? formatMoney(n) : "—")}
         />
         <Table.Column
           dataIndex="createdAt"
@@ -92,7 +91,7 @@ export const List = () => {
           fixed="right"
           render={(_, record) => (
             <Space>
-              <ShowButton hideText size="small" recordItemId={record.id} />
+              <ShowButton hideText recordItemId={record.id} />
             </Space>
           )}
         />

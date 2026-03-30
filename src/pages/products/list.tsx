@@ -1,17 +1,107 @@
+import { EditOutlined, EyeOutlined, PlusOutlined } from "@ant-design/icons";
 import {
   List as AntdList,
   DeleteButton,
-  EditButton,
-  ShowButton,
+  useDrawerForm,
   useTable,
 } from "@refinedev/antd";
-import { Space, Table, Tag } from "antd";
-import { Link } from "react-router";
+import type { BaseRecord } from "@refinedev/core";
+import { useSelect, useShow } from "@refinedev/core";
+import {
+  Button,
+  Descriptions,
+  Drawer,
+  Form,
+  Input,
+  Select,
+  Space,
+  Spin,
+  Table,
+  Tag,
+  Tooltip,
+} from "antd";
+import { useEffect, useState } from "react";
+import { Link, useSearchParams } from "react-router";
 
 import { RelativeTime } from "@/components/relative-time";
-import { PRODUCT_TYPE_LABELS, type IProduct, type ProductType } from "@/types";
+import {
+  PRODUCT_TYPE_LABELS,
+  PRODUCT_TYPE_OPTIONS,
+  type IProduct,
+  type IProductCategory,
+  type ProductType,
+} from "@/types";
+
+const DRAWER_WIDTH = "45vw";
 
 export const List = () => {
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [showId, setShowId] = useState<string | undefined>(undefined);
+
+  const {
+    drawerProps: createDrawerProps,
+    formProps: createFormProps,
+    saveButtonProps: createSaveButtonProps,
+    show: showCreateDrawer,
+    close: closeCreateDrawer,
+  } = useDrawerForm({
+    resource: "products",
+    action: "create",
+    syncWithLocation: false,
+  });
+
+  const {
+    drawerProps: editDrawerProps,
+    formProps: editFormProps,
+    saveButtonProps: editSaveButtonProps,
+    show: showEditDrawer,
+    close: closeEditDrawer,
+  } = useDrawerForm({
+    resource: "products",
+    action: "edit",
+    syncWithLocation: false,
+    meta: {
+      include: {
+        category: { select: { id: true, name: true } },
+      },
+    },
+  });
+
+  const { result: showRecord, query: showQuery } = useShow<IProduct>({
+    resource: "products",
+    id: showId ?? "",
+    queryOptions: { enabled: !!showId },
+    meta: {
+      include: {
+        category: { select: { id: true, name: true } },
+      },
+    },
+  });
+
+  const {
+    options: categoryOptions,
+    onSearch: onSearchCategory,
+    query: categoriesQuery,
+  } = useSelect({
+    resource: "product-categories",
+    optionLabel: (item: IProductCategory) => item.name,
+    optionValue: (item: IProductCategory) => item.id,
+  });
+
+  useEffect(() => {
+    const id = searchParams.get("show");
+    if (!id) return;
+    setShowId(id);
+    setSearchParams(
+      (prev) => {
+        const next = new URLSearchParams(prev);
+        next.delete("show");
+        return next;
+      },
+      { replace: true }
+    );
+  }, [searchParams, setSearchParams]);
+
   const { tableProps } = useTable<IProduct>({
     syncWithLocation: true,
     resource: "products",
@@ -29,8 +119,20 @@ export const List = () => {
     sorters: { initial: [{ field: "createdAt", order: "desc" }] },
   });
 
+  const showType = showRecord?.type as ProductType | undefined;
+
   return (
-    <AntdList>
+    <AntdList
+      headerButtons={
+        <Button
+          type="primary"
+          icon={<PlusOutlined />}
+          onClick={() => showCreateDrawer()}
+        >
+          Tạo mới
+        </Button>
+      }
+    >
       <Table {...tableProps} rowKey="id">
         <Table.Column dataIndex="name" title="Tên sản phẩm" sorter />
         <Table.Column
@@ -61,15 +163,154 @@ export const List = () => {
           title="Thao tác"
           dataIndex="actions"
           fixed="right"
-          render={(_, record) => (
+          render={(_, record: BaseRecord) => (
             <Space>
-              <EditButton hideText size="small" recordItemId={record.id} />
-              <ShowButton hideText size="small" recordItemId={record.id} />
-              <DeleteButton hideText size="small" recordItemId={record.id} />
+              <Tooltip title="Sửa">
+                <Button
+                  variant="outlined"
+                  icon={<EditOutlined />}
+                  onClick={() => showEditDrawer(record.id)}
+                />
+              </Tooltip>
+              <Tooltip title="Xem">
+                <Button
+                  variant="outlined"
+                  icon={<EyeOutlined />}
+                  onClick={() => setShowId(String(record.id))}
+                />
+              </Tooltip>
+              <DeleteButton hideText recordItemId={record.id} />
             </Space>
           )}
         />
       </Table>
+
+      <Drawer
+        {...createDrawerProps}
+        width={DRAWER_WIDTH}
+        title="Tạo sản phẩm"
+        extra={
+          <Space>
+            <Button onClick={closeCreateDrawer}>Đóng</Button>
+            <Button type="primary" {...createSaveButtonProps}>
+              Lưu
+            </Button>
+          </Space>
+        }
+      >
+        <Form {...createFormProps} layout="vertical">
+          <Form.Item
+            label="Tên sản phẩm"
+            name="name"
+            rules={[{ required: true }]}
+          >
+            <Input />
+          </Form.Item>
+          <Form.Item label="Loại" name="type" rules={[{ required: true }]}>
+            <Select options={PRODUCT_TYPE_OPTIONS} />
+          </Form.Item>
+          <Form.Item
+            label="Danh mục"
+            name="categoryId"
+            rules={[{ required: true }]}
+          >
+            <Select
+              options={categoryOptions}
+              loading={categoriesQuery.isFetching}
+              showSearch
+              onSearch={onSearchCategory}
+              filterOption={false}
+              optionFilterProp="label"
+            />
+          </Form.Item>
+        </Form>
+      </Drawer>
+
+      <Drawer
+        {...editDrawerProps}
+        width={DRAWER_WIDTH}
+        title="Sửa sản phẩm"
+        extra={
+          <Space>
+            <Button onClick={closeEditDrawer}>Đóng</Button>
+            <Button type="primary" {...editSaveButtonProps}>
+              Lưu
+            </Button>
+          </Space>
+        }
+      >
+        <Form {...editFormProps} layout="vertical">
+          <Form.Item
+            label="Tên sản phẩm"
+            name="name"
+            rules={[{ required: true }]}
+          >
+            <Input />
+          </Form.Item>
+          <Form.Item label="Loại" name="type" rules={[{ required: true }]}>
+            <Select options={PRODUCT_TYPE_OPTIONS} />
+          </Form.Item>
+          <Form.Item
+            label="Danh mục"
+            name="categoryId"
+            rules={[{ required: true }]}
+          >
+            <Select
+              options={categoryOptions}
+              loading={categoriesQuery.isFetching}
+              showSearch
+              onSearch={onSearchCategory}
+              filterOption={false}
+              optionFilterProp="label"
+            />
+          </Form.Item>
+        </Form>
+      </Drawer>
+
+      <Drawer
+        title="Chi tiết sản phẩm"
+        width={DRAWER_WIDTH}
+        open={!!showId}
+        onClose={() => setShowId(undefined)}
+        destroyOnClose
+      >
+        {showQuery.isLoading ? (
+          <Spin />
+        ) : (
+          <Descriptions column={1} bordered size="small">
+            <Descriptions.Item label="Mã">{showRecord?.id}</Descriptions.Item>
+            <Descriptions.Item label="Tên">
+              {showRecord?.name}
+            </Descriptions.Item>
+            <Descriptions.Item label="Loại">
+              {showType ? <Tag>{PRODUCT_TYPE_LABELS[showType]}</Tag> : "—"}
+            </Descriptions.Item>
+            <Descriptions.Item label="Danh mục">
+              {showRecord?.category ? (
+                <Link to={`/product-categories/show/${showRecord.category.id}`}>
+                  {showRecord.category.name}
+                </Link>
+              ) : (
+                showRecord?.categoryId ?? "—"
+              )}
+            </Descriptions.Item>
+            <Descriptions.Item label="Ngày tạo">
+              {showRecord?.createdAt ? (
+                <RelativeTime value={showRecord.createdAt} />
+              ) : (
+                "—"
+              )}
+            </Descriptions.Item>
+            <Descriptions.Item label="Cập nhật">
+              {showRecord?.updatedAt ? (
+                <RelativeTime value={showRecord.updatedAt} />
+              ) : (
+                "—"
+              )}
+            </Descriptions.Item>
+          </Descriptions>
+        )}
+      </Drawer>
     </AntdList>
   );
 };

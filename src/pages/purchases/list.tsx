@@ -5,12 +5,13 @@ import {
   ShowButton,
   useTable,
 } from "@refinedev/antd";
-import { Space, Table } from "antd";
+import { Space, Table, Typography } from "antd";
 import dayjs from "dayjs";
 import { Link, useSearchParams } from "react-router";
 
 import { RelativeTime } from "@/components/relative-time";
 import type { IPurchase } from "@/types";
+import { formatMoney } from "@/utils";
 
 export const List = () => {
   const [searchParams] = useSearchParams();
@@ -59,23 +60,26 @@ export const List = () => {
                 {r.supplier.name}
               </Link>
             ) : (
-              "—"
+              r.supplierId ?? "—"
             )
           }
         />
         <Table.Column
-          dataIndex="totalAmount"
           title="Tổng tiền"
           sorter
-          render={(n: number) =>
-            n != null ? Number(n).toLocaleString("vi-VN") : "—"
-          }
+          dataIndex="totalAmount"
+          render={(_, r: IPurchase) => (
+            <Typography.Text strong>
+              {formatMoney(r.totalAmount)}
+            </Typography.Text>
+          )}
         />
         <Table.Column dataIndex="note" title="Ghi chú" ellipsis />
         <Table.Column
           dataIndex="createdAt"
           title="Ngày tạo"
           sorter
+          responsive={["xl"]}
           render={(v: string) => (v ? <RelativeTime value={v} /> : "—")}
         />
         <Table.Column
@@ -84,9 +88,9 @@ export const List = () => {
           fixed="right"
           render={(_, record) => (
             <Space>
-              <EditButton hideText size="small" recordItemId={record.id} />
-              <ShowButton hideText size="small" recordItemId={record.id} />
-              <DeleteButton hideText size="small" recordItemId={record.id} />
+              <EditButton hideText recordItemId={record.id} />
+              <ShowButton hideText recordItemId={record.id} />
+              <DeleteButton hideText recordItemId={record.id} />
             </Space>
           )}
         />

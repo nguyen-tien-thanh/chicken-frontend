@@ -4,31 +4,31 @@ import { useSelect } from "@refinedev/core";
 import type { FormProps } from "antd";
 import {
   Button,
-  Card,
-  Col,
   DatePicker,
   Form,
   Input,
   InputNumber,
-  Row,
   Select,
+  Space,
+  Table,
+  Tooltip,
   Typography,
   message,
 } from "antd";
-import type { FormListFieldData } from "antd/es/form";
 import dayjs from "dayjs";
 import { useMemo } from "react";
 import { useSearchParams } from "react-router";
 
 import type { ICustomer, IProduct } from "@/types";
 import { SALE_STATUS_OPTIONS, type SaleStatus } from "@/types";
+import { formatMoney } from "@/utils";
 
 const { Text } = Typography;
 
 type LineItem = {
   productId?: string;
   quantity?: number;
-  quantityUnit?: string;
+  quantityUnit?: "kg" | "con";
   unitPrice?: number;
   note?: string;
 };
@@ -43,8 +43,8 @@ type FormValues = {
   lineItems?: LineItem[];
 };
 
-function formatMoney(n: number) {
-  return `${n.toLocaleString("vi-VN")} đ`;
+function formatMoneyVnd(n: number) {
+  return formatMoney(n, { currencySuffix: "đ" });
 }
 
 function SaleTotalsSummary() {
@@ -77,137 +77,159 @@ function SaleTotalsSummary() {
     >
       <div style={{ display: "flex", justifyContent: "space-between" }}>
         <Text type="secondary">Tạm tính</Text>
-        <Text strong>{formatMoney(subtotal)}</Text>
+        <Text strong>{formatMoneyVnd(subtotal)}</Text>
       </div>
       <div style={{ display: "flex", justifyContent: "space-between" }}>
         <Text type="secondary">Sau giảm giá</Text>
-        <Text strong>{formatMoney(finalAmount)}</Text>
+        <Text strong>{formatMoneyVnd(finalAmount)}</Text>
       </div>
       <div style={{ display: "flex", justifyContent: "space-between" }}>
         <Text type="secondary">Còn phải thu</Text>
-        <Text strong>{formatMoney(remaining)}</Text>
+        <Text strong>{formatMoneyVnd(remaining)}</Text>
       </div>
     </div>
   );
 }
 
-type LineRowProps = {
-  field: FormListFieldData;
-  rowIndex: number;
-  remove: (index: number | number[]) => void;
-  productOptions: { label?: React.ReactNode; value?: string | number }[];
-  productsQuery: { isFetching: boolean };
-  onSearchProduct: (value: string) => void;
-};
-
-function SaleLineRow({
-  field,
-  rowIndex,
-  remove,
+function LineItemsTable({
   productOptions,
   productsQuery,
   onSearchProduct,
-}: LineRowProps) {
-  const { key, name, ...restField } = field;
+  remove,
+  fields,
+}: {
+  productOptions: { label?: React.ReactNode; value?: string | number }[];
+  productsQuery: { isFetching: boolean };
+  onSearchProduct: (value: string) => void;
+  remove: (index: number | number[]) => void;
+  fields: { key: number; name: number }[];
+}) {
   const form = Form.useFormInstance();
-  const qty = Form.useWatch(["lineItems", name, "quantity"], form);
-  const price = Form.useWatch(["lineItems", name, "unitPrice"], form);
-  const lineAmount = Number(qty ?? 0) * Number(price ?? 0);
+  const lines =
+    (Form.useWatch("lineItems", form) as LineItem[] | undefined) ?? [];
 
   return (
-    <Card
-      key={key}
+    <Table
+      rowKey="key"
+      dataSource={fields}
+      pagination={false}
       size="small"
-      title={`Dòng hàng ${rowIndex + 1}`}
-      style={{ marginBottom: 16 }}
-      extra={
-        <Button
-          type="text"
-          danger
-          size="small"
-          icon={<MinusCircleOutlined />}
-          onClick={() => remove(name)}
-        >
-          Xóa dòng
-        </Button>
-      }
-    >
-      <Row gutter={[16, 0]}>
-        <Col xs={24} lg={12}>
-          <Form.Item {...restField} name={[name, "productId"]} label="Sản phẩm">
-            <Select
-              placeholder="Chọn sản phẩm"
-              options={productOptions}
-              loading={productsQuery.isFetching}
-              showSearch
-              onSearch={onSearchProduct}
-              filterOption={false}
-              optionFilterProp="label"
-              allowClear
-            />
-          </Form.Item>
-        </Col>
-        <Col xs={12} sm={8} lg={4}>
-          <Form.Item
-            {...restField}
-            name={[name, "quantity"]}
-            label="Số lượng"
-            rules={[{ required: true, message: "Nhập số lượng" }]}
-          >
-            <InputNumber
-              min={0}
-              step={0.01}
-              style={{ width: "100%" }}
-              placeholder="0"
-            />
-          </Form.Item>
-        </Col>
-        <Col xs={12} sm={8} lg={4}>
-          <Form.Item
-            {...restField}
-            name={[name, "quantityUnit"]}
-            label="Đơn vị tính"
-          >
-            <Input placeholder="vd: kg" />
-          </Form.Item>
-        </Col>
-        <Col xs={12} sm={8} lg={4}>
-          <Form.Item
-            {...restField}
-            name={[name, "unitPrice"]}
-            label="Đơn giá"
-            rules={[{ required: true, message: "Nhập đơn giá" }]}
-          >
-            <InputNumber
-              min={0}
-              step={1000}
-              style={{ width: "100%" }}
-              placeholder="0"
-            />
-          </Form.Item>
-        </Col>
-        <Col xs={12} sm={8} lg={4}>
-          <Form.Item label="Thành tiền">
-            <div
-              style={{
-                minHeight: 32,
-                lineHeight: "32px",
-                paddingInline: 11,
-                background: "var(--ant-color-fill-tertiary)",
-                borderRadius: 6,
-              }}
+      scroll={{ x: true }}
+      columns={[
+        {
+          title: "#",
+          width: 44,
+          render: (_: unknown, f) => (
+            <Typography.Text type="secondary">{f.name + 1}</Typography.Text>
+          ),
+        },
+        {
+          title: "Sản phẩm",
+          width: 360,
+          render: (_: unknown, f) => (
+            <Form.Item
+              name={["lineItems", f.name, "productId"]}
+              style={{ marginBottom: 0 }}
             >
-              <Text strong>{formatMoney(lineAmount)}</Text>
-            </div>
-          </Form.Item>
-        </Col>
-        <Col xs={24}>
-          <Form.Item {...restField} name={[name, "note"]} label="Ghi chú dòng">
-            <Input placeholder="Tuỳ chọn" />
-          </Form.Item>
-        </Col>
-      </Row>
-    </Card>
+              <Select
+                placeholder="Chọn sản phẩm"
+                options={productOptions}
+                loading={productsQuery.isFetching}
+                showSearch
+                onSearch={onSearchProduct}
+                filterOption={false}
+                optionFilterProp="label"
+                allowClear
+              />
+            </Form.Item>
+          ),
+        },
+        {
+          title: "Số lượng",
+          width: 120,
+          render: (_: unknown, f) => (
+            <Form.Item
+              name={["lineItems", f.name, "quantity"]}
+              rules={[{ required: true, message: "Nhập số lượng" }]}
+              style={{ marginBottom: 0 }}
+            >
+              <InputNumber min={0} step={0.01} style={{ width: "100%" }} />
+            </Form.Item>
+          ),
+        },
+        {
+          title: "Đơn vị",
+          width: 110,
+          render: (_: unknown, f) => (
+            <Form.Item
+              name={["lineItems", f.name, "quantityUnit"]}
+              style={{ marginBottom: 0 }}
+              initialValue="kg"
+            >
+              <Select
+                options={[
+                  { value: "kg", label: "kg" },
+                  { value: "con", label: "con" },
+                ]}
+                placeholder="Chọn"
+              />
+            </Form.Item>
+          ),
+        },
+        {
+          title: "Đơn giá",
+          width: 150,
+          render: (_: unknown, f) => (
+            <Form.Item
+              name={["lineItems", f.name, "unitPrice"]}
+              rules={[{ required: true, message: "Nhập giá" }]}
+              style={{ marginBottom: 0 }}
+            >
+              <InputNumber min={0} step={1000} style={{ width: "100%" }} />
+            </Form.Item>
+          ),
+        },
+        {
+          title: "Thành tiền",
+          width: 160,
+          render: (_: unknown, f) => {
+            const row = lines[f.name];
+            const amount =
+              Number(row?.quantity ?? 0) * Number(row?.unitPrice ?? 0);
+            return (
+              <Typography.Text strong>{formatMoneyVnd(amount)}</Typography.Text>
+            );
+          },
+        },
+        {
+          title: "Ghi chú",
+          width: 220,
+          render: (_: unknown, f) => (
+            <Form.Item
+              name={["lineItems", f.name, "note"]}
+              style={{ marginBottom: 0 }}
+            >
+              <Input placeholder="Tuỳ chọn" />
+            </Form.Item>
+          ),
+        },
+        {
+          title: "",
+          width: 52,
+          fixed: "right",
+          render: (_: unknown, f) => (
+            <Tooltip title="Xoá dòng">
+              <Button
+                danger
+                type="text"
+                icon={<MinusCircleOutlined />}
+                onClick={() => remove(f.name)}
+              />
+            </Tooltip>
+          ),
+        },
+      ]}
+    />
   );
 }
 
@@ -343,32 +365,39 @@ export const Create = () => {
           <Form.List name="lineItems">
             {(fields, { add, remove }) => (
               <>
-                {fields.map((field, index) => (
-                  <SaleLineRow
-                    key={field.key}
-                    field={field}
-                    rowIndex={index}
-                    remove={remove}
-                    productOptions={productOptions}
-                    productsQuery={productsQuery}
-                    onSearchProduct={onSearchProduct}
-                  />
-                ))}
-                <Button
-                  type="dashed"
-                  onClick={() =>
-                    add({
-                      quantityUnit: "kg",
-                      quantity: 1,
-                      unitPrice: 0,
-                    })
-                  }
-                  block
-                  icon={<PlusOutlined />}
-                  style={{ marginBottom: 8 }}
+                <Space
+                  style={{
+                    width: "100%",
+                    marginBottom: 8,
+                    justifyContent: "space-between",
+                  }}
+                  wrap
                 >
-                  Thêm dòng hàng
-                </Button>
+                  <Typography.Text type="secondary">
+                    Thêm sản phẩm, số lượng, đơn giá. Hệ thống tự tính thành
+                    tiền.
+                  </Typography.Text>
+                  <Button
+                    type="primary"
+                    icon={<PlusOutlined />}
+                    onClick={() =>
+                      add({
+                        quantityUnit: "kg",
+                        quantity: 1,
+                        unitPrice: 0,
+                      })
+                    }
+                  >
+                    Thêm dòng
+                  </Button>
+                </Space>
+                <LineItemsTable
+                  fields={fields}
+                  remove={remove}
+                  productOptions={productOptions}
+                  productsQuery={productsQuery}
+                  onSearchProduct={onSearchProduct}
+                />
                 <SaleTotalsSummary />
               </>
             )}

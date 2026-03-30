@@ -10,7 +10,7 @@ export const transformHttpError = (error: any): HttpError => {
   const errors = transformErrorMessages(errorMessages);
   const httpError: HttpError = {
     statusCode,
-    message: errorMessages?.[0] || message,
+    message: errorMessages || errorMessages?.[0] || message,
     errors,
   };
 

@@ -38,9 +38,9 @@ export const List = () => {
           fixed="right"
           render={(_, record) => (
             <Space>
-              <EditButton hideText size="small" recordItemId={record.id} />
-              <ShowButton hideText size="small" recordItemId={record.id} />
-              <DeleteButton hideText size="small" recordItemId={record.id} />
+              <EditButton hideText recordItemId={record.id} />
+              <ShowButton hideText recordItemId={record.id} />
+              <DeleteButton hideText recordItemId={record.id} />
             </Space>
           )}
         />

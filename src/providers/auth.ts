@@ -145,8 +145,12 @@ export const authProvider: AuthProvider = {
         id: data.id,
         name: data.name ?? data.email,
       };
-    } catch {
-      return null;
+    } catch (error) {
+      if ((error as unknown as HttpError)?.statusCode === 401) {
+        await authProvider.logout({ redirectTo: "/login" });
+        return null;
+      }
+      throw new Error("Không thể lấy thông tin người dùng");
     }
   },
 

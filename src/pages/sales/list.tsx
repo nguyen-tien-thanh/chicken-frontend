@@ -5,12 +5,13 @@ import {
   ShowButton,
   useTable,
 } from "@refinedev/antd";
-import { Space, Table, Tag } from "antd";
+import { Space, Table, Tag, Typography } from "antd";
 import dayjs from "dayjs";
 import { Link, useSearchParams } from "react-router";
 
 import { RelativeTime } from "@/components/relative-time";
 import { SALE_STATUS_LABELS, type ISale, type SaleStatus } from "@/types";
+import { formatMoney } from "@/utils";
 
 const statusColor: Record<SaleStatus, string> = {
   PENDING: "orange",
@@ -51,60 +52,64 @@ export const List = () => {
     <AntdList>
       <Table {...tableProps} rowKey="id">
         <Table.Column
-          dataIndex="saleDate"
-          title="Ngày bán"
+          title="Thông tin"
           sorter
           defaultSortOrder="descend"
-          render={(v: string) => (v ? dayjs(v).format("DD/MM/YYYY") : "—")}
+          dataIndex="saleDate"
+          render={(_, r: ISale) => (
+            <Space direction="vertical" size={2}>
+              <Space wrap size={8}>
+                <Typography.Text strong>
+                  {r.saleDate ? dayjs(r.saleDate).format("DD/MM/YYYY") : "—"}
+                </Typography.Text>
+                {r.status ? (
+                  <Tag color={statusColor[r.status]}>
+                    {SALE_STATUS_LABELS[r.status]}
+                  </Tag>
+                ) : null}
+              </Space>
+              <Typography.Text type="secondary">
+                Khách:{" "}
+                {r.customer ? (
+                  <Link to={`/customers/show/${r.customer.id}`}>
+                    {r.customer.name ?? r.customer.phone}
+                  </Link>
+                ) : (
+                  r.customerId ?? "—"
+                )}
+              </Typography.Text>
+              {r.note ? (
+                <Typography.Text type="secondary" ellipsis>
+                  Ghi chú: {r.note}
+                </Typography.Text>
+              ) : null}
+            </Space>
+          )}
         />
         <Table.Column
-          title="Khách hàng"
-          render={(_, r: ISale) =>
-            r.customer ? (
-              <Link to={`/customers/show/${r.customer.id}`}>
-                {r.customer.name ?? r.customer.phone}
-              </Link>
-            ) : (
-              "—"
-            )
-          }
+          title="Thanh toán"
+          render={(_, r: ISale) => (
+            <Space direction="vertical" size={2}>
+              <Typography.Text>
+                Thành tiền:{" "}
+                <Typography.Text strong>
+                  {formatMoney(r.finalAmount)}
+                </Typography.Text>
+              </Typography.Text>
+              <Typography.Text type="secondary">
+                Đã TT: {formatMoney(r.paidAmount)}
+              </Typography.Text>
+              <Typography.Text type="secondary">
+                Còn lại: {formatMoney(r.remainingAmount)}
+              </Typography.Text>
+            </Space>
+          )}
         />
-        <Table.Column
-          dataIndex="finalAmount"
-          title="Thành tiền"
-          sorter
-          render={(n: number) =>
-            n != null ? Number(n).toLocaleString("vi-VN") : "—"
-          }
-        />
-        <Table.Column
-          dataIndex="paidAmount"
-          title="Đã thanh toán"
-          sorter
-          render={(n: number) =>
-            n != null ? Number(n).toLocaleString("vi-VN") : "—"
-          }
-        />
-        <Table.Column
-          dataIndex="remainingAmount"
-          title="Còn lại"
-          sorter
-          render={(n: number) =>
-            n != null ? Number(n).toLocaleString("vi-VN") : "—"
-          }
-        />
-        <Table.Column
-          dataIndex="status"
-          title="Trạng thái"
-          render={(s: SaleStatus) =>
-            s ? <Tag color={statusColor[s]}>{SALE_STATUS_LABELS[s]}</Tag> : "—"
-          }
-        />
-        <Table.Column dataIndex="note" title="Ghi chú" ellipsis />
         <Table.Column
           dataIndex="createdAt"
           title="Ngày tạo"
           sorter
+          responsive={["xl"]}
           render={(v: string) => (v ? <RelativeTime value={v} /> : "—")}
         />
         <Table.Column
@@ -113,9 +118,9 @@ export const List = () => {
           fixed="right"
           render={(_, record) => (
             <Space>
-              <EditButton hideText size="small" recordItemId={record.id} />
-              <ShowButton hideText size="small" recordItemId={record.id} />
-              <DeleteButton hideText size="small" recordItemId={record.id} />
+              <EditButton hideText recordItemId={record.id} />
+              <ShowButton hideText recordItemId={record.id} />
+              <DeleteButton hideText recordItemId={record.id} />
             </Space>
           )}
         />
