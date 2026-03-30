@@ -4,10 +4,12 @@ import { useSelect } from "@refinedev/core";
 import type { FormProps } from "antd";
 import {
   Button,
+  Col,
   DatePicker,
   Form,
   Input,
   InputNumber,
+  Row,
   Select,
   Space,
   Table,
@@ -245,7 +247,7 @@ export const Create = () => {
         },
       ],
     }),
-    [supplierIdFromQuery]
+    [supplierIdFromQuery],
   );
 
   const { formProps, saveButtonProps } = useForm({
@@ -325,17 +327,72 @@ export const Create = () => {
             placeholder="Chọn nhà cung cấp"
           />
         </Form.Item>
-        <Form.Item
-          label="Ngày nhập"
-          name="purchaseDate"
-          rules={[{ required: true }]}
-        >
-          <DatePicker
-            showTime
-            style={{ width: "100%" }}
-            format="DD/MM/YYYY HH:mm"
-          />
-        </Form.Item>
+
+        <Row gutter={16}>
+          <Col span={12}>
+            <Form.Item
+              label="Ngày nhập"
+              name="purchaseDate"
+              rules={[{ required: true }]}
+            >
+              <DatePicker
+                showTime
+                style={{ width: "100%" }}
+                format="DD/MM/YYYY HH:mm"
+              />
+            </Form.Item>
+          </Col>
+          <Col span={12}>
+            <Form.Item
+              label="Trọng lượng trung bình (kg/con)"
+              name="averageWeight"
+              rules={[
+                {
+                  required: true,
+                  message: "Nhập Trọng lượng trung bình",
+                },
+              ]}
+            >
+              <InputNumber
+                suffix="kg/con"
+                style={{ width: "100%" }}
+                placeholder="Trọng lượng trung bình"
+              />
+            </Form.Item>
+          </Col>
+        </Row>
+
+        <Row gutter={16}>
+          <Col span={12}>
+            <Form.Item
+              label="Số lượng lồng"
+              name="cagesCount"
+              rules={[{ required: true, message: "Nhập số lượng lồng" }]}
+            >
+              <InputNumber
+                suffix="lồng"
+                style={{ width: "100%" }}
+                placeholder="Số lượng lồng"
+              />
+            </Form.Item>
+          </Col>
+          <Col span={12}>
+            <Form.Item
+              label="Tổng trọng lượng lồng"
+              name="cagesWeight"
+              rules={[
+                { required: true, message: "Nhập tổng trọng lượng lồng" },
+              ]}
+            >
+              <InputNumber
+                suffix="kg"
+                style={{ width: "100%" }}
+                placeholder="Tổng trọng lượng lồng"
+              />
+            </Form.Item>
+          </Col>
+        </Row>
+
         <Form.Item label="Ghi chú phiếu" name="note">
           <Input.TextArea rows={2} placeholder="Tuỳ chọn" />
         </Form.Item>

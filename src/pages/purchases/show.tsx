@@ -55,7 +55,7 @@ export const Show = () => {
               ? dayjs(record.purchaseDate).format("DD/MM/YYYY HH:mm")
               : "—"}
           </Descriptions.Item>
-          <Descriptions.Item label="Nhà cung cấp">
+          <Descriptions.Item label="Nhà cung cấp" span={2}>
             {record?.supplier ? (
               <Link to={`/suppliers/show/${record.supplier.id}`}>
                 {record.supplier.name} — {record.supplier.phone}
@@ -64,10 +64,19 @@ export const Show = () => {
               record?.supplierId ?? "—"
             )}
           </Descriptions.Item>
+          <Descriptions.Item label="Trung bình">
+            {record?.averageWeight ?? "—"} kg / con
+          </Descriptions.Item>
           <Descriptions.Item label="Tổng tiền">
             <Typography.Text strong>
               {formatMoney(record?.totalAmount)}
             </Typography.Text>
+          </Descriptions.Item>
+          <Descriptions.Item label="Số lượng lồng">
+            {record?.cagesCount ?? "—"} lồng
+          </Descriptions.Item>
+          <Descriptions.Item label="Tổng trọng lượng lồng">
+            {record?.cagesWeight ?? "—"} kg
           </Descriptions.Item>
           <Descriptions.Item label="Ghi chú" span={2}>
             {record?.note ?? "—"}

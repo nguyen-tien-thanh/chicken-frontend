@@ -1,7 +1,7 @@
 import { Edit as AntdEdit, useForm } from "@refinedev/antd";
 import { useSelect } from "@refinedev/core";
 import type { FormProps } from "antd";
-import { DatePicker, Form, Input, InputNumber, Select } from "antd";
+import { Col, DatePicker, Form, Input, InputNumber, Row, Select } from "antd";
 import dayjs from "dayjs";
 
 import type { ISupplier } from "@/types";
@@ -54,23 +54,58 @@ export const Edit = () => {
             optionFilterProp="label"
           />
         </Form.Item>
-        <Form.Item
-          label="Ngày nhập"
-          name="purchaseDate"
-          rules={[{ required: true }]}
-          getValueProps={(value) => ({
-            value:
-              value && dayjs(value as string).isValid()
-                ? dayjs(value as string)
-                : undefined,
-          })}
-        >
-          <DatePicker
-            showTime
-            style={{ width: "100%" }}
-            format="DD/MM/YYYY HH:mm"
-          />
-        </Form.Item>
+        <Row gutter={16}>
+          <Col span={12}>
+            <Form.Item
+              label="Ngày nhập"
+              name="purchaseDate"
+              rules={[{ required: true }]}
+              getValueProps={(value) => ({
+                value:
+                  value && dayjs(value as string).isValid()
+                    ? dayjs(value as string)
+                    : undefined,
+              })}
+            >
+              <DatePicker
+                showTime
+                style={{ width: "100%" }}
+                format="DD/MM/YYYY HH:mm"
+              />
+            </Form.Item>
+          </Col>
+          <Col span={12}>
+            <Form.Item
+              label="Trọng lượng trung bình (kg/con)"
+              name="averageWeight"
+              rules={[{ required: true }]}
+            >
+              <InputNumber suffix="kg/con" min={0} step={0.1} style={{ width: "100%" }} />
+            </Form.Item>
+          </Col>
+        </Row>
+
+        <Row gutter={16}>
+          <Col span={12}>
+            <Form.Item
+              label="Số lượng lồng"
+              name="cagesCount"
+              rules={[{ required: true }]}
+            >
+              <InputNumber suffix="lồng" min={0} style={{ width: "100%" }} />
+            </Form.Item>
+          </Col>
+          <Col span={12}>
+            <Form.Item
+              label="Tổng trọng lượng lồng"
+              name="cagesWeight"
+              rules={[{ required: true }]}
+            >
+              <InputNumber suffix="kg" min={0} step={0.1} style={{ width: "100%" }} />
+            </Form.Item>
+          </Col>
+        </Row>
+
         <Form.Item
           label="Tổng tiền"
           name="totalAmount"
