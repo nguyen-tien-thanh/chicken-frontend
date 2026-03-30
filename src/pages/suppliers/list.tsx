@@ -42,6 +42,12 @@ function SupplierFormFields() {
       <Form.Item label="Địa chỉ" name="address">
         <Input.TextArea rows={2} />
       </Form.Item>
+      <Form.Item label="Tên ngân hàng" name="bankName">
+        <Input />
+      </Form.Item>
+      <Form.Item label="Số tài khoản ngân hàng" name="bankAccount">
+        <Input />
+      </Form.Item>
     </>
   );
 }
@@ -90,7 +96,7 @@ export const List = () => {
         next.delete("show");
         return next;
       },
-      { replace: true }
+      { replace: true },
     );
   }, [searchParams, setSearchParams]);
 
@@ -231,6 +237,12 @@ export const List = () => {
               </Descriptions.Item>
               <Descriptions.Item label="Điện thoại">
                 {showRecord?.phone}
+              </Descriptions.Item>
+              <Descriptions.Item label="Tên ngân hàng">
+                {showRecord?.bankName ?? "—"}
+              </Descriptions.Item>
+              <Descriptions.Item label="Số TK ngân hàng">
+                {showRecord?.bankAccount ?? "—"}
               </Descriptions.Item>
               <Descriptions.Item label="Địa chỉ">
                 {showRecord?.address ?? "—"}
