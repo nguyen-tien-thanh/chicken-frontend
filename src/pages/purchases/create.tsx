@@ -21,6 +21,7 @@ import dayjs from "dayjs";
 import { useMemo } from "react";
 import { useSearchParams } from "react-router";
 
+import { InputMoney } from "@/components";
 import type { IProduct, ISupplier } from "@/types";
 import { formatMoney } from "@/utils";
 import { useWatch } from "antd/es/form/Form";
@@ -163,14 +164,14 @@ function LineItemsTable({
         },
         {
           title: "Đơn giá",
-          width: 150,
+          width: 160,
           render: (_: unknown, f) => (
             <Form.Item
               name={["lineItems", f.name, "unitPrice"]}
               rules={[{ required: true, message: "Nhập giá" }]}
               style={{ marginBottom: 0 }}
             >
-              <InputNumber min={0} step={1000} style={{ width: "100%" }} />
+              <InputMoney />
             </Form.Item>
           ),
         },
