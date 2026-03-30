@@ -1,5 +1,6 @@
 import { List as AntdList, ShowButton, useTable } from "@refinedev/antd";
-import { Space, Table, Tag } from "antd";
+import { useOne } from "@refinedev/core";
+import { Button, Space, Table, Tag, Tooltip } from "antd";
 import dayjs from "dayjs";
 import { Link } from "react-router";
 
@@ -12,6 +13,51 @@ import {
   type InventoryTransactionType,
 } from "@/types";
 import { formatMoney } from "@/utils";
+
+function RefLink({
+  type,
+  refId,
+}: {
+  type: InventoryTransactionType;
+  refId: string;
+}) {
+  const isPurchase = type === "PURCHASE";
+
+  const { result, query } = useOne<{
+    id: string;
+    purchaseId?: string;
+    saleId?: string;
+  }>({
+    resource: isPurchase ? "purchase-items" : "sale-items",
+    id: refId,
+    meta: {
+      select: {
+        id: true,
+        ...(isPurchase ? { purchaseId: true } : { saleId: true }),
+      },
+    },
+  });
+
+  const parentId = isPurchase ? result?.purchaseId : result?.saleId;
+  const isLoading = query.isLoading;
+  const label = INVENTORY_TX_TYPE_LABELS[type] ?? type;
+
+  if (isLoading) return <span>{label}</span>;
+  if (!parentId)
+    return (
+      <Tooltip title="Không tìm thấy phiếu tham chiếu">
+        <span>{label}</span>
+      </Tooltip>
+    );
+
+  return (
+    <Link to={`/${isPurchase ? "purchases" : "sales"}/show/${parentId}`}>
+      <Button type="link" size="small" style={{ padding: 0 }}>
+        {label}
+      </Button>
+    </Link>
+  );
+}
 
 export const List = () => {
   const { tableProps } = useTable<IInventoryTransaction>({
@@ -46,11 +92,11 @@ export const List = () => {
         <Table.Column
           dataIndex="refType"
           title="Loại tham chiếu"
-          render={(t: InventoryTransactionType) =>
-            INVENTORY_TX_TYPE_LABELS[t] ?? t
-          }
+          render={(
+            t: InventoryTransactionType,
+            record: IInventoryTransaction,
+          ) => <RefLink type={t} refId={record.refId} />}
         />
-        <Table.Column dataIndex="refId" title="Mã tham chiếu" ellipsis />
         <Table.Column
           dataIndex="direction"
           title="Chiều"
@@ -77,6 +123,7 @@ export const List = () => {
         <Table.Column
           dataIndex="totalCost"
           title="Tổng giá vốn"
+          align="right"
           render={(n: number) => (n != null ? formatMoney(n) : "—")}
         />
         <Table.Column

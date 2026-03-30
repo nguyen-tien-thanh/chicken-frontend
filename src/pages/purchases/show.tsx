@@ -65,7 +65,7 @@ export const Show = () => {
             )}
           </Descriptions.Item>
           <Descriptions.Item label="Trung bình">
-            {record?.averageWeight ?? "—"} kg / con
+            {record?.averageWeight ?? "—"} kg/con
           </Descriptions.Item>
           <Descriptions.Item label="Tổng tiền">
             <Typography.Text strong>

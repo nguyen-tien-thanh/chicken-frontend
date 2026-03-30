@@ -52,58 +52,71 @@ export const List = () => {
     <AntdList>
       <Table {...tableProps} rowKey="id">
         <Table.Column
-          title="Thông tin"
+          title="Ngày bán"
           sorter
           defaultSortOrder="descend"
           dataIndex="saleDate"
+          render={(_, r: ISale) =>
+            r.saleDate ? dayjs(r.saleDate).format("DD/MM/YYYY") : "—"
+          }
+        />
+        <Table.Column
+          title="Khách hàng"
+          dataIndex="customerId"
+          render={(_, r: ISale) =>
+            r.customer ? (
+              <Link to={`/customers/show/${r.customer.id}`}>
+                {r.customer.name ?? r.customer.phone}
+              </Link>
+            ) : (
+              r.customerId ?? "—"
+            )
+          }
+        />
+        <Table.Column
+          title="Trạng thái"
+          dataIndex="status"
+          render={(_, r: ISale) =>
+            r.status ? (
+              <Tag color={statusColor[r.status]}>
+                {SALE_STATUS_LABELS[r.status]}
+              </Tag>
+            ) : null
+          }
+        />
+        <Table.Column
+          title="Thành tiền"
+          dataIndex="finalAmount"
+          align="right"
           render={(_, r: ISale) => (
-            <Space direction="vertical" size={2}>
-              <Space wrap size={8}>
-                <Typography.Text strong>
-                  {r.saleDate ? dayjs(r.saleDate).format("DD/MM/YYYY") : "—"}
-                </Typography.Text>
-                {r.status ? (
-                  <Tag color={statusColor[r.status]}>
-                    {SALE_STATUS_LABELS[r.status]}
-                  </Tag>
-                ) : null}
-              </Space>
-              <Typography.Text type="secondary">
-                Khách:{" "}
-                {r.customer ? (
-                  <Link to={`/customers/show/${r.customer.id}`}>
-                    {r.customer.name ?? r.customer.phone}
-                  </Link>
-                ) : (
-                  r.customerId ?? "—"
-                )}
-              </Typography.Text>
-              {r.note ? (
-                <Typography.Text type="secondary" ellipsis>
-                  Ghi chú: {r.note}
-                </Typography.Text>
-              ) : null}
-            </Space>
+            <Typography.Text strong>
+              {formatMoney(r.finalAmount)}
+            </Typography.Text>
           )}
         />
         <Table.Column
-          title="Thanh toán"
-          render={(_, r: ISale) => (
-            <Space direction="vertical" size={2}>
-              <Typography.Text>
-                Thành tiền:{" "}
-                <Typography.Text strong>
-                  {formatMoney(r.finalAmount)}
-                </Typography.Text>
+          title="Đã thanh toán"
+          dataIndex="paidAmount"
+          align="right"
+          render={(_, r: ISale) => formatMoney(r.paidAmount)}
+        />
+        <Table.Column
+          title="Còn lại"
+          dataIndex="remainingAmount"
+          align="right"
+          render={(_, r: ISale) => formatMoney(r.remainingAmount)}
+        />
+        <Table.Column
+          title="Ghi chú"
+          dataIndex="note"
+          responsive={["xl"]}
+          render={(v: string) =>
+            v ? (
+              <Typography.Text ellipsis style={{ maxWidth: 200 }}>
+                {v}
               </Typography.Text>
-              <Typography.Text type="secondary">
-                Đã TT: {formatMoney(r.paidAmount)}
-              </Typography.Text>
-              <Typography.Text type="secondary">
-                Còn lại: {formatMoney(r.remainingAmount)}
-              </Typography.Text>
-            </Space>
-          )}
+            ) : null
+          }
         />
         <Table.Column
           dataIndex="createdAt"

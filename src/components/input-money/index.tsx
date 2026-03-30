@@ -1,12 +1,13 @@
 import { Input } from "antd";
 import { useState } from "react";
 
-type InputMoneyProps = {
+export type InputMoneyProps = {
   value?: number | null;
   onChange?: (value: number | null) => void;
   onBlur?: React.FocusEventHandler<HTMLInputElement>;
   placeholder?: string;
   disabled?: boolean;
+  readOnly?: boolean;
   style?: React.CSSProperties;
 };
 
@@ -26,6 +27,7 @@ export const InputMoney = ({
   onBlur,
   placeholder = "0",
   disabled,
+  readOnly,
   style,
 }: InputMoneyProps) => {
   const [raw, setRaw] = useState<string>("");
@@ -64,6 +66,7 @@ export const InputMoney = ({
       onBlur={handleBlur}
       placeholder={placeholder}
       disabled={disabled}
+      readOnly={readOnly}
       suffix="đ"
       style={{ width: "100%", ...style }}
       inputMode="numeric"
