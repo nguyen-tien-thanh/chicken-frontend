@@ -10,9 +10,7 @@ axiosInstance.interceptors.request.use((config) => {
     url.includes("/auth/login") || url.includes("/auth/register");
 
   const token = localStorage.getItem(TOKEN_KEY);
-  if (token && !skipAuth) {
-    config.headers.Authorization = `Bearer ${token}`;
-  }
+  if (token && !skipAuth) config.headers.Authorization = `Bearer ${token}`;
 
   return config;
 });
