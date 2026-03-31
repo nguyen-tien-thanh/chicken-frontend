@@ -1,7 +1,8 @@
-import { EditOutlined, EyeOutlined, PlusOutlined } from "@ant-design/icons";
+import { EditOutlined, PlusOutlined } from "@ant-design/icons";
 import {
   List as AntdList,
   DeleteButton,
+  ShowButton,
   useDrawerForm,
   useTable,
 } from "@refinedev/antd";
@@ -47,7 +48,7 @@ function SupplierFormFields() {
       <Form.Item label="Tên ngân hàng" name="bankName">
         <Select options={BankNameOptions} showSearch />
       </Form.Item>
-      <Form.Item label="Số tài khoản ngân hàng" name="bankAccount">
+      <Form.Item label="Số tài khoản" name="bankAccount">
         <Input />
       </Form.Item>
     </>
@@ -157,11 +158,7 @@ export const List = () => {
                 />
               </Tooltip>
               <Tooltip title="Xem">
-                <Button
-                  variant="outlined"
-                  icon={<EyeOutlined />}
-                  onClick={() => setShowId(String(record.id))}
-                />
+                <ShowButton hideText recordItemId={record.id} />
               </Tooltip>
               <DeleteButton hideText recordItemId={record.id} />
             </Space>

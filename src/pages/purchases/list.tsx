@@ -1,8 +1,8 @@
 import {
-  FilterDropdown,
   List as AntdList,
   DeleteButton,
   EditButton,
+  FilterDropdown,
   ShowButton,
   useTable,
 } from "@refinedev/antd";
@@ -84,6 +84,18 @@ export const List = () => {
           )}
         />
         <Table.Column
+          dataIndex="cagesCount"
+          title="Số lồng"
+          sorter
+          render={(v: number) => (v != null ? `${v} lồng` : "—")}
+        />
+        <Table.Column
+          dataIndex="cagesWeight"
+          title="Tổng trọng lượng"
+          sorter
+          render={(v: number) => (v != null ? `${v} kg` : "—")}
+        />
+        <Table.Column
           title="Tổng tiền"
           sorter
           dataIndex="totalAmount"
@@ -97,6 +109,12 @@ export const List = () => {
               <Input.Search placeholder="Tìm tổng tiền..." />
             </FilterDropdown>
           )}
+        />
+        <Table.Column
+          dataIndex="averageWeight"
+          title="TB kg/con"
+          sorter
+          render={(v: number) => (v != null ? `${v} kg` : "—")}
         />
         <Table.Column
           dataIndex="note"

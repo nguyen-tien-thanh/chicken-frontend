@@ -57,12 +57,7 @@ export const Show = () => {
         </Link>
       </Space>
       <Card size="small" styles={{ body: { padding: 0 } }}>
-        <Descriptions
-          bordered
-          column={2}
-          size="small"
-          styles={{ label: { width: 160, fontWeight: 500 } }}
-        >
+        <Descriptions bordered column={2} size="small">
           <Descriptions.Item label="Mã phiếu">
             <Typography.Text copyable={!!record?.id}>
               {record?.id ?? "—"}

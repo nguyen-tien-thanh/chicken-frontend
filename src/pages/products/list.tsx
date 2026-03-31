@@ -1,7 +1,8 @@
-import { EditOutlined, EyeOutlined, PlusOutlined } from "@ant-design/icons";
+import { EditOutlined, PlusOutlined } from "@ant-design/icons";
 import {
   List as AntdList,
   DeleteButton,
+  ShowButton,
   useDrawerForm,
   useTable,
 } from "@refinedev/antd";
@@ -98,7 +99,7 @@ export const List = () => {
         next.delete("show");
         return next;
       },
-      { replace: true }
+      { replace: true },
     );
   }, [searchParams, setSearchParams]);
 
@@ -173,11 +174,7 @@ export const List = () => {
                 />
               </Tooltip>
               <Tooltip title="Xem">
-                <Button
-                  variant="outlined"
-                  icon={<EyeOutlined />}
-                  onClick={() => setShowId(String(record.id))}
-                />
+                <ShowButton hideText recordItemId={record.id} />
               </Tooltip>
               <DeleteButton hideText recordItemId={record.id} />
             </Space>

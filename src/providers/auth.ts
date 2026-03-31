@@ -11,9 +11,7 @@ type ProfileResponse = {
   id: number;
   email: string;
   name?: string | null;
-  role?: {
-    rolesPermissions: Array<{ permission: PermissionDto }>;
-  };
+  role?: { rolesPermissions: Array<{ permission: PermissionDto }> };
 };
 
 function authErrorMessage(error: unknown): string {
@@ -28,7 +26,7 @@ function authErrorMessage(error: unknown): string {
 function flattenPermissions(user: ProfileResponse): string[] {
   const pairs = user.role?.rolesPermissions ?? [];
   return pairs.map(
-    ({ permission }) => `${permission.method}:${permission.path}`
+    ({ permission }) => `${permission.method}:${permission.path}`,
   );
 }
 
@@ -125,7 +123,7 @@ export const authProvider: AuthProvider = {
 
     try {
       const { data } = await axiosInstance.get<ProfileResponse>(
-        `${apiUrl}/auth/profile`
+        `${apiUrl}/auth/profile`,
       );
       return flattenPermissions(data);
     } catch {
@@ -139,7 +137,7 @@ export const authProvider: AuthProvider = {
 
     try {
       const { data } = await axiosInstance.get<ProfileResponse>(
-        `${apiUrl}/auth/profile`
+        `${apiUrl}/auth/profile`,
       );
       return {
         id: data.id,

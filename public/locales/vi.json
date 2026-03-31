@@ -168,6 +168,13 @@
       "show": "Chi tiết phiếu nhập #{{id}} | Refine",
       "clone": "Nhân bản phiếu nhập #{{id}} | Refine"
     },
+    "sales": {
+      "list": "Phiếu bán | Refine",
+      "create": "Tạo phiếu bán | Refine",
+      "edit": "Sửa phiếu bán #{{id}} | Refine",
+      "show": "Chi tiết phiếu bán #{{id}} | Refine",
+      "clone": "Nhân bản phiếu bán #{{id}} | Refine"
+    },
     "customers": {
       "list": "Khách hàng | Refine",
       "create": "Thêm khách hàng | Refine",

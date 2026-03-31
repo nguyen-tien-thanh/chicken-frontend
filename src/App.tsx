@@ -91,6 +91,7 @@ function App() {
                   {
                     name: "suppliers",
                     list: "/suppliers",
+                    show: "/suppliers/show/:id",
                     meta: { canDelete: true, icon: <ShopOutlined /> },
                   },
                   {
@@ -112,11 +113,13 @@ function App() {
                   {
                     name: "customers",
                     list: "/customers",
+                    show: "/customers/show/:id",
                     meta: { canDelete: true, icon: <UserOutlined /> },
                   },
                   {
                     name: "products",
                     list: "/products",
+                    show: "/products/show/:id",
                     meta: { canDelete: true, icon: <ProductOutlined /> },
                   },
                   {
@@ -199,10 +202,7 @@ function App() {
                     />
                     <Route path="/suppliers">
                       <Route index element={<Supplier.List />} />
-                      <Route
-                        path="show/:id"
-                        element={<ShowRedirectDrawer listPath="/suppliers" />}
-                      />
+                      <Route path="show/:id" element={<Supplier.Show />} />
                     </Route>
                     <Route path="/purchases">
                       <Route index element={<Purchase.List />} />
@@ -218,17 +218,11 @@ function App() {
                     </Route>
                     <Route path="/customers">
                       <Route index element={<Customer.List />} />
-                      <Route
-                        path="show/:id"
-                        element={<ShowRedirectDrawer listPath="/customers" />}
-                      />
+                      <Route path="show/:id" element={<Customer.Show />} />
                     </Route>
                     <Route path="/products">
                       <Route index element={<Product.List />} />
-                      <Route
-                        path="show/:id"
-                        element={<ShowRedirectDrawer listPath="/products" />}
-                      />
+                      <Route path="show/:id" element={<Product.Show />} />
                     </Route>
                     <Route path="/inventory-transactions">
                       <Route index element={<InventoryTransaction.List />} />
