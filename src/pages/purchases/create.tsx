@@ -3,6 +3,7 @@ import { Create as AntdCreate, useForm } from "@refinedev/antd";
 import { useSelect } from "@refinedev/core";
 import type { FormProps } from "antd";
 import {
+  App,
   Button,
   Col,
   DatePicker,
@@ -15,7 +16,6 @@ import {
   Table,
   Tooltip,
   Typography,
-  message,
 } from "antd";
 import dayjs from "dayjs";
 import { useState } from "react";
@@ -60,6 +60,7 @@ function formatMoneyVnd(n: number) {
 }
 
 export const Create = () => {
+  const { notification } = App.useApp();
   const [searchParams] = useSearchParams();
   const supplierIdFromQuery = searchParams.get("supplierId") ?? undefined;
 
@@ -116,7 +117,9 @@ export const Create = () => {
     const v = values as FormValues;
     const validLines = lines.filter((row) => row.productId);
     if (validLines.length === 0) {
-      void message.error("Thêm ít nhất một dòng có chọn sản phẩm");
+      notification.warning({
+        message: "Thêm ít nhất một dòng có chọn sản phẩm",
+      });
       return Promise.resolve();
     }
     const items = validLines.map((row) => ({

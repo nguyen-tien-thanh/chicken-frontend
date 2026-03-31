@@ -104,16 +104,19 @@ export const Show = () => {
           {
             dataIndex: "cagesCount",
             title: "Số lồng",
+            align: "right",
             render: (v: number) => (v != null ? `${v} lồng` : "—"),
           },
           {
             dataIndex: "cagesWeight",
             title: "Tổng trọng lượng",
+            align: "right",
             render: (v: number) => (v != null ? `${v} kg` : "—"),
           },
           {
             dataIndex: "totalAmount",
             title: "Tổng tiền",
+            align: "right",
             render: (v: number) => (
               <Typography.Text strong>{formatMoney(v)}</Typography.Text>
             ),

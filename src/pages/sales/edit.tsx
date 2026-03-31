@@ -3,6 +3,7 @@ import { Edit as AntdEdit, useForm } from "@refinedev/antd";
 import { useSelect } from "@refinedev/core";
 import type { FormProps } from "antd";
 import {
+  App,
   Button,
   Col,
   DatePicker,
@@ -15,7 +16,6 @@ import {
   Table,
   Tooltip,
   Typography,
-  message,
 } from "antd";
 import dayjs from "dayjs";
 import { useEffect, useState } from "react";
@@ -63,6 +63,7 @@ function formatMoneyVnd(n: number) {
 }
 
 export const Edit = () => {
+  const { notification } = App.useApp();
   const [lines, setLines] = useState<LineItem[]>([]);
 
   const { formProps, saveButtonProps, query } = useForm<ISale>({
@@ -139,7 +140,9 @@ export const Edit = () => {
     }
     const validLines = lines.filter((row) => row.productId);
     if (validLines.length === 0) {
-      void message.error("Thêm ít nhất một dòng có chọn sản phẩm");
+      notification.warning({
+        message: "Thêm ít nhất một dòng có chọn sản phẩm",
+      });
       return Promise.resolve();
     }
     next.items = validLines.map((row) => ({

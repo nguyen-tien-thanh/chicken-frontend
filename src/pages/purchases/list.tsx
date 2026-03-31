@@ -86,17 +86,20 @@ export const List = () => {
         <Table.Column
           dataIndex="cagesCount"
           title="Số lồng"
+          align="right"
           sorter
           render={(v: number) => (v != null ? `${v} lồng` : "—")}
         />
         <Table.Column
           dataIndex="cagesWeight"
           title="Tổng trọng lượng"
+          align="right"
           sorter
           render={(v: number) => (v != null ? `${v} kg` : "—")}
         />
         <Table.Column
           title="Tổng tiền"
+          align="right"
           sorter
           dataIndex="totalAmount"
           render={(_, r: IPurchase) => (
@@ -113,6 +116,7 @@ export const List = () => {
         <Table.Column
           dataIndex="averageWeight"
           title="TB kg/con"
+          align="right"
           sorter
           render={(v: number) => (v != null ? `${v} kg` : "—")}
         />
