@@ -68,7 +68,7 @@ function App() {
           ...(defaultMessage !== undefined
             ? { defaultValue: defaultMessage }
             : {}),
-        })
+        }),
       );
     },
     changeLocale: () => Promise.resolve(),
@@ -103,6 +103,12 @@ function App() {
                     meta: { canDelete: true, icon: <FallOutlined /> },
                   },
                   {
+                    name: "customers",
+                    list: "/customers",
+                    show: "/customers/show/:id",
+                    meta: { canDelete: true, icon: <UserOutlined /> },
+                  },
+                  {
                     name: "sales",
                     list: "/sales",
                     create: "/sales/create",
@@ -111,21 +117,15 @@ function App() {
                     meta: { canDelete: true, icon: <RiseOutlined /> },
                   },
                   {
-                    name: "customers",
-                    list: "/customers",
-                    show: "/customers/show/:id",
-                    meta: { canDelete: true, icon: <UserOutlined /> },
+                    name: "product-categories",
+                    list: "/product-categories",
+                    meta: { canDelete: true },
                   },
                   {
                     name: "products",
                     list: "/products",
                     show: "/products/show/:id",
                     meta: { canDelete: true, icon: <ProductOutlined /> },
-                  },
-                  {
-                    name: "product-categories",
-                    list: "/product-categories",
-                    meta: { canDelete: true },
                   },
                   {
                     name: "inventory-transactions",

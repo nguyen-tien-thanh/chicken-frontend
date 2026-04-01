@@ -109,7 +109,7 @@ export const Show = () => {
           },
           {
             dataIndex: "cagesWeight",
-            title: "Tổng trọng lượng",
+            title: "Tổng trọng lượng lồng",
             align: "right",
             render: (v: number) => (v != null ? `${v} kg` : "—"),
           },

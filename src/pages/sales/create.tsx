@@ -56,10 +56,6 @@ function newRow(): LineItem {
   };
 }
 
-function formatMoneyVnd(n: number) {
-  return formatMoney(n, { currencySuffix: "đ" });
-}
-
 export const Create = () => {
   const { notification } = App.useApp();
   const [searchParams] = useSearchParams();
@@ -184,7 +180,7 @@ export const Create = () => {
       render: (_: unknown, row: LineItem) => (
         <InputNumber
           min={0}
-          step={0.01}
+          step={0.1}
           style={{ width: "100%" }}
           value={row.quantity}
           onChange={(v) => updateLine(row.key, "quantity", v ?? 0)}
@@ -220,7 +216,7 @@ export const Create = () => {
       title: "Thành tiền",
       width: 160,
       render: (_: unknown, row: LineItem) => (
-        <Text strong>{formatMoneyVnd(row.quantity * row.unitPrice)}</Text>
+        <Text strong>{formatMoney(row.quantity * row.unitPrice)}</Text>
       ),
     },
     {
@@ -347,7 +343,7 @@ export const Create = () => {
           >
             <Text type="secondary">Tổng thành tiền (ước tính): </Text>
             <Text strong style={{ fontSize: 16 }}>
-              {formatMoneyVnd(subtotal)}
+              {formatMoney(subtotal)}
             </Text>
           </div>
         </Form.Item>

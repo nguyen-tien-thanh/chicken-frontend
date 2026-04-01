@@ -92,7 +92,7 @@ export const List = () => {
         />
         <Table.Column
           dataIndex="cagesWeight"
-          title="Tổng trọng lượng"
+          title="Tổng trọng lượng lồng"
           align="right"
           sorter
           render={(v: number) => (v != null ? `${v} kg` : "—")}
