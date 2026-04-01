@@ -4,23 +4,23 @@ import {
   EditButton,
   ShowButton,
   useTable,
-} from "@refinedev/antd";
-import { Space, Table, Tag } from "antd";
+} from '@refinedev/antd';
+import { Space, Table, Tag } from 'antd';
 
-import { RelativeTime } from "@/components/relative-time";
-import type { IPermission } from "@/types";
+import { RelativeTime } from '@/components/relative-time';
+import type { IPermission } from '@/types';
 
 export const List = () => {
   const { tableProps } = useTable<IPermission>({
     syncWithLocation: true,
-    resource: "permissions",
+    resource: 'permissions',
     filters: {
       initial: [
-        { field: "path", operator: "contains", value: undefined },
-        { field: "method", operator: "eq", value: undefined },
+        { field: 'path', operator: 'contains', value: undefined },
+        { field: 'method', operator: 'eq', value: undefined },
       ],
     },
-    sorters: { initial: [{ field: "createdAt", order: "desc" }] },
+    sorters: { initial: [{ field: 'createdAt', order: 'desc' }] },
   });
 
   return (
@@ -31,20 +31,20 @@ export const List = () => {
           dataIndex="method"
           title="Phương thức"
           sorter
-          render={(m: IPermission["method"]) => <Tag color="blue">{m}</Tag>}
+          render={(m: IPermission['method']) => <Tag color="blue">{m}</Tag>}
         />
         <Table.Column dataIndex="description" title="Mô tả" ellipsis />
         <Table.Column
           dataIndex="default"
           title="Mặc định"
-          render={(v: boolean) => (v ? "Có" : "Không")}
+          render={(v: boolean) => (v ? 'Có' : 'Không')}
         />
         <Table.Column
           dataIndex="createdAt"
           title="Ngày tạo"
           sorter
           defaultSortOrder="descend"
-          render={(v: string) => (v ? <RelativeTime value={v} /> : "—")}
+          render={(v: string) => (v ? <RelativeTime value={v} /> : '—')}
         />
         <Table.Column
           title="Thao tác"

@@ -1,7 +1,7 @@
-import { useSelect } from "@refinedev/core";
-import { Form, Select } from "antd";
+import { useSelect } from '@refinedev/core';
+import { Form, Select } from 'antd';
 
-import type { IPermission } from "@/types";
+import type { IPermission } from '@/types';
 
 type Props = {
   name?: string;
@@ -9,16 +9,16 @@ type Props = {
 };
 
 export const PermissionIdsField = ({
-  name = "permissionIds",
-  label = "Quyền",
+  name = 'permissionIds',
+  label = 'Quyền',
 }: Props) => {
   const { options, onSearch, query } = useSelect({
-    resource: "permissions",
+    resource: 'permissions',
     optionLabel: (item: IPermission) =>
-      `${item.method ?? ""} ${item.path ?? ""}`.trim(),
+      `${item.method ?? ''} ${item.path ?? ''}`.trim(),
     optionValue: (item: IPermission) => item.id,
-    onSearch: (value) => [{ field: "path", operator: "contains", value }],
-    pagination: { mode: "server", pageSize: 50 },
+    onSearch: (value) => [{ field: 'path', operator: 'contains', value }],
+    pagination: { mode: 'server', pageSize: 50 },
   });
 
   return (

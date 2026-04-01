@@ -1,28 +1,22 @@
-import { Show as AntdShow, ShowButton, useTable } from "@refinedev/antd";
-import { useShow } from "@refinedev/core";
-import {
-  Card,
-  Descriptions,
-  Table,
-  Tag,
-  Typography,
-} from "antd";
-import dayjs from "dayjs";
-import { Link } from "react-router";
+import { Show as AntdShow, ShowButton, useTable } from '@refinedev/antd';
+import { useShow } from '@refinedev/core';
+import { Card, Descriptions, Table, Tag, Typography } from 'antd';
+import dayjs from 'dayjs';
+import { Link } from 'react-router';
 
-import { RelativeTime } from "@/components/relative-time";
+import { RelativeTime } from '@/components/relative-time';
 import {
   PRODUCT_TYPE_LABELS,
   type IProduct,
   type IPurchaseItem,
   type ISaleItem,
   type ProductType,
-} from "@/types";
-import { formatMoney } from "@/utils";
+} from '@/types';
+import { formatMoney } from '@/utils';
 
 export const Show = () => {
   const { result: record, query } = useShow<IProduct>({
-    resource: "products",
+    resource: 'products',
     meta: {
       include: {
         category: { select: { id: true, name: true } },
@@ -34,11 +28,11 @@ export const Show = () => {
   const productId = record?.id;
 
   const { tableProps: purchaseTableProps } = useTable<IPurchaseItem>({
-    resource: "purchase-items",
+    resource: 'purchase-items',
     syncWithLocation: false,
     filters: {
       permanent: productId
-        ? [{ field: "productId", operator: "eq", value: productId }]
+        ? [{ field: 'productId', operator: 'eq', value: productId }]
         : [],
     },
     meta: {
@@ -52,16 +46,16 @@ export const Show = () => {
         },
       },
     },
-    sorters: { initial: [{ field: "createdAt", order: "desc" }] },
+    sorters: { initial: [{ field: 'createdAt', order: 'desc' }] },
     queryOptions: { enabled: !!productId },
   });
 
   const { tableProps: saleTableProps } = useTable<ISaleItem>({
-    resource: "sale-items",
+    resource: 'sale-items',
     syncWithLocation: false,
     filters: {
       permanent: productId
-        ? [{ field: "productId", operator: "eq", value: productId }]
+        ? [{ field: 'productId', operator: 'eq', value: productId }]
         : [],
     },
     meta: {
@@ -75,7 +69,7 @@ export const Show = () => {
         },
       },
     },
-    sorters: { initial: [{ field: "createdAt", order: "desc" }] },
+    sorters: { initial: [{ field: 'createdAt', order: 'desc' }] },
     queryOptions: { enabled: !!productId },
   });
 
@@ -92,18 +86,14 @@ export const Show = () => {
         >
           <Descriptions.Item label="Mã" span={2}>
             <Typography.Text copyable={!!record?.id}>
-              {record?.id ?? "—"}
+              {record?.id ?? '—'}
             </Typography.Text>
           </Descriptions.Item>
           <Descriptions.Item label="Tên sản phẩm">
-            {record?.name ?? "—"}
+            {record?.name ?? '—'}
           </Descriptions.Item>
           <Descriptions.Item label="Loại">
-            {productType ? (
-              <Tag>{PRODUCT_TYPE_LABELS[productType]}</Tag>
-            ) : (
-              "—"
-            )}
+            {productType ? <Tag>{PRODUCT_TYPE_LABELS[productType]}</Tag> : '—'}
           </Descriptions.Item>
           <Descriptions.Item label="Danh mục">
             {record?.category ? (
@@ -111,14 +101,14 @@ export const Show = () => {
                 {record.category.name}
               </Link>
             ) : (
-              record?.categoryId ?? "—"
+              record?.categoryId ?? '—'
             )}
           </Descriptions.Item>
           <Descriptions.Item label="Ngày tạo">
             {record?.createdAt ? (
               <RelativeTime value={record.createdAt} />
             ) : (
-              "—"
+              '—'
             )}
           </Descriptions.Item>
         </Descriptions>
@@ -134,45 +124,63 @@ export const Show = () => {
         scroll={{ x: true }}
         columns={[
           {
-            title: "Ngày nhập",
-            render: (_, row: IPurchaseItem & { purchase?: { id: string; purchaseDate: string; supplier?: { id: string; name: string } } }) =>
+            title: 'Ngày nhập',
+            render: (
+              _,
+              row: IPurchaseItem & {
+                purchase?: {
+                  id: string;
+                  purchaseDate: string;
+                  supplier?: { id: string; name: string };
+                };
+              },
+            ) =>
               row.purchase?.purchaseDate
-                ? dayjs(row.purchase.purchaseDate).format("DD/MM/YYYY")
-                : "—",
+                ? dayjs(row.purchase.purchaseDate).format('DD/MM/YYYY')
+                : '—',
           },
           {
-            title: "Nhà cung cấp",
-            render: (_, row: IPurchaseItem & { purchase?: { id: string; purchaseDate: string; supplier?: { id: string; name: string } } }) =>
+            title: 'Nhà cung cấp',
+            render: (
+              _,
+              row: IPurchaseItem & {
+                purchase?: {
+                  id: string;
+                  purchaseDate: string;
+                  supplier?: { id: string; name: string };
+                };
+              },
+            ) =>
               row.purchase?.supplier ? (
                 <Link to={`/suppliers/show/${row.purchase.supplier.id}`}>
                   {row.purchase.supplier.name}
                 </Link>
               ) : (
-                "—"
+                '—'
               ),
           },
           {
-            dataIndex: "quantity",
-            title: "Số lượng",
+            dataIndex: 'quantity',
+            title: 'Số lượng',
             render: (v: number, row: IPurchaseItem) =>
-              v != null ? `${v} ${row.quantityUnit ?? ""}`.trim() : "—",
+              v != null ? `${v} ${row.quantityUnit ?? ''}`.trim() : '—',
           },
           {
-            dataIndex: "unitPrice",
-            title: "Đơn giá",
+            dataIndex: 'unitPrice',
+            title: 'Đơn giá',
             render: (v: number) => formatMoney(v),
           },
           {
-            dataIndex: "amount",
-            title: "Thành tiền",
+            dataIndex: 'amount',
+            title: 'Thành tiền',
             render: (v: number) => (
               <Typography.Text strong>{formatMoney(v)}</Typography.Text>
             ),
           },
-          { dataIndex: "note", title: "Ghi chú", ellipsis: true },
+          { dataIndex: 'note', title: 'Ghi chú', ellipsis: true },
           {
-            title: "Phiếu nhập",
-            fixed: "right",
+            title: 'Phiếu nhập',
+            fixed: 'right',
             render: (_, row: IPurchaseItem & { purchase?: { id: string } }) =>
               row.purchase?.id ? (
                 <ShowButton
@@ -181,7 +189,7 @@ export const Show = () => {
                   hideText
                 />
               ) : (
-                "—"
+                '—'
               ),
           },
         ]}
@@ -197,50 +205,76 @@ export const Show = () => {
         scroll={{ x: true }}
         columns={[
           {
-            title: "Ngày bán",
-            render: (_, row: ISaleItem & { sale?: { id: string; saleDate: string; customer?: { id: string; name?: string | null; phone: string } } }) =>
+            title: 'Ngày bán',
+            render: (
+              _,
+              row: ISaleItem & {
+                sale?: {
+                  id: string;
+                  saleDate: string;
+                  customer?: {
+                    id: string;
+                    name?: string | null;
+                    phone: string;
+                  };
+                };
+              },
+            ) =>
               row.sale?.saleDate
-                ? dayjs(row.sale.saleDate).format("DD/MM/YYYY HH:mm")
-                : "—",
+                ? dayjs(row.sale.saleDate).format('DD/MM/YYYY HH:mm')
+                : '—',
           },
           {
-            title: "Khách hàng",
-            render: (_, row: ISaleItem & { sale?: { id: string; saleDate: string; customer?: { id: string; name?: string | null; phone: string } } }) =>
+            title: 'Khách hàng',
+            render: (
+              _,
+              row: ISaleItem & {
+                sale?: {
+                  id: string;
+                  saleDate: string;
+                  customer?: {
+                    id: string;
+                    name?: string | null;
+                    phone: string;
+                  };
+                };
+              },
+            ) =>
               row.sale?.customer ? (
                 <Link to={`/customers/show/${row.sale.customer.id}`}>
                   {row.sale.customer.name ?? row.sale.customer.phone}
                 </Link>
               ) : (
-                "—"
+                '—'
               ),
           },
           {
-            dataIndex: "quantity",
-            title: "Số lượng",
+            dataIndex: 'quantity',
+            title: 'Số lượng',
             render: (v: number, row: ISaleItem) =>
-              v != null ? `${v} ${row.quantityUnit ?? ""}`.trim() : "—",
+              v != null ? `${v} ${row.quantityUnit ?? ''}`.trim() : '—',
           },
           {
-            dataIndex: "unitPrice",
-            title: "Đơn giá",
+            dataIndex: 'unitPrice',
+            title: 'Đơn giá',
             render: (v: number) => formatMoney(v),
           },
           {
-            dataIndex: "amount",
-            title: "Thành tiền",
+            dataIndex: 'amount',
+            title: 'Thành tiền',
             render: (v: number) => (
               <Typography.Text strong>{formatMoney(v)}</Typography.Text>
             ),
           },
           {
-            dataIndex: "profitAmount",
-            title: "Lợi nhuận",
+            dataIndex: 'profitAmount',
+            title: 'Lợi nhuận',
             render: (v: number) => formatMoney(v),
           },
-          { dataIndex: "note", title: "Ghi chú", ellipsis: true },
+          { dataIndex: 'note', title: 'Ghi chú', ellipsis: true },
           {
-            title: "Phiếu bán",
-            fixed: "right",
+            title: 'Phiếu bán',
+            fixed: 'right',
             render: (_, row: ISaleItem & { sale?: { id: string } }) =>
               row.sale?.id ? (
                 <ShowButton
@@ -249,7 +283,7 @@ export const Show = () => {
                   hideText
                 />
               ) : (
-                "—"
+                '—'
               ),
           },
         ]}

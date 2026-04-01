@@ -46,7 +46,8 @@
     "dev": "refine dev",
     "build": "tsc && refine build",
     "start": "refine start",
-    "refine": "refine"
+    "refine": "refine",
+    "format": "prettier --write ."
   },
   "browserslist": {
     "production": [

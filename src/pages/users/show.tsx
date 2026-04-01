@@ -1,9 +1,9 @@
-import { Show as AntdShow, TextField } from "@refinedev/antd";
-import { useShow } from "@refinedev/core";
-import { Typography } from "antd";
+import { Show as AntdShow, TextField } from '@refinedev/antd';
+import { useShow } from '@refinedev/core';
+import { Typography } from 'antd';
 
-import { RelativeTime } from "@/components/relative-time";
-import type { IUser } from "@/types";
+import { RelativeTime } from '@/components/relative-time';
+import type { IUser } from '@/types';
 
 const { Title } = Typography;
 

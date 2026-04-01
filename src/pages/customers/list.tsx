@@ -1,4 +1,4 @@
-import { EditOutlined, PlusOutlined } from "@ant-design/icons";
+import { EditOutlined, PlusOutlined } from '@ant-design/icons';
 import {
   List as AntdList,
   DeleteButton,
@@ -6,9 +6,9 @@ import {
   ShowButton,
   useDrawerForm,
   useTable,
-} from "@refinedev/antd";
-import type { BaseRecord } from "@refinedev/core";
-import { useShow } from "@refinedev/core";
+} from '@refinedev/antd';
+import type { BaseRecord } from '@refinedev/core';
+import { useShow } from '@refinedev/core';
 import {
   Button,
   Descriptions,
@@ -19,14 +19,14 @@ import {
   Spin,
   Table,
   Tooltip,
-} from "antd";
-import { useEffect, useState } from "react";
-import { useSearchParams } from "react-router";
+} from 'antd';
+import { useEffect, useState } from 'react';
+import { useSearchParams } from 'react-router';
 
-import { RelativeTime } from "@/components/relative-time";
-import type { ICustomer } from "@/types";
+import { RelativeTime } from '@/components/relative-time';
+import type { ICustomer } from '@/types';
 
-const DRAWER_WIDTH = "45vw";
+const DRAWER_WIDTH = '45vw';
 
 function CustomerFormFields() {
   return (
@@ -55,8 +55,8 @@ export const List = () => {
     show: showCreateDrawer,
     close: closeCreateDrawer,
   } = useDrawerForm({
-    resource: "customers",
-    action: "create",
+    resource: 'customers',
+    action: 'create',
     syncWithLocation: false,
   });
 
@@ -67,25 +67,25 @@ export const List = () => {
     show: showEditDrawer,
     close: closeEditDrawer,
   } = useDrawerForm({
-    resource: "customers",
-    action: "edit",
+    resource: 'customers',
+    action: 'edit',
     syncWithLocation: false,
   });
 
   const { result: showRecord, query: showQuery } = useShow<ICustomer>({
-    resource: "customers",
-    id: showId ?? "",
+    resource: 'customers',
+    id: showId ?? '',
     queryOptions: { enabled: !!showId },
   });
 
   useEffect(() => {
-    const id = searchParams.get("show");
+    const id = searchParams.get('show');
     if (!id) return;
     setShowId(id);
     setSearchParams(
       (prev) => {
         const next = new URLSearchParams(prev);
-        next.delete("show");
+        next.delete('show');
         return next;
       },
       { replace: true },
@@ -94,14 +94,14 @@ export const List = () => {
 
   const { tableProps } = useTable<ICustomer>({
     syncWithLocation: true,
-    resource: "customers",
+    resource: 'customers',
     filters: {
       initial: [
-        { field: "name", operator: "contains", value: undefined },
-        { field: "phone", operator: "contains", value: undefined },
+        { field: 'name', operator: 'contains', value: undefined },
+        { field: 'phone', operator: 'contains', value: undefined },
       ],
     },
-    sorters: { initial: [{ field: "name", order: "asc" }] },
+    sorters: { initial: [{ field: 'name', order: 'asc' }] },
   });
 
   return (
@@ -136,7 +136,7 @@ export const List = () => {
           dataIndex="createdAt"
           title="Ngày tạo"
           sorter
-          render={(v: string) => (v ? <RelativeTime value={v} /> : "—")}
+          render={(v: string) => (v ? <RelativeTime value={v} /> : '—')}
         />
         <Table.Column
           title="Thao tác"
@@ -209,26 +209,26 @@ export const List = () => {
           <Descriptions column={1} bordered size="small">
             <Descriptions.Item label="Mã">{showRecord?.id}</Descriptions.Item>
             <Descriptions.Item label="Tên">
-              {showRecord?.name ?? "—"}
+              {showRecord?.name ?? '—'}
             </Descriptions.Item>
             <Descriptions.Item label="Điện thoại">
               {showRecord?.phone}
             </Descriptions.Item>
             <Descriptions.Item label="Địa chỉ">
-              {showRecord?.address ?? "—"}
+              {showRecord?.address ?? '—'}
             </Descriptions.Item>
             <Descriptions.Item label="Ngày tạo">
               {showRecord?.createdAt ? (
                 <RelativeTime value={showRecord.createdAt} />
               ) : (
-                "—"
+                '—'
               )}
             </Descriptions.Item>
             <Descriptions.Item label="Cập nhật">
               {showRecord?.updatedAt ? (
                 <RelativeTime value={showRecord.updatedAt} />
               ) : (
-                "—"
+                '—'
               )}
             </Descriptions.Item>
           </Descriptions>

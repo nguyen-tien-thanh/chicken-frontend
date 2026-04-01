@@ -4,14 +4,14 @@ import {
   buildPrismaGetOneQueryParams,
   buildPrismaListQueryParams,
   transformHttpError,
-} from "@/utils";
-import type { DataProvider, HttpError } from "@refinedev/core";
-import type { AxiosInstance } from "axios";
-import { stringify } from "query-string";
+} from '@/utils';
+import type { DataProvider, HttpError } from '@refinedev/core';
+import type { AxiosInstance } from 'axios';
+import { stringify } from 'query-string';
 
 export const dataProvider = (
   apiUrl: string,
-  httpClient: AxiosInstance = axiosInstance
+  httpClient: AxiosInstance = axiosInstance,
 ): Required<DataProvider> => ({
   getList: async ({ resource, pagination, filters, sorters, meta }) => {
     const url = `${apiUrl}/${resource}`;
@@ -96,7 +96,7 @@ export const dataProvider = (
         try {
           const { data } = await httpClient.patch(
             `${apiUrl}/${resource}/${id}`,
-            variables
+            variables,
           );
           return data;
         } catch (error) {
@@ -104,7 +104,7 @@ export const dataProvider = (
 
           errors.push(httpError);
         }
-      })
+      }),
     );
 
     if (errors.length > 0) {
@@ -161,7 +161,7 @@ export const dataProvider = (
       ids.map(async (id) => {
         const { data } = await httpClient.delete(`${apiUrl}/${resource}/${id}`);
         return data;
-      })
+      }),
     );
     return { data: response };
   },
@@ -193,21 +193,21 @@ export const dataProvider = (
       requestUrl = `${url}?${prismaQs}`;
     }
     if (query) {
-      requestUrl = requestUrl.includes("?")
+      requestUrl = requestUrl.includes('?')
         ? `${requestUrl}&${stringify(query)}`
         : `${requestUrl}?${stringify(query)}`;
     }
 
     let axiosResponse;
     switch (method) {
-      case "put":
-      case "post":
-      case "patch":
+      case 'put':
+      case 'post':
+      case 'patch':
         axiosResponse = await httpClient[method](url, payload, {
           headers,
         });
         break;
-      case "delete":
+      case 'delete':
         axiosResponse = await httpClient.delete(url, {
           data: payload,
           headers: headers,

@@ -5,22 +5,22 @@ import {
   FilterDropdown,
   ShowButton,
   useTable,
-} from "@refinedev/antd";
-import { Input, Space, Table, Typography } from "antd";
-import dayjs from "dayjs";
-import { Link, useSearchParams } from "react-router";
+} from '@refinedev/antd';
+import { Input, Space, Table, Typography } from 'antd';
+import dayjs from 'dayjs';
+import { Link, useSearchParams } from 'react-router';
 
-import { RelativeTime } from "@/components/relative-time";
-import type { IPurchase } from "@/types";
-import { formatMoney } from "@/utils";
+import { RelativeTime } from '@/components/relative-time';
+import type { IPurchase } from '@/types';
+import { formatMoney } from '@/utils';
 
 export const List = () => {
   const [searchParams] = useSearchParams();
-  const supplierIdParam = searchParams.get("supplierId");
+  const supplierIdParam = searchParams.get('supplierId');
 
   const { tableProps } = useTable<IPurchase>({
     syncWithLocation: true,
-    resource: "purchases",
+    resource: 'purchases',
     meta: {
       include: {
         supplier: { select: { id: true, name: true, phone: true } },
@@ -31,22 +31,22 @@ export const List = () => {
         ? {
             permanent: [
               {
-                field: "supplierId",
-                operator: "eq",
+                field: 'supplierId',
+                operator: 'eq',
                 value: supplierIdParam,
               },
             ],
           }
         : {}),
       initial: [
-        { field: "purchaseDate", operator: "contains", value: undefined },
-        { field: "supplier.name", operator: "contains", value: undefined },
-        { field: "totalAmount", operator: "contains", value: undefined },
-        { field: "note", operator: "contains", value: undefined },
-        { field: "createdAt", operator: "contains", value: undefined },
+        { field: 'purchaseDate', operator: 'contains', value: undefined },
+        { field: 'supplier.name', operator: 'contains', value: undefined },
+        { field: 'totalAmount', operator: 'contains', value: undefined },
+        { field: 'note', operator: 'contains', value: undefined },
+        { field: 'createdAt', operator: 'contains', value: undefined },
       ],
     },
-    sorters: { initial: [{ field: "purchaseDate", order: "desc" }] },
+    sorters: { initial: [{ field: 'purchaseDate', order: 'desc' }] },
   });
 
   return (
@@ -57,7 +57,7 @@ export const List = () => {
           title="Ngày nhập"
           sorter
           defaultSortOrder="descend"
-          render={(v: string) => (v ? dayjs(v).format("DD/MM/YYYY") : "—")}
+          render={(v: string) => (v ? dayjs(v).format('DD/MM/YYYY') : '—')}
           filterDropdown={(props) => (
             <FilterDropdown {...props}>
               <Input.Search placeholder="Tìm ngày nhập..." />
@@ -66,7 +66,7 @@ export const List = () => {
         />
         <Table.Column
           title="Nhà cung cấp"
-          dataIndex={["supplier", "name"]}
+          dataIndex={['supplier', 'name']}
           sorter
           render={(_, r: IPurchase) =>
             r.supplier ? (
@@ -74,7 +74,7 @@ export const List = () => {
                 {r.supplier.name}
               </Link>
             ) : (
-              r.supplierId ?? "—"
+              r.supplierId ?? '—'
             )
           }
           filterDropdown={(props) => (
@@ -88,14 +88,14 @@ export const List = () => {
           title="Số lồng"
           align="right"
           sorter
-          render={(v: number) => (v != null ? `${v} lồng` : "—")}
+          render={(v: number) => (v != null ? `${v} lồng` : '—')}
         />
         <Table.Column
           dataIndex="cagesWeight"
           title="Tổng trọng lượng lồng"
           align="right"
           sorter
-          render={(v: number) => (v != null ? `${v} kg` : "—")}
+          render={(v: number) => (v != null ? `${v} kg` : '—')}
         />
         <Table.Column
           title="Tổng tiền"
@@ -118,7 +118,7 @@ export const List = () => {
           title="TB kg/con"
           align="right"
           sorter
-          render={(v: number) => (v != null ? `${v} kg` : "—")}
+          render={(v: number) => (v != null ? `${v} kg` : '—')}
         />
         <Table.Column
           dataIndex="note"
@@ -135,8 +135,8 @@ export const List = () => {
           dataIndex="createdAt"
           title="Ngày tạo"
           sorter
-          responsive={["xl"]}
-          render={(v: string) => (v ? <RelativeTime value={v} /> : "—")}
+          responsive={['xl']}
+          render={(v: string) => (v ? <RelativeTime value={v} /> : '—')}
           filterDropdown={(props) => (
             <FilterDropdown {...props}>
               <Input.Search placeholder="Tìm ngày tạo..." />

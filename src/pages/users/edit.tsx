@@ -1,13 +1,13 @@
-import { Edit as AntdEdit, useForm } from "@refinedev/antd";
-import { useSelect } from "@refinedev/core";
-import type { FormProps } from "antd";
-import { Form, Input, Select } from "antd";
+import { Edit as AntdEdit, useForm } from '@refinedev/antd';
+import { useSelect } from '@refinedev/core';
+import type { FormProps } from 'antd';
+import { Form, Input, Select } from 'antd';
 
-import type { IRole } from "@/types";
+import type { IRole } from '@/types';
 
 export const Edit = () => {
   const { formProps, saveButtonProps } = useForm({
-    resource: "users",
+    resource: 'users',
     meta: {
       include: {
         role: { select: { id: true, name: true } },
@@ -20,12 +20,12 @@ export const Edit = () => {
     onSearch: onSearchRole,
     query: rolesQuery,
   } = useSelect({
-    resource: "roles",
+    resource: 'roles',
     optionLabel: (item: IRole) => item.name,
     optionValue: (item: IRole) => item.id,
   });
 
-  const onFinish: FormProps["onFinish"] = (values) => {
+  const onFinish: FormProps['onFinish'] = (values) => {
     const next = { ...values } as Record<string, unknown>;
     if (!next.password) {
       delete next.password;
@@ -39,7 +39,7 @@ export const Edit = () => {
         <Form.Item
           label="Email"
           name="email"
-          rules={[{ required: true, type: "email" }]}
+          rules={[{ required: true, type: 'email' }]}
         >
           <Input type="email" autoComplete="off" />
         </Form.Item>

@@ -4,20 +4,20 @@ import {
   EditButton,
   ShowButton,
   useTable,
-} from "@refinedev/antd";
-import { Space, Table } from "antd";
+} from '@refinedev/antd';
+import { Space, Table } from 'antd';
 
-import { RelativeTime } from "@/components/relative-time";
-import type { IRole } from "@/types";
+import { RelativeTime } from '@/components/relative-time';
+import type { IRole } from '@/types';
 
 export const List = () => {
   const { tableProps } = useTable<IRole>({
     syncWithLocation: true,
-    resource: "roles",
+    resource: 'roles',
     filters: {
-      initial: [{ field: "name", operator: "contains", value: undefined }],
+      initial: [{ field: 'name', operator: 'contains', value: undefined }],
     },
-    sorters: { initial: [{ field: "createdAt", order: "desc" }] },
+    sorters: { initial: [{ field: 'createdAt', order: 'desc' }] },
   });
 
   return (
@@ -30,7 +30,7 @@ export const List = () => {
           title="Ngày tạo"
           sorter
           defaultSortOrder="descend"
-          render={(v: string) => (v ? <RelativeTime value={v} /> : "—")}
+          render={(v: string) => (v ? <RelativeTime value={v} /> : '—')}
         />
         <Table.Column
           title="Thao tác"

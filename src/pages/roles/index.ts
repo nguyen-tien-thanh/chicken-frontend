@@ -1,1 +1,1 @@
-export * as Role from "./namespace";
+export * as Role from './namespace';

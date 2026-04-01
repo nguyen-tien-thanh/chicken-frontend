@@ -1,7 +1,7 @@
-import { MinusCircleOutlined, PlusOutlined } from "@ant-design/icons";
-import { Edit as AntdEdit, useForm } from "@refinedev/antd";
-import { useSelect } from "@refinedev/core";
-import type { FormProps } from "antd";
+import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
+import { Edit as AntdEdit, useForm } from '@refinedev/antd';
+import { useSelect } from '@refinedev/core';
+import type { FormProps } from 'antd';
 import {
   App,
   Button,
@@ -16,14 +16,14 @@ import {
   Table,
   Tooltip,
   Typography,
-} from "antd";
-import dayjs from "dayjs";
-import { useEffect, useState } from "react";
+} from 'antd';
+import dayjs from 'dayjs';
+import { useEffect, useState } from 'react';
 
-import { InputMoney } from "@/components";
-import type { ICustomer, IProduct, ISale, ISaleItem } from "@/types";
-import { SALE_STATUS_OPTIONS } from "@/types";
-import { formatMoney } from "@/utils";
+import { InputMoney } from '@/components';
+import type { ICustomer, IProduct, ISale, ISaleItem } from '@/types';
+import { SALE_STATUS_OPTIONS } from '@/types';
+import { formatMoney } from '@/utils';
 
 const { Text } = Typography;
 
@@ -32,7 +32,7 @@ type LineItem = {
   id?: string;
   productId?: string;
   quantity: number;
-  quantityUnit: "kg" | "con";
+  quantityUnit: 'kg' | 'con';
   unitPrice: number;
   note?: string;
 };
@@ -44,7 +44,7 @@ function fromExisting(item: ISaleItem): LineItem {
     id: item.id,
     productId: item.productId,
     quantity: item.quantity,
-    quantityUnit: item.quantityUnit as "kg" | "con",
+    quantityUnit: item.quantityUnit as 'kg' | 'con',
     unitPrice: item.unitPrice,
     note: item.note ?? undefined,
   };
@@ -52,7 +52,7 @@ function fromExisting(item: ISaleItem): LineItem {
 function newRow(): LineItem {
   return {
     key: nextKey++,
-    quantityUnit: "kg",
+    quantityUnit: 'kg',
     quantity: 1,
     unitPrice: 0,
   };
@@ -63,7 +63,7 @@ export const Edit = () => {
   const [lines, setLines] = useState<LineItem[]>([]);
 
   const { formProps, saveButtonProps, query } = useForm<ISale>({
-    resource: "sales",
+    resource: 'sales',
     meta: {
       include: {
         customer: { select: { id: true, name: true, phone: true } },
@@ -89,7 +89,7 @@ export const Edit = () => {
     onSearch: onSearchCustomer,
     query: customersQuery,
   } = useSelect({
-    resource: "customers",
+    resource: 'customers',
     optionLabel: (item: ICustomer) =>
       `${item.name ?? item.phone} (${item.phone})`,
     optionValue: (item: ICustomer) => item.id,
@@ -100,7 +100,7 @@ export const Edit = () => {
     onSearch: onSearchProduct,
     query: productsQuery,
   } = useSelect({
-    resource: "products",
+    resource: 'products',
     optionLabel: (item: IProduct) => item.name,
     optionValue: (item: IProduct) => item.id,
   });
@@ -124,7 +124,7 @@ export const Edit = () => {
     return sum + row.quantity * row.unitPrice;
   }, 0);
 
-  const onFinish: FormProps["onFinish"] = (values) => {
+  const onFinish: FormProps['onFinish'] = (values) => {
     const next = { ...(values as Record<string, unknown>) };
     delete next.saleItems;
     delete next.subtotalAmount;
@@ -137,7 +137,7 @@ export const Edit = () => {
     const validLines = lines.filter((row) => row.productId);
     if (validLines.length === 0) {
       notification.warning({
-        message: "Thêm ít nhất một dòng có chọn sản phẩm",
+        message: 'Thêm ít nhất một dòng có chọn sản phẩm',
       });
       return Promise.resolve();
     }
@@ -155,14 +155,14 @@ export const Edit = () => {
 
   const columns = [
     {
-      title: "#",
+      title: '#',
       width: 44,
       render: (_: unknown, _row: LineItem, index: number) => (
         <Text type="secondary">{index + 1}</Text>
       ),
     },
     {
-      title: "Sản phẩm",
+      title: 'Sản phẩm',
       width: 360,
       render: (_: unknown, row: LineItem) => (
         <Select
@@ -175,71 +175,71 @@ export const Edit = () => {
           filterOption={false}
           optionFilterProp="label"
           allowClear
-          style={{ width: "100%" }}
-          onChange={(v) => updateLine(row.key, "productId", v)}
+          style={{ width: '100%' }}
+          onChange={(v) => updateLine(row.key, 'productId', v)}
         />
       ),
     },
     {
-      title: "Số lượng",
+      title: 'Số lượng',
       width: 120,
       render: (_: unknown, row: LineItem) => (
         <InputNumber
           min={0}
           step={0.1}
-          style={{ width: "100%" }}
+          style={{ width: '100%' }}
           value={row.quantity}
-          onChange={(v) => updateLine(row.key, "quantity", v ?? 0)}
+          onChange={(v) => updateLine(row.key, 'quantity', v ?? 0)}
         />
       ),
     },
     {
-      title: "Đơn vị",
+      title: 'Đơn vị',
       width: 110,
       render: (_: unknown, row: LineItem) => (
         <Select
           value={row.quantityUnit}
           options={[
-            { value: "kg", label: "kg" },
-            { value: "con", label: "con" },
+            { value: 'kg', label: 'kg' },
+            { value: 'con', label: 'con' },
           ]}
-          style={{ width: "100%" }}
-          onChange={(v) => updateLine(row.key, "quantityUnit", v)}
+          style={{ width: '100%' }}
+          onChange={(v) => updateLine(row.key, 'quantityUnit', v)}
         />
       ),
     },
     {
-      title: "Đơn giá",
+      title: 'Đơn giá',
       width: 160,
       render: (_: unknown, row: LineItem) => (
         <InputMoney
           value={row.unitPrice}
-          onChange={(v) => updateLine(row.key, "unitPrice", (v as number) ?? 0)}
+          onChange={(v) => updateLine(row.key, 'unitPrice', (v as number) ?? 0)}
         />
       ),
     },
     {
-      title: "Thành tiền",
+      title: 'Thành tiền',
       width: 160,
       render: (_: unknown, row: LineItem) => (
         <Text strong>{formatMoney(row.quantity * row.unitPrice)}</Text>
       ),
     },
     {
-      title: "Ghi chú",
+      title: 'Ghi chú',
       width: 220,
       render: (_: unknown, row: LineItem) => (
         <Input
           placeholder="Tuỳ chọn"
           value={row.note}
-          onChange={(e) => updateLine(row.key, "note", e.target.value)}
+          onChange={(e) => updateLine(row.key, 'note', e.target.value)}
         />
       ),
     },
     {
-      title: "",
+      title: '',
       width: 52,
-      fixed: "right" as const,
+      fixed: 'right' as const,
       render: (_: unknown, row: LineItem) => (
         <Tooltip title="Xoá dòng">
           <Button
@@ -275,7 +275,7 @@ export const Edit = () => {
             <Form.Item
               label="Ngày bán"
               name="saleDate"
-              rules={[{ required: true, message: "Chọn ngày bán" }]}
+              rules={[{ required: true, message: 'Chọn ngày bán' }]}
               getValueProps={(value) => ({
                 value:
                   value && dayjs(value as string).isValid()
@@ -285,7 +285,7 @@ export const Edit = () => {
             >
               <DatePicker
                 showTime
-                style={{ width: "100%" }}
+                style={{ width: '100%' }}
                 format="DD/MM/YYYY HH:mm"
               />
             </Form.Item>
@@ -303,12 +303,12 @@ export const Edit = () => {
         <Row gutter={16}>
           <Col span={12}>
             <Form.Item label="Giảm giá" name="discountAmount">
-              <InputMoney style={{ width: "100%" }} />
+              <InputMoney style={{ width: '100%' }} />
             </Form.Item>
           </Col>
           <Col span={12}>
             <Form.Item label="Đã thanh toán" name="paidAmount">
-              <InputMoney style={{ width: "100%" }} />
+              <InputMoney style={{ width: '100%' }} />
             </Form.Item>
           </Col>
         </Row>
@@ -319,9 +319,9 @@ export const Edit = () => {
         <Form.Item label="Chi tiết hàng bán">
           <Space
             style={{
-              width: "100%",
+              width: '100%',
               marginBottom: 8,
-              justifyContent: "space-between",
+              justifyContent: 'space-between',
             }}
             wrap
           >
@@ -347,10 +347,10 @@ export const Edit = () => {
           <div
             style={{
               marginTop: 8,
-              padding: "12px 16px",
-              background: "var(--ant-color-fill-quaternary)",
+              padding: '12px 16px',
+              background: 'var(--ant-color-fill-quaternary)',
               borderRadius: 8,
-              textAlign: "right",
+              textAlign: 'right',
             }}
           >
             <Text type="secondary">Tổng thành tiền (ước tính): </Text>

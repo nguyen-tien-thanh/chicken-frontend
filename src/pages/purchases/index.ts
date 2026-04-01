@@ -1,1 +1,1 @@
-export * as Purchase from "./namespace";
+export * as Purchase from './namespace';

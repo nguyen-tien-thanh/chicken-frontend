@@ -1,11 +1,11 @@
-import React from "react";
-import { createRoot } from "react-dom/client";
-import { I18nextProvider } from "react-i18next";
+import React from 'react';
+import { createRoot } from 'react-dom/client';
+import { I18nextProvider } from 'react-i18next';
 
-import App from "./App";
-import i18n from "./i18n";
+import App from './App';
+import i18n from './i18n';
 
-const container = document.getElementById("root") as HTMLElement;
+const container = document.getElementById('root') as HTMLElement;
 const root = createRoot(container);
 
 root.render(
@@ -13,5 +13,5 @@ root.render(
     <React.StrictMode>
       <App />
     </React.StrictMode>
-  </I18nextProvider>
+  </I18nextProvider>,
 );

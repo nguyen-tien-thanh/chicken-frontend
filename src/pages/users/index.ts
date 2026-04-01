@@ -1,1 +1,1 @@
-export * as User from "./namespace";
+export * as User from './namespace';

@@ -1,10 +1,10 @@
-import type { CrudSorting, SortOrder } from "@refinedev/core";
+import type { CrudSorting, SortOrder } from '@refinedev/core';
 
 const nestOrderPath = (
   field: string,
-  order: SortOrder
+  order: SortOrder,
 ): Record<string, unknown> => {
-  const segments = field.split(".").filter(Boolean);
+  const segments = field.split('.').filter(Boolean);
   if (segments.length === 0) return {};
   let node: Record<string, unknown> = {
     [segments[segments.length - 1]!]: order,
@@ -18,7 +18,7 @@ const nestOrderPath = (
 
 /** Refine sorters → Prisma `orderBy` (array form, matches multi-field sorts). */
 export const crudSortingToPrismaOrderBy = (
-  sorters?: CrudSorting
+  sorters?: CrudSorting,
 ): Record<string, unknown>[] | undefined => {
   if (!sorters?.length) return undefined;
 

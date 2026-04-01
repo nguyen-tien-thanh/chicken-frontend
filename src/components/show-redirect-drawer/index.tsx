@@ -1,4 +1,4 @@
-import { Navigate, useParams } from "react-router";
+import { Navigate, useParams } from 'react-router';
 
 export type ShowRedirectDrawerProps = {
   /** Đường dẫn trang danh sách (vd. `/products`). Route `…/show/:id` chuyển tới `?show=` để mở drawer xem. */

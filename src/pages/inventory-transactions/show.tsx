@@ -1,5 +1,5 @@
-import { Show as AntdShow } from "@refinedev/antd";
-import { useOne, useShow } from "@refinedev/core";
+import { Show as AntdShow } from '@refinedev/antd';
+import { useOne, useShow } from '@refinedev/core';
 import {
   Button,
   Card,
@@ -8,19 +8,19 @@ import {
   Tag,
   Tooltip,
   Typography,
-} from "antd";
-import dayjs from "dayjs";
-import { Link } from "react-router";
+} from 'antd';
+import dayjs from 'dayjs';
+import { Link } from 'react-router';
 
-import { RelativeTime } from "@/components/relative-time";
+import { RelativeTime } from '@/components/relative-time';
 import {
   INVENTORY_TX_DIRECTION_LABELS,
   INVENTORY_TX_TYPE_LABELS,
   type IInventoryTransaction,
   type InventoryTransactionDirection,
   type InventoryTransactionType,
-} from "@/types";
-import { formatMoney } from "@/utils";
+} from '@/types';
+import { formatMoney } from '@/utils';
 
 type PurchaseItemLookup = { id: string; purchaseId: string };
 type SaleItemLookup = { id: string; saleId: string };
@@ -29,18 +29,18 @@ function RefDocumentButton({ record }: { record: IInventoryTransaction }) {
   const { refType, refId } = record;
   if (!refId) return null;
 
-  const isPurchase = refType === "PURCHASE";
-  const isSale = refType === "SALE";
+  const isPurchase = refType === 'PURCHASE';
+  const isSale = refType === 'SALE';
 
   const purchaseItem = useOne<PurchaseItemLookup>({
-    resource: "purchase-items",
+    resource: 'purchase-items',
     id: refId,
     queryOptions: { enabled: isPurchase },
     meta: { select: { id: true, purchaseId: true } },
   });
 
   const saleItem = useOne<SaleItemLookup>({
-    resource: "sale-items",
+    resource: 'sale-items',
     id: refId,
     queryOptions: { enabled: isSale },
     meta: { select: { id: true, saleId: true } },
@@ -54,13 +54,13 @@ function RefDocumentButton({ record }: { record: IInventoryTransaction }) {
       <Tooltip
         title={
           loading
-            ? "Đang tải phiếu tham chiếu…"
+            ? 'Đang tải phiếu tham chiếu…'
             : disabled
-            ? "Không tìm thấy phiếu nhập từ refId"
-            : "Mở phiếu nhập"
+            ? 'Không tìm thấy phiếu nhập từ refId'
+            : 'Mở phiếu nhập'
         }
       >
-        <Link to={purchaseId ? `/purchases/show/${purchaseId}` : "#"}>
+        <Link to={purchaseId ? `/purchases/show/${purchaseId}` : '#'}>
           <Button type="primary" size="small" disabled={disabled}>
             Mở phiếu nhập
           </Button>
@@ -77,13 +77,13 @@ function RefDocumentButton({ record }: { record: IInventoryTransaction }) {
       <Tooltip
         title={
           loading
-            ? "Đang tải phiếu tham chiếu…"
+            ? 'Đang tải phiếu tham chiếu…'
             : disabled
-            ? "Không tìm thấy phiếu bán từ refId"
-            : "Mở phiếu bán"
+            ? 'Không tìm thấy phiếu bán từ refId'
+            : 'Mở phiếu bán'
         }
       >
-        <Link to={saleId ? `/sales/show/${saleId}` : "#"}>
+        <Link to={saleId ? `/sales/show/${saleId}` : '#'}>
           <Button type="primary" size="small" disabled={disabled}>
             Mở phiếu bán
           </Button>
@@ -124,29 +124,29 @@ export const Show = () => {
           </Descriptions.Item>
           <Descriptions.Item label="Ngày giao dịch">
             {record?.transactionDate
-              ? dayjs(record.transactionDate).format("DD/MM/YYYY HH:mm")
-              : "—"}
+              ? dayjs(record.transactionDate).format('DD/MM/YYYY HH:mm')
+              : '—'}
           </Descriptions.Item>
           <Descriptions.Item label="Loại tham chiếu">
             {rt ? (
               <Tag>{INVENTORY_TX_TYPE_LABELS[rt]}</Tag>
             ) : (
-              (record?.refType as string) ?? "—"
+              (record?.refType as string) ?? '—'
             )}
           </Descriptions.Item>
           <Descriptions.Item label="Mã tham chiếu">
             <Space wrap align="center">
-              <Typography.Text code>{record?.refId ?? "—"}</Typography.Text>
+              <Typography.Text code>{record?.refId ?? '—'}</Typography.Text>
               {record ? <RefDocumentButton record={record} /> : null}
             </Space>
           </Descriptions.Item>
           <Descriptions.Item label="Chiều">
             {dir ? (
-              <Tag color={dir === "IN" ? "green" : "orange"}>
+              <Tag color={dir === 'IN' ? 'green' : 'orange'}>
                 {INVENTORY_TX_DIRECTION_LABELS[dir]}
               </Tag>
             ) : (
-              "—"
+              '—'
             )}
           </Descriptions.Item>
           <Descriptions.Item label="Sản phẩm">
@@ -155,14 +155,14 @@ export const Show = () => {
                 {record.product.name}
               </Link>
             ) : (
-              record?.productId ?? "—"
+              record?.productId ?? '—'
             )}
           </Descriptions.Item>
           <Descriptions.Item label="Số lượng">
-            {record?.quantity != null ? record.quantity : "—"}
+            {record?.quantity != null ? record.quantity : '—'}
           </Descriptions.Item>
           <Descriptions.Item label="Đơn vị tính">
-            {record?.quantityUnit ?? "—"}
+            {record?.quantityUnit ?? '—'}
           </Descriptions.Item>
           <Descriptions.Item label="Giá vốn đơn vị">
             {formatMoney(record?.unitCost)}
@@ -171,13 +171,13 @@ export const Show = () => {
             {formatMoney(record?.totalCost)}
           </Descriptions.Item>
           <Descriptions.Item label="Ghi chú">
-            {record?.note ?? "—"}
+            {record?.note ?? '—'}
           </Descriptions.Item>
           <Descriptions.Item label="Ghi nhận lúc">
             {record?.createdAt ? (
               <RelativeTime value={record.createdAt} />
             ) : (
-              "—"
+              '—'
             )}
           </Descriptions.Item>
         </Descriptions>

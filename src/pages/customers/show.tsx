@@ -1,5 +1,5 @@
-import { Show as AntdShow, ShowButton, useTable } from "@refinedev/antd";
-import { useShow } from "@refinedev/core";
+import { Show as AntdShow, ShowButton, useTable } from '@refinedev/antd';
+import { useShow } from '@refinedev/core';
 import {
   Button,
   Card,
@@ -8,42 +8,42 @@ import {
   Table,
   Tag,
   Typography,
-} from "antd";
-import dayjs from "dayjs";
-import { Link } from "react-router";
+} from 'antd';
+import dayjs from 'dayjs';
+import { Link } from 'react-router';
 
-import { RelativeTime } from "@/components/relative-time";
+import { RelativeTime } from '@/components/relative-time';
 import {
   SALE_STATUS_LABELS,
   type ICustomer,
   type ISale,
   type SaleStatus,
-} from "@/types";
-import { formatMoney } from "@/utils";
+} from '@/types';
+import { formatMoney } from '@/utils';
 
 const statusColor: Record<SaleStatus, string> = {
-  PENDING: "orange",
-  PAID: "green",
-  CANCELLED: "red",
+  PENDING: 'orange',
+  PAID: 'green',
+  CANCELLED: 'red',
 };
 
 export const Show = () => {
   const { result: record, query } = useShow<ICustomer>({
-    resource: "customers",
+    resource: 'customers',
   });
   const { isLoading } = query;
 
   const customerId = record?.id;
 
   const { tableProps } = useTable<ISale>({
-    resource: "sales",
+    resource: 'sales',
     syncWithLocation: false,
     filters: {
       permanent: customerId
-        ? [{ field: "customerId", operator: "eq", value: customerId }]
+        ? [{ field: 'customerId', operator: 'eq', value: customerId }]
         : [],
     },
-    sorters: { initial: [{ field: "saleDate", order: "desc" }] },
+    sorters: { initial: [{ field: 'saleDate', order: 'desc' }] },
     queryOptions: { enabled: !!customerId },
   });
 
@@ -69,30 +69,30 @@ export const Show = () => {
         >
           <Descriptions.Item label="Mã" span={2}>
             <Typography.Text copyable={!!record?.id}>
-              {record?.id ?? "—"}
+              {record?.id ?? '—'}
             </Typography.Text>
           </Descriptions.Item>
           <Descriptions.Item label="Tên khách hàng">
-            {record?.name ?? "—"}
+            {record?.name ?? '—'}
           </Descriptions.Item>
           <Descriptions.Item label="Điện thoại">
-            {record?.phone ?? "—"}
+            {record?.phone ?? '—'}
           </Descriptions.Item>
           <Descriptions.Item label="Địa chỉ" span={2}>
-            {record?.address ?? "—"}
+            {record?.address ?? '—'}
           </Descriptions.Item>
           <Descriptions.Item label="Ngày tạo">
             {record?.createdAt ? (
               <RelativeTime value={record.createdAt} />
             ) : (
-              "—"
+              '—'
             )}
           </Descriptions.Item>
           <Descriptions.Item label="Cập nhật">
             {record?.updatedAt ? (
               <RelativeTime value={record.updatedAt} />
             ) : (
-              "—"
+              '—'
             )}
           </Descriptions.Item>
         </Descriptions>
@@ -108,48 +108,48 @@ export const Show = () => {
         scroll={{ x: true }}
         columns={[
           {
-            dataIndex: "saleDate",
-            title: "Ngày bán",
+            dataIndex: 'saleDate',
+            title: 'Ngày bán',
             sorter: true,
-            defaultSortOrder: "descend",
+            defaultSortOrder: 'descend',
             render: (v: string) =>
-              v ? dayjs(v).format("DD/MM/YYYY HH:mm") : "—",
+              v ? dayjs(v).format('DD/MM/YYYY HH:mm') : '—',
           },
           {
-            dataIndex: "status",
-            title: "Trạng thái",
+            dataIndex: 'status',
+            title: 'Trạng thái',
             render: (v: SaleStatus) =>
               v ? (
                 <Tag color={statusColor[v]}>{SALE_STATUS_LABELS[v]}</Tag>
               ) : (
-                "—"
+                '—'
               ),
           },
           {
-            dataIndex: "finalAmount",
-            title: "Thành tiền",
+            dataIndex: 'finalAmount',
+            title: 'Thành tiền',
             render: (v: number) => (
               <Typography.Text strong>{formatMoney(v)}</Typography.Text>
             ),
           },
           {
-            dataIndex: "paidAmount",
-            title: "Đã thanh toán",
+            dataIndex: 'paidAmount',
+            title: 'Đã thanh toán',
             render: (v: number) => formatMoney(v),
           },
           {
-            dataIndex: "remainingAmount",
-            title: "Còn lại",
+            dataIndex: 'remainingAmount',
+            title: 'Còn lại',
             render: (v: number) => formatMoney(v),
           },
           {
-            dataIndex: "note",
-            title: "Ghi chú",
+            dataIndex: 'note',
+            title: 'Ghi chú',
             ellipsis: true,
           },
           {
-            title: "Thao tác",
-            fixed: "right",
+            title: 'Thao tác',
+            fixed: 'right',
             render: (_, row: ISale) => (
               <ShowButton resource="sales" recordItemId={row.id} />
             ),

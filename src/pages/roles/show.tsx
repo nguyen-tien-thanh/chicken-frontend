@@ -1,9 +1,9 @@
-import { Show as AntdShow, TextField } from "@refinedev/antd";
-import { useShow } from "@refinedev/core";
-import { List, Tag, Typography } from "antd";
+import { Show as AntdShow, TextField } from '@refinedev/antd';
+import { useShow } from '@refinedev/core';
+import { List, Tag, Typography } from 'antd';
 
-import { RelativeTime } from "@/components/relative-time";
-import type { IPermission, IRole } from "@/types";
+import { RelativeTime } from '@/components/relative-time';
+import type { IPermission, IRole } from '@/types';
 
 const { Title } = Typography;
 
@@ -44,15 +44,15 @@ export const Show = () => {
           dataSource={links}
           renderItem={(rp) => {
             const p = rp.permission as
-              | Pick<IPermission, "path" | "method" | "description">
+              | Pick<IPermission, 'path' | 'method' | 'description'>
               | undefined;
             if (p?.path) {
               return (
                 <List.Item>
                   <Tag color="blue">{p.method}</Tag> {p.path}
                   {p.description ? (
-                    <span style={{ color: "var(--ant-color-text-secondary)" }}>
-                      {" "}
+                    <span style={{ color: 'var(--ant-color-text-secondary)' }}>
+                      {' '}
                       — {p.description}
                     </span>
                   ) : null}

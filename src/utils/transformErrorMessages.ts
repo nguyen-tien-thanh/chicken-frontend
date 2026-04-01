@@ -8,7 +8,7 @@ export const transformErrorMessages = (
   const transformedErrors: TransformedErrors = {};
 
   for (const errorMessage of errorMessages) {
-    const separatorIndex = errorMessage.indexOf(" ");
+    const separatorIndex = errorMessage.indexOf(' ');
     const field = errorMessage.substring(0, separatorIndex);
 
     if (transformedErrors[field]) {

@@ -1,13 +1,13 @@
-import { Edit as AntdEdit, useForm } from "@refinedev/antd";
-import { Form, Input } from "antd";
-import { useEffect } from "react";
+import { Edit as AntdEdit, useForm } from '@refinedev/antd';
+import { Form, Input } from 'antd';
+import { useEffect } from 'react';
 
-import type { IRole } from "@/types";
-import { PermissionIdsField } from "./permission-ids-field";
+import type { IRole } from '@/types';
+import { PermissionIdsField } from './permission-ids-field';
 
 export const Edit = () => {
   const { form, formProps, saveButtonProps, query } = useForm({
-    resource: "roles",
+    resource: 'roles',
     meta: {
       include: {
         rolesPermissions: { select: { permissionId: true } },

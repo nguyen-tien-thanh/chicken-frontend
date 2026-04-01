@@ -1,10 +1,10 @@
 /** Khớp Prisma `enum ProductType`. */
-export type ProductType = "LIVE" | "PROCESSED" | "PART";
+export type ProductType = 'LIVE' | 'PROCESSED' | 'PART';
 
 export const PRODUCT_TYPE_LABELS: Record<ProductType, string> = {
-  LIVE: "Hàng sống",
-  PROCESSED: "Đã chế biến",
-  PART: "Phụ phẩm / linh kiện",
+  LIVE: 'Hàng sống',
+  PROCESSED: 'Đã chế biến',
+  PART: 'Phụ phẩm / linh kiện',
 };
 
 export const PRODUCT_TYPE_OPTIONS = (

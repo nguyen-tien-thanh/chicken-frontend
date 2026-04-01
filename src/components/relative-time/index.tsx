@@ -1,11 +1,11 @@
-import dayjs from "dayjs";
-import type { CSSProperties } from "react";
-import { useEffect, useMemo, useState } from "react";
+import dayjs from 'dayjs';
+import type { CSSProperties } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 
 import {
   formatRelativeTimeVi,
   type RelativeTimeInput,
-} from "@/utils/formatRelativeTimeVi";
+} from '@/utils/formatRelativeTimeVi';
 
 export type RelativeTimeProps = {
   /** Thời điểm cần hiển thị (ISO string, timestamp, Date). */
@@ -25,7 +25,7 @@ export const RelativeTime = ({
   value,
   className,
   style,
-  emptyText = "—",
+  emptyText = '—',
   refreshMs = 60_000,
 }: RelativeTimeProps) => {
   const [label, setLabel] = useState(() => formatRelativeTimeVi(value));
@@ -49,7 +49,7 @@ export const RelativeTime = ({
   const title = useMemo(() => {
     if (value == null) return undefined;
     const d = dayjs(value);
-    return d.isValid() ? d.format("DD/MM/YYYY HH:mm:ss") : undefined;
+    return d.isValid() ? d.format('DD/MM/YYYY HH:mm:ss') : undefined;
   }, [value]);
 
   return (

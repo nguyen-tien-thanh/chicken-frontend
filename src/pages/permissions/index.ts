@@ -1,1 +1,1 @@
-export * as Permission from "./namespace";
+export * as Permission from './namespace';

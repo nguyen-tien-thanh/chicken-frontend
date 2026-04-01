@@ -1,6 +1,6 @@
-import type { HttpError } from "@refinedev/core";
+import type { HttpError } from '@refinedev/core';
 
-import { transformErrorMessages } from "./transformErrorMessages";
+import { transformErrorMessages } from './transformErrorMessages';
 
 export const transformHttpError = (error: any): HttpError => {
   const message = error.response.data.error;

@@ -1,1 +1,1 @@
-export * as Supplier from "./namespace";
+export * as Supplier from './namespace';

@@ -1,14 +1,14 @@
-import { Authenticated, Refine } from "@refinedev/core";
-import { DevtoolsPanel, DevtoolsProvider } from "@refinedev/devtools";
-import { RefineKbar, RefineKbarProvider } from "@refinedev/kbar";
+import { Authenticated, Refine } from '@refinedev/core';
+import { DevtoolsPanel, DevtoolsProvider } from '@refinedev/devtools';
+import { RefineKbar, RefineKbarProvider } from '@refinedev/kbar';
 
 import {
   ErrorComponent,
   ThemedLayout,
   ThemedSider,
   useNotificationProvider,
-} from "@refinedev/antd";
-import "@refinedev/antd/dist/reset.css";
+} from '@refinedev/antd';
+import '@refinedev/antd/dist/reset.css';
 
 import {
   DatabaseOutlined,
@@ -18,34 +18,34 @@ import {
   SettingOutlined,
   ShopOutlined,
   UserOutlined,
-} from "@ant-design/icons";
+} from '@ant-design/icons';
 import routerProvider, {
   CatchAllNavigate,
   DocumentTitleHandler,
   NavigateToResource,
   UnsavedChangesNotifier,
-} from "@refinedev/react-router";
-import { App as AntdApp } from "antd";
-import { BrowserRouter, Outlet, Route, Routes } from "react-router";
-import { ShowRedirectDrawer } from "./components";
-import { Header } from "./components/header";
-import { ColorModeContextProvider } from "./contexts/color-mode";
+} from '@refinedev/react-router';
+import { App as AntdApp } from 'antd';
+import { BrowserRouter, Outlet, Route, Routes } from 'react-router';
+import { ShowRedirectDrawer } from './components';
+import { Header } from './components/header';
+import { ColorModeContextProvider } from './contexts/color-mode';
 
-import { useTranslation } from "react-i18next";
-import { Customer } from "./pages/customers";
-import { ForgotPassword } from "./pages/forgotPassword";
-import { InventoryTransaction } from "./pages/inventory-transactions";
-import { Login } from "./pages/login";
-import { Permission } from "./pages/permissions";
-import { ProductCategory } from "./pages/product-categories";
-import { Product } from "./pages/products";
-import { Purchase } from "./pages/purchases";
-import { Register } from "./pages/register";
-import { Role } from "./pages/roles";
-import { Sale } from "./pages/sales";
-import { Supplier } from "./pages/suppliers";
-import { User } from "./pages/users";
-import { authProvider, dataProvider } from "./providers";
+import { useTranslation } from 'react-i18next';
+import { Customer } from './pages/customers';
+import { ForgotPassword } from './pages/forgotPassword';
+import { InventoryTransaction } from './pages/inventory-transactions';
+import { Login } from './pages/login';
+import { Permission } from './pages/permissions';
+import { ProductCategory } from './pages/product-categories';
+import { Product } from './pages/products';
+import { Purchase } from './pages/purchases';
+import { Register } from './pages/register';
+import { Role } from './pages/roles';
+import { Sale } from './pages/sales';
+import { Supplier } from './pages/suppliers';
+import { User } from './pages/users';
+import { authProvider, dataProvider } from './providers';
 
 function App() {
   const API_URL = import.meta.env.VITE_API_URL;
@@ -55,11 +55,11 @@ function App() {
 
   const i18nProvider = {
     translate: (key: string, options?: unknown, defaultMessage?: string) => {
-      if (typeof options === "string" && defaultMessage === undefined) {
+      if (typeof options === 'string' && defaultMessage === undefined) {
         return String(t(key, { defaultValue: options }));
       }
       const interpolation =
-        options && typeof options === "object" && !Array.isArray(options)
+        options && typeof options === 'object' && !Array.isArray(options)
           ? (options as Record<string, unknown>)
           : {};
       return String(
@@ -72,7 +72,7 @@ function App() {
       );
     },
     changeLocale: () => Promise.resolve(),
-    getLocale: () => "vi",
+    getLocale: () => 'vi',
   };
 
   return (
@@ -89,95 +89,95 @@ function App() {
                 i18nProvider={i18nProvider}
                 resources={[
                   {
-                    name: "suppliers",
-                    list: "/suppliers",
-                    show: "/suppliers/show/:id",
+                    name: 'suppliers',
+                    list: '/suppliers',
+                    show: '/suppliers/show/:id',
                     meta: { canDelete: true, icon: <ShopOutlined /> },
                   },
                   {
-                    name: "purchases",
-                    list: "/purchases",
-                    create: "/purchases/create",
-                    edit: "/purchases/edit/:id",
-                    show: "/purchases/show/:id",
+                    name: 'purchases',
+                    list: '/purchases',
+                    create: '/purchases/create',
+                    edit: '/purchases/edit/:id',
+                    show: '/purchases/show/:id',
                     meta: { canDelete: true, icon: <FallOutlined /> },
                   },
                   {
-                    name: "customers",
-                    list: "/customers",
-                    show: "/customers/show/:id",
+                    name: 'customers',
+                    list: '/customers',
+                    show: '/customers/show/:id',
                     meta: { canDelete: true, icon: <UserOutlined /> },
                   },
                   {
-                    name: "sales",
-                    list: "/sales",
-                    create: "/sales/create",
-                    edit: "/sales/edit/:id",
-                    show: "/sales/show/:id",
+                    name: 'sales',
+                    list: '/sales',
+                    create: '/sales/create',
+                    edit: '/sales/edit/:id',
+                    show: '/sales/show/:id',
                     meta: { canDelete: true, icon: <RiseOutlined /> },
                   },
                   {
-                    name: "product-categories",
-                    list: "/product-categories",
+                    name: 'product-categories',
+                    list: '/product-categories',
                     meta: { canDelete: true },
                   },
                   {
-                    name: "products",
-                    list: "/products",
-                    show: "/products/show/:id",
+                    name: 'products',
+                    list: '/products',
+                    show: '/products/show/:id',
                     meta: { canDelete: true, icon: <ProductOutlined /> },
                   },
                   {
-                    name: "inventory-transactions",
-                    list: "/inventory-transactions",
-                    show: "/inventory-transactions/show/:id",
+                    name: 'inventory-transactions',
+                    list: '/inventory-transactions',
+                    show: '/inventory-transactions/show/:id',
                     meta: { icon: <DatabaseOutlined /> },
                   },
                   {
-                    name: "management",
+                    name: 'management',
                     meta: {
-                      label: "Quản lý",
+                      label: 'Quản lý',
                       icon: <SettingOutlined />,
                     },
                   },
                   {
-                    name: "users",
-                    list: "/users",
-                    create: "/users/create",
-                    edit: "/users/edit/:id",
-                    show: "/users/show/:id",
+                    name: 'users',
+                    list: '/users',
+                    create: '/users/create',
+                    edit: '/users/edit/:id',
+                    show: '/users/show/:id',
                     meta: {
                       canDelete: true,
-                      parent: "management",
+                      parent: 'management',
                     },
                   },
                   {
-                    name: "roles",
-                    list: "/roles",
-                    create: "/roles/create",
-                    edit: "/roles/edit/:id",
-                    show: "/roles/show/:id",
+                    name: 'roles',
+                    list: '/roles',
+                    create: '/roles/create',
+                    edit: '/roles/edit/:id',
+                    show: '/roles/show/:id',
                     meta: {
                       canDelete: true,
-                      parent: "management",
+                      parent: 'management',
                     },
                   },
                   {
-                    name: "permissions",
-                    list: "/permissions",
-                    create: "/permissions/create",
-                    edit: "/permissions/edit/:id",
-                    show: "/permissions/show/:id",
+                    name: 'permissions',
+                    list: '/permissions',
+                    create: '/permissions/create',
+                    edit: '/permissions/edit/:id',
+                    show: '/permissions/show/:id',
                     meta: {
                       canDelete: true,
-                      parent: "management",
+                      parent: 'management',
                     },
                   },
                 ]}
                 options={{
                   syncWithLocation: true,
                   warnWhenUnsavedChanges: true,
-                  projectId: "a5WoM1-ByiDqe-Fged8O",
+                  projectId: 'a5WoM1-ByiDqe-Fged8O',
                 }}
               >
                 <Routes>

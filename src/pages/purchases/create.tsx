@@ -1,7 +1,7 @@
-import { MinusCircleOutlined, PlusOutlined } from "@ant-design/icons";
-import { Create as AntdCreate, useForm } from "@refinedev/antd";
-import { useSelect } from "@refinedev/core";
-import type { FormProps } from "antd";
+import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
+import { Create as AntdCreate, useForm } from '@refinedev/antd';
+import { useSelect } from '@refinedev/core';
+import type { FormProps } from 'antd';
 import {
   App,
   Button,
@@ -16,14 +16,14 @@ import {
   Table,
   Tooltip,
   Typography,
-} from "antd";
-import dayjs from "dayjs";
-import { useState } from "react";
-import { useSearchParams } from "react-router";
+} from 'antd';
+import dayjs from 'dayjs';
+import { useState } from 'react';
+import { useSearchParams } from 'react-router';
 
-import { InputMoney } from "@/components";
-import type { IProduct, ISupplier } from "@/types";
-import { formatMoney } from "@/utils";
+import { InputMoney } from '@/components';
+import type { IProduct, ISupplier } from '@/types';
+import { formatMoney } from '@/utils';
 
 const { Text } = Typography;
 
@@ -31,7 +31,7 @@ type LineItem = {
   key: number;
   productId?: string;
   quantity: number;
-  quantityUnit: "kg" | "con";
+  quantityUnit: 'kg' | 'con';
   unitPrice: number;
   note?: string;
 };
@@ -49,7 +49,7 @@ let nextKey = 1;
 function newRow(): LineItem {
   return {
     key: nextKey++,
-    quantityUnit: "kg",
+    quantityUnit: 'kg',
     quantity: 1,
     unitPrice: 0,
   };
@@ -58,12 +58,12 @@ function newRow(): LineItem {
 export const Create = () => {
   const { notification } = App.useApp();
   const [searchParams] = useSearchParams();
-  const supplierIdFromQuery = searchParams.get("supplierId") ?? undefined;
+  const supplierIdFromQuery = searchParams.get('supplierId') ?? undefined;
 
   const [lines, setLines] = useState<LineItem[]>([newRow()]);
 
   const { formProps, saveButtonProps } = useForm({
-    resource: "purchases",
+    resource: 'purchases',
     defaultFormValues: {
       ...(supplierIdFromQuery ? { supplierId: supplierIdFromQuery } : {}),
       purchaseDate: dayjs(),
@@ -75,7 +75,7 @@ export const Create = () => {
     onSearch: onSearchSupplier,
     query: suppliersQuery,
   } = useSelect({
-    resource: "suppliers",
+    resource: 'suppliers',
     optionLabel: (item: ISupplier) => `${item.name} (${item.phone})`,
     optionValue: (item: ISupplier) => item.id,
   });
@@ -85,7 +85,7 @@ export const Create = () => {
     onSearch: onSearchProduct,
     query: productsQuery,
   } = useSelect({
-    resource: "products",
+    resource: 'products',
     optionLabel: (item: IProduct) => item.name,
     optionValue: (item: IProduct) => item.id,
   });
@@ -109,12 +109,12 @@ export const Create = () => {
     return sum + row.quantity * row.unitPrice;
   }, 0);
 
-  const onFinish: FormProps["onFinish"] = (values) => {
+  const onFinish: FormProps['onFinish'] = (values) => {
     const v = values as FormValues;
     const validLines = lines.filter((row) => row.productId);
     if (validLines.length === 0) {
       notification.warning({
-        message: "Thêm ít nhất một dòng có chọn sản phẩm",
+        message: 'Thêm ít nhất một dòng có chọn sản phẩm',
       });
       return Promise.resolve();
     }
@@ -142,14 +142,14 @@ export const Create = () => {
 
   const columns = [
     {
-      title: "#",
+      title: '#',
       width: 44,
       render: (_: unknown, _row: LineItem, index: number) => (
         <Text type="secondary">{index + 1}</Text>
       ),
     },
     {
-      title: "Sản phẩm",
+      title: 'Sản phẩm',
       width: 360,
       render: (_: unknown, row: LineItem) => (
         <Select
@@ -162,71 +162,71 @@ export const Create = () => {
           filterOption={false}
           optionFilterProp="label"
           allowClear
-          style={{ width: "100%" }}
-          onChange={(v) => updateLine(row.key, "productId", v)}
+          style={{ width: '100%' }}
+          onChange={(v) => updateLine(row.key, 'productId', v)}
         />
       ),
     },
     {
-      title: "Số lượng",
+      title: 'Số lượng',
       width: 120,
       render: (_: unknown, row: LineItem) => (
         <InputNumber
           min={0}
           step={0.1}
-          style={{ width: "100%" }}
+          style={{ width: '100%' }}
           value={row.quantity}
-          onChange={(v) => updateLine(row.key, "quantity", v ?? 0)}
+          onChange={(v) => updateLine(row.key, 'quantity', v ?? 0)}
         />
       ),
     },
     {
-      title: "Đơn vị",
+      title: 'Đơn vị',
       width: 110,
       render: (_: unknown, row: LineItem) => (
         <Select
           value={row.quantityUnit}
           options={[
-            { value: "kg", label: "kg" },
-            { value: "con", label: "con" },
+            { value: 'kg', label: 'kg' },
+            { value: 'con', label: 'con' },
           ]}
-          style={{ width: "100%" }}
-          onChange={(v) => updateLine(row.key, "quantityUnit", v)}
+          style={{ width: '100%' }}
+          onChange={(v) => updateLine(row.key, 'quantityUnit', v)}
         />
       ),
     },
     {
-      title: "Đơn giá",
+      title: 'Đơn giá',
       width: 160,
       render: (_: unknown, row: LineItem) => (
         <InputMoney
           value={row.unitPrice}
-          onChange={(v) => updateLine(row.key, "unitPrice", (v as number) ?? 0)}
+          onChange={(v) => updateLine(row.key, 'unitPrice', (v as number) ?? 0)}
         />
       ),
     },
     {
-      title: "Thành tiền",
+      title: 'Thành tiền',
       width: 160,
       render: (_: unknown, row: LineItem) => (
         <Text strong>{formatMoney(row.quantity * row.unitPrice)}</Text>
       ),
     },
     {
-      title: "Ghi chú",
+      title: 'Ghi chú',
       width: 220,
       render: (_: unknown, row: LineItem) => (
         <Input
           placeholder="Tuỳ chọn"
           value={row.note}
-          onChange={(e) => updateLine(row.key, "note", e.target.value)}
+          onChange={(e) => updateLine(row.key, 'note', e.target.value)}
         />
       ),
     },
     {
-      title: "",
+      title: '',
       width: 52,
-      fixed: "right" as const,
+      fixed: 'right' as const,
       render: (_: unknown, row: LineItem) => (
         <Tooltip title="Xoá dòng">
           <Button
@@ -246,7 +246,7 @@ export const Create = () => {
         <Form.Item
           label="Nhà cung cấp"
           name="supplierId"
-          rules={[{ required: true, message: "Chọn nhà cung cấp" }]}
+          rules={[{ required: true, message: 'Chọn nhà cung cấp' }]}
         >
           <Select
             options={supplierOptions}
@@ -264,11 +264,11 @@ export const Create = () => {
             <Form.Item
               label="Ngày nhập"
               name="purchaseDate"
-              rules={[{ required: true, message: "Chọn ngày nhập" }]}
+              rules={[{ required: true, message: 'Chọn ngày nhập' }]}
             >
               <DatePicker
                 showTime={false}
-                style={{ width: "100%" }}
+                style={{ width: '100%' }}
                 format="DD/MM/YYYY"
               />
             </Form.Item>
@@ -280,13 +280,13 @@ export const Create = () => {
               rules={[
                 {
                   required: true,
-                  message: "Nhập Trọng lượng trung bình",
+                  message: 'Nhập Trọng lượng trung bình',
                 },
               ]}
             >
               <InputNumber
                 suffix="kg/con"
-                style={{ width: "100%" }}
+                style={{ width: '100%' }}
                 placeholder="Trọng lượng trung bình"
               />
             </Form.Item>
@@ -298,11 +298,11 @@ export const Create = () => {
             <Form.Item
               label="Số lượng lồng"
               name="cagesCount"
-              rules={[{ required: true, message: "Nhập số lượng lồng" }]}
+              rules={[{ required: true, message: 'Nhập số lượng lồng' }]}
             >
               <InputNumber
                 suffix="lồng"
-                style={{ width: "100%" }}
+                style={{ width: '100%' }}
                 placeholder="Số lượng lồng"
               />
             </Form.Item>
@@ -312,12 +312,12 @@ export const Create = () => {
               label="Tổng trọng lượng lồng"
               name="cagesWeight"
               rules={[
-                { required: true, message: "Nhập tổng trọng lượng lồng" },
+                { required: true, message: 'Nhập tổng trọng lượng lồng' },
               ]}
             >
               <InputNumber
                 suffix="kg"
-                style={{ width: "100%" }}
+                style={{ width: '100%' }}
                 placeholder="Tổng trọng lượng lồng"
               />
             </Form.Item>
@@ -331,9 +331,9 @@ export const Create = () => {
         <Form.Item label="Chi tiết hàng nhập">
           <Space
             style={{
-              width: "100%",
+              width: '100%',
               marginBottom: 8,
-              justifyContent: "space-between",
+              justifyContent: 'space-between',
             }}
             wrap
           >
@@ -359,10 +359,10 @@ export const Create = () => {
           <div
             style={{
               marginTop: 8,
-              padding: "12px 16px",
-              background: "var(--ant-color-fill-quaternary)",
+              padding: '12px 16px',
+              background: 'var(--ant-color-fill-quaternary)',
               borderRadius: 8,
-              textAlign: "right",
+              textAlign: 'right',
             }}
           >
             <Text type="secondary">Tổng thành tiền (ước tính): </Text>

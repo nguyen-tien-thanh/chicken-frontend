@@ -11,10 +11,10 @@ export type FormatMoneyOptions = {
 export function formatMoney(
   n: number | null | undefined,
   {
-    locale = "vi-VN",
-    currencySuffix = "đ",
-    empty = "—",
-  }: FormatMoneyOptions = {}
+    locale = 'vi-VN',
+    currencySuffix = 'đ',
+    empty = '—',
+  }: FormatMoneyOptions = {},
 ) {
   if (n == null || Number.isNaN(Number(n))) return empty;
   const base = Number(n).toLocaleString(locale);

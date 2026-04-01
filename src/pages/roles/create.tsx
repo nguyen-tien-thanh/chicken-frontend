@@ -1,11 +1,11 @@
-import { Create as AntdCreate, useForm } from "@refinedev/antd";
-import { Form, Input } from "antd";
+import { Create as AntdCreate, useForm } from '@refinedev/antd';
+import { Form, Input } from 'antd';
 
-import { PermissionIdsField } from "./permission-ids-field";
+import { PermissionIdsField } from './permission-ids-field';
 
 export const Create = () => {
   const { formProps, saveButtonProps } = useForm({
-    resource: "roles",
+    resource: 'roles',
   });
 
   return (

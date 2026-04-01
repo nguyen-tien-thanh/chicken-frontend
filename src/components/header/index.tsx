@@ -1,7 +1,7 @@
-import { ColorModeContext } from "@/contexts/color-mode";
-import { IUser } from "@/types";
-import type { RefineThemedLayoutHeaderProps } from "@refinedev/antd";
-import { useGetIdentity } from "@refinedev/core";
+import { ColorModeContext } from '@/contexts/color-mode';
+import { IUser } from '@/types';
+import type { RefineThemedLayoutHeaderProps } from '@refinedev/antd';
+import { useGetIdentity } from '@refinedev/core';
 import {
   Layout as AntdLayout,
   Avatar,
@@ -12,9 +12,9 @@ import {
   Switch,
   theme,
   Typography,
-} from "antd";
-import React, { useContext } from "react";
-import { GlobalSearch } from "./GlobalSearch";
+} from 'antd';
+import React, { useContext } from 'react';
+import { GlobalSearch } from './GlobalSearch';
 
 const { Text } = Typography;
 const { useToken } = theme;
@@ -30,12 +30,12 @@ export const Header: React.FC<RefineThemedLayoutHeaderProps> = ({
 
   const headerStyles: React.CSSProperties = {
     backgroundColor: token.colorBgElevated,
-    padding: "0px 24px",
-    height: "64px",
+    padding: '0px 24px',
+    height: '64px',
   };
 
   if (sticky) {
-    headerStyles.position = "sticky";
+    headerStyles.position = 'sticky';
     headerStyles.top = 0;
     headerStyles.zIndex = 1;
   }
@@ -44,7 +44,7 @@ export const Header: React.FC<RefineThemedLayoutHeaderProps> = ({
     <AntdLayout.Header style={headerStyles}>
       <Row
         align="middle"
-        style={{ justifyContent: screens.sm ? "space-between" : "end" }}
+        style={{ justifyContent: screens.sm ? 'space-between' : 'end' }}
       >
         <Col xs={0} sm={8} md={12}>
           <GlobalSearch />
@@ -54,10 +54,10 @@ export const Header: React.FC<RefineThemedLayoutHeaderProps> = ({
             <Switch
               checkedChildren="🌛"
               unCheckedChildren="🔆"
-              onChange={() => setMode(mode === "light" ? "dark" : "light")}
-              defaultChecked={mode === "dark"}
+              onChange={() => setMode(mode === 'light' ? 'dark' : 'light')}
+              defaultChecked={mode === 'dark'}
             />
-            <Space style={{ marginLeft: "8px" }} size="middle">
+            <Space style={{ marginLeft: '8px' }} size="middle">
               {user?.name && <Text strong>{user.name}</Text>}
               {user?.avatar && <Avatar src={user?.avatar} alt={user?.name} />}
             </Space>

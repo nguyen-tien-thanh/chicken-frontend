@@ -1,1 +1,1 @@
-export * as Product from "./namespace";
+export * as Product from './namespace';

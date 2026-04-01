@@ -1,1 +1,1 @@
-export * as InventoryTransaction from "./namespace";
+export * as InventoryTransaction from './namespace';

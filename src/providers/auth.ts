@@ -1,7 +1,7 @@
-import type { AuthProvider, HttpError } from "@refinedev/core";
+import type { AuthProvider, HttpError } from '@refinedev/core';
 
-import { axiosInstance } from "@/utils/axios";
-import { TOKEN_KEY } from "./constants";
+import { axiosInstance } from '@/utils/axios';
+import { TOKEN_KEY } from './constants';
 
 const apiUrl = import.meta.env.VITE_API_URL as string;
 
@@ -15,12 +15,12 @@ type ProfileResponse = {
 };
 
 function authErrorMessage(error: unknown): string {
-  if (error && typeof error === "object" && "message" in error) {
+  if (error && typeof error === 'object' && 'message' in error) {
     const m = (error as HttpError).message;
-    if (Array.isArray(m)) return m.join(", ");
-    if (typeof m === "string") return m;
+    if (Array.isArray(m)) return m.join(', ');
+    if (typeof m === 'string') return m;
   }
-  return "Yêu cầu thất bại";
+  return 'Yêu cầu thất bại';
 }
 
 function flattenPermissions(user: ProfileResponse): string[] {
@@ -37,8 +37,8 @@ export const authProvider: AuthProvider = {
       return {
         success: false,
         error: {
-          name: "Đăng nhập thất bại",
-          message: "Email hoặc mật khẩu không hợp lệ",
+          name: 'Đăng nhập thất bại',
+          message: 'Email hoặc mật khẩu không hợp lệ',
         },
       };
     }
@@ -52,13 +52,13 @@ export const authProvider: AuthProvider = {
       localStorage.setItem(TOKEN_KEY, data.token);
       return {
         success: true,
-        redirectTo: "/",
+        redirectTo: '/',
       };
     } catch (error) {
       return {
         success: false,
         error: {
-          name: "Đăng nhập thất bại",
+          name: 'Đăng nhập thất bại',
           message: authErrorMessage(error),
         },
       };
@@ -69,7 +69,7 @@ export const authProvider: AuthProvider = {
     localStorage.removeItem(TOKEN_KEY);
     return {
       success: true,
-      redirectTo: "/login",
+      redirectTo: '/login',
     };
   },
 
@@ -81,7 +81,7 @@ export const authProvider: AuthProvider = {
 
     return {
       authenticated: false,
-      redirectTo: "/login",
+      redirectTo: '/login',
     };
   },
 
@@ -90,8 +90,8 @@ export const authProvider: AuthProvider = {
       return {
         success: false,
         error: {
-          name: "Đăng ký thất bại",
-          message: "Email và mật khẩu là bắt buộc",
+          name: 'Đăng ký thất bại',
+          message: 'Email và mật khẩu là bắt buộc',
         },
       };
     }
@@ -104,13 +104,13 @@ export const authProvider: AuthProvider = {
       });
       return {
         success: true,
-        redirectTo: "/login",
+        redirectTo: '/login',
       };
     } catch (error) {
       return {
         success: false,
         error: {
-          name: "Đăng ký thất bại",
+          name: 'Đăng ký thất bại',
           message: authErrorMessage(error),
         },
       };
@@ -145,10 +145,10 @@ export const authProvider: AuthProvider = {
       };
     } catch (error) {
       if ((error as unknown as HttpError)?.statusCode === 401) {
-        await authProvider.logout({ redirectTo: "/login" });
+        await authProvider.logout({ redirectTo: '/login' });
         return null;
       }
-      throw new Error("Không thể lấy thông tin người dùng");
+      throw new Error('Không thể lấy thông tin người dùng');
     }
   },
 
@@ -157,7 +157,7 @@ export const authProvider: AuthProvider = {
     const status = (error as HttpError)?.statusCode;
     if (status === 401) {
       localStorage.removeItem(TOKEN_KEY);
-      return { error, logout: true, redirectTo: "/login" };
+      return { error, logout: true, redirectTo: '/login' };
     }
     return { error };
   },

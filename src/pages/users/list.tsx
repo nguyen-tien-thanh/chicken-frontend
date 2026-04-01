@@ -4,16 +4,16 @@ import {
   EditButton,
   ShowButton,
   useTable,
-} from "@refinedev/antd";
-import { Space, Table } from "antd";
+} from '@refinedev/antd';
+import { Space, Table } from 'antd';
 
-import { RelativeTime } from "@/components/relative-time";
-import type { IUser } from "@/types";
+import { RelativeTime } from '@/components/relative-time';
+import type { IUser } from '@/types';
 
 export const List = () => {
   const { tableProps } = useTable<IUser>({
     syncWithLocation: true,
-    resource: "users",
+    resource: 'users',
     meta: {
       include: {
         role: true,
@@ -21,11 +21,11 @@ export const List = () => {
     },
     filters: {
       initial: [
-        { field: "email", operator: "contains", value: undefined },
-        { field: "name", operator: "contains", value: undefined },
+        { field: 'email', operator: 'contains', value: undefined },
+        { field: 'name', operator: 'contains', value: undefined },
       ],
     },
-    sorters: { initial: [{ field: "createdAt", order: "desc" }] },
+    sorters: { initial: [{ field: 'createdAt', order: 'desc' }] },
   });
 
   return (
@@ -33,13 +33,13 @@ export const List = () => {
       <Table {...tableProps} rowKey="id">
         <Table.Column dataIndex="email" title="Email" sorter />
         <Table.Column dataIndex="name" title="Tên" sorter />
-        <Table.Column title="Vai trò" render={(_, r) => r.role?.name ?? "—"} />
+        <Table.Column title="Vai trò" render={(_, r) => r.role?.name ?? '—'} />
         <Table.Column
           dataIndex="createdAt"
           title="Ngày tạo"
           sorter
           defaultSortOrder="descend"
-          render={(v: string) => (v ? <RelativeTime value={v} /> : "—")}
+          render={(v: string) => (v ? <RelativeTime value={v} /> : '—')}
         />
         <Table.Column
           title="Thao tác"

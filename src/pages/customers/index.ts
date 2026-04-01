@@ -1,1 +1,1 @@
-export * as Customer from "./namespace";
+export * as Customer from './namespace';

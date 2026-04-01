@@ -1,13 +1,13 @@
-import { EditOutlined, PlusOutlined } from "@ant-design/icons";
+import { EditOutlined, PlusOutlined } from '@ant-design/icons';
 import {
   List as AntdList,
   DeleteButton,
   ShowButton,
   useDrawerForm,
   useTable,
-} from "@refinedev/antd";
-import type { BaseRecord } from "@refinedev/core";
-import { useSelect, useShow } from "@refinedev/core";
+} from '@refinedev/antd';
+import type { BaseRecord } from '@refinedev/core';
+import { useSelect, useShow } from '@refinedev/core';
 import {
   Button,
   Descriptions,
@@ -20,20 +20,20 @@ import {
   Table,
   Tag,
   Tooltip,
-} from "antd";
-import { useEffect, useState } from "react";
-import { Link, useSearchParams } from "react-router";
+} from 'antd';
+import { useEffect, useState } from 'react';
+import { Link, useSearchParams } from 'react-router';
 
-import { RelativeTime } from "@/components/relative-time";
+import { RelativeTime } from '@/components/relative-time';
 import {
   PRODUCT_TYPE_LABELS,
   PRODUCT_TYPE_OPTIONS,
   type IProduct,
   type IProductCategory,
   type ProductType,
-} from "@/types";
+} from '@/types';
 
-const DRAWER_WIDTH = "45vw";
+const DRAWER_WIDTH = '45vw';
 
 export const List = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -46,8 +46,8 @@ export const List = () => {
     show: showCreateDrawer,
     close: closeCreateDrawer,
   } = useDrawerForm({
-    resource: "products",
-    action: "create",
+    resource: 'products',
+    action: 'create',
     syncWithLocation: false,
   });
 
@@ -58,8 +58,8 @@ export const List = () => {
     show: showEditDrawer,
     close: closeEditDrawer,
   } = useDrawerForm({
-    resource: "products",
-    action: "edit",
+    resource: 'products',
+    action: 'edit',
     syncWithLocation: false,
     meta: {
       include: {
@@ -69,8 +69,8 @@ export const List = () => {
   });
 
   const { result: showRecord, query: showQuery } = useShow<IProduct>({
-    resource: "products",
-    id: showId ?? "",
+    resource: 'products',
+    id: showId ?? '',
     queryOptions: { enabled: !!showId },
     meta: {
       include: {
@@ -84,19 +84,19 @@ export const List = () => {
     onSearch: onSearchCategory,
     query: categoriesQuery,
   } = useSelect({
-    resource: "product-categories",
+    resource: 'product-categories',
     optionLabel: (item: IProductCategory) => item.name,
     optionValue: (item: IProductCategory) => item.id,
   });
 
   useEffect(() => {
-    const id = searchParams.get("show");
+    const id = searchParams.get('show');
     if (!id) return;
     setShowId(id);
     setSearchParams(
       (prev) => {
         const next = new URLSearchParams(prev);
-        next.delete("show");
+        next.delete('show');
         return next;
       },
       { replace: true },
@@ -105,7 +105,7 @@ export const List = () => {
 
   const { tableProps } = useTable<IProduct>({
     syncWithLocation: true,
-    resource: "products",
+    resource: 'products',
     meta: {
       include: {
         category: { select: { id: true, name: true } },
@@ -113,11 +113,11 @@ export const List = () => {
     },
     filters: {
       initial: [
-        { field: "name", operator: "contains", value: undefined },
-        { field: "type", operator: "eq", value: undefined },
+        { field: 'name', operator: 'contains', value: undefined },
+        { field: 'type', operator: 'eq', value: undefined },
       ],
     },
-    sorters: { initial: [{ field: "createdAt", order: "desc" }] },
+    sorters: { initial: [{ field: 'createdAt', order: 'desc' }] },
   });
 
   const showType = showRecord?.type as ProductType | undefined;
@@ -149,7 +149,7 @@ export const List = () => {
                 {r.category.name}
               </Link>
             ) : (
-              "—"
+              '—'
             )
           }
         />
@@ -158,7 +158,7 @@ export const List = () => {
           title="Ngày tạo"
           sorter
           defaultSortOrder="descend"
-          render={(v: string) => (v ? <RelativeTime value={v} /> : "—")}
+          render={(v: string) => (v ? <RelativeTime value={v} /> : '—')}
         />
         <Table.Column
           title="Thao tác"
@@ -280,7 +280,7 @@ export const List = () => {
               {showRecord?.name}
             </Descriptions.Item>
             <Descriptions.Item label="Loại">
-              {showType ? <Tag>{PRODUCT_TYPE_LABELS[showType]}</Tag> : "—"}
+              {showType ? <Tag>{PRODUCT_TYPE_LABELS[showType]}</Tag> : '—'}
             </Descriptions.Item>
             <Descriptions.Item label="Danh mục">
               {showRecord?.category ? (
@@ -288,21 +288,21 @@ export const List = () => {
                   {showRecord.category.name}
                 </Link>
               ) : (
-                showRecord?.categoryId ?? "—"
+                showRecord?.categoryId ?? '—'
               )}
             </Descriptions.Item>
             <Descriptions.Item label="Ngày tạo">
               {showRecord?.createdAt ? (
                 <RelativeTime value={showRecord.createdAt} />
               ) : (
-                "—"
+                '—'
               )}
             </Descriptions.Item>
             <Descriptions.Item label="Cập nhật">
               {showRecord?.updatedAt ? (
                 <RelativeTime value={showRecord.updatedAt} />
               ) : (
-                "—"
+                '—'
               )}
             </Descriptions.Item>
           </Descriptions>
