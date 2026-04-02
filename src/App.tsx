@@ -11,10 +11,12 @@ import {
 import '@refinedev/antd/dist/reset.css';
 
 import {
+  CrownOutlined,
   DatabaseOutlined,
   FallOutlined,
   ProductOutlined,
   RiseOutlined,
+  SafetyCertificateOutlined,
   SettingOutlined,
   ShopOutlined,
   UserOutlined,
@@ -149,6 +151,7 @@ function App() {
                     meta: {
                       canDelete: true,
                       parent: 'management',
+                      icon: <UserOutlined />,
                     },
                   },
                   {
@@ -160,6 +163,7 @@ function App() {
                     meta: {
                       canDelete: true,
                       parent: 'management',
+                      icon: <SafetyCertificateOutlined />,
                     },
                   },
                   {
@@ -171,6 +175,7 @@ function App() {
                     meta: {
                       canDelete: true,
                       parent: 'management',
+                      icon: <CrownOutlined />,
                     },
                   },
                 ]}
