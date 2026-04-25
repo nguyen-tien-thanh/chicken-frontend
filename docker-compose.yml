@@ -10,3 +10,8 @@ services:
       - '3000:3000'
     env_file:
       - .env
+    networks:
+      - chicken_default
+
+networks:
+  chicken_default:
