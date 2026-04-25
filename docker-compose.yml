@@ -1,0 +1,12 @@
+services:
+  chicken-frontend:
+    image: nguyentienthanh2909/chicken-frontend
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: chicken-frontend
+    restart: always
+    ports:
+      - '3000:3000'
+    env_file:
+      - .env
