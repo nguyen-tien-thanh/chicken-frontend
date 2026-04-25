@@ -111,90 +111,90 @@
   },
   "documentTitle": {
     "default": "Refine",
-    "suffix": " | Refine",
+    "suffix": " | Chicken",
     "product-categories": {
-      "list": "Danh mục sản phẩm | Refine",
-      "create": "Tạo danh mục sản phẩm | Refine",
-      "edit": "Sửa danh mục sản phẩm #{{id}} | Refine",
-      "show": "Chi tiết danh mục sản phẩm #{{id}} | Refine",
-      "clone": "Nhân bản danh mục sản phẩm #{{id}} | Refine"
+      "list": "Danh mục sản phẩm | Chicken",
+      "create": "Tạo danh mục sản phẩm | Chicken",
+      "edit": "Sửa danh mục sản phẩm #{{id}} | Chicken",
+      "show": "Chi tiết danh mục sản phẩm #{{id}} | Chicken",
+      "clone": "Nhân bản danh mục sản phẩm #{{id}} | Chicken"
     },
     "management": {
-      "list": "Quản lý | Refine",
-      "create": "Quản lý | Refine",
-      "edit": "Quản lý | Refine",
-      "show": "Quản lý | Refine",
-      "clone": "Quản lý | Refine"
+      "list": "Quản lý | Chicken",
+      "create": "Quản lý | Chicken",
+      "edit": "Quản lý | Chicken",
+      "show": "Quản lý | Chicken",
+      "clone": "Quản lý | Chicken"
     },
     "users": {
-      "list": "Người dùng | Refine",
-      "create": "Thêm người dùng | Refine",
-      "edit": "Sửa người dùng #{{id}} | Refine",
-      "show": "Chi tiết người dùng #{{id}} | Refine",
-      "clone": "Nhân bản người dùng #{{id}} | Refine"
+      "list": "Người dùng | Chicken",
+      "create": "Thêm người dùng | Chicken",
+      "edit": "Sửa người dùng #{{id}} | Chicken",
+      "show": "Chi tiết người dùng #{{id}} | Chicken",
+      "clone": "Nhân bản người dùng #{{id}} | Chicken"
     },
     "roles": {
-      "list": "Vai trò | Refine",
-      "create": "Thêm vai trò | Refine",
-      "edit": "Sửa vai trò #{{id}} | Refine",
-      "show": "Chi tiết vai trò #{{id}} | Refine",
-      "clone": "Nhân bản vai trò #{{id}} | Refine"
+      "list": "Vai trò | Chicken",
+      "create": "Thêm vai trò | Chicken",
+      "edit": "Sửa vai trò #{{id}} | Chicken",
+      "show": "Chi tiết vai trò #{{id}} | Chicken",
+      "clone": "Nhân bản vai trò #{{id}} | Chicken"
     },
     "permissions": {
-      "list": "Quyền | Refine",
-      "create": "Thêm quyền | Refine",
-      "edit": "Sửa quyền #{{id}} | Refine",
-      "show": "Chi tiết quyền #{{id}} | Refine",
-      "clone": "Nhân bản quyền #{{id}} | Refine"
+      "list": "Quyền | Chicken",
+      "create": "Thêm quyền | Chicken",
+      "edit": "Sửa quyền #{{id}} | Chicken",
+      "show": "Chi tiết quyền #{{id}} | Chicken",
+      "clone": "Nhân bản quyền #{{id}} | Chicken"
     },
     "business": {
-      "list": "Kinh doanh | Refine",
-      "create": "Kinh doanh | Refine",
-      "edit": "Kinh doanh | Refine",
-      "show": "Kinh doanh | Refine",
-      "clone": "Kinh doanh | Refine"
+      "list": "Kinh doanh | Chicken",
+      "create": "Kinh doanh | Chicken",
+      "edit": "Kinh doanh | Chicken",
+      "show": "Kinh doanh | Chicken",
+      "clone": "Kinh doanh | Chicken"
     },
     "suppliers": {
-      "list": "Nhà cung cấp | Refine",
-      "create": "Thêm nhà cung cấp | Refine",
-      "edit": "Sửa nhà cung cấp #{{id}} | Refine",
-      "show": "Chi tiết nhà cung cấp #{{id}} | Refine",
-      "clone": "Nhân bản nhà cung cấp #{{id}} | Refine"
+      "list": "Nhà cung cấp | Chicken",
+      "create": "Thêm nhà cung cấp | Chicken",
+      "edit": "Sửa nhà cung cấp #{{id}} | Chicken",
+      "show": "Chi tiết nhà cung cấp #{{id}} | Chicken",
+      "clone": "Nhân bản nhà cung cấp #{{id}} | Chicken"
     },
     "purchases": {
-      "list": "Phiếu nhập | Refine",
-      "create": "Tạo phiếu nhập | Refine",
-      "edit": "Sửa phiếu nhập #{{id}} | Refine",
-      "show": "Chi tiết phiếu nhập #{{id}} | Refine",
-      "clone": "Nhân bản phiếu nhập #{{id}} | Refine"
+      "list": "Phiếu nhập | Chicken",
+      "create": "Tạo phiếu nhập | Chicken",
+      "edit": "Sửa phiếu nhập #{{id}} | Chicken",
+      "show": "Chi tiết phiếu nhập #{{id}} | Chicken",
+      "clone": "Nhân bản phiếu nhập #{{id}} | Chicken"
     },
     "sales": {
-      "list": "Phiếu bán | Refine",
-      "create": "Tạo phiếu bán | Refine",
-      "edit": "Sửa phiếu bán #{{id}} | Refine",
-      "show": "Chi tiết phiếu bán #{{id}} | Refine",
-      "clone": "Nhân bản phiếu bán #{{id}} | Refine"
+      "list": "Phiếu bán | Chicken",
+      "create": "Tạo phiếu bán | Chicken",
+      "edit": "Sửa phiếu bán #{{id}} | Chicken",
+      "show": "Chi tiết phiếu bán #{{id}} | Chicken",
+      "clone": "Nhân bản phiếu bán #{{id}} | Chicken"
     },
     "customers": {
-      "list": "Khách hàng | Refine",
-      "create": "Thêm khách hàng | Refine",
-      "edit": "Sửa khách hàng #{{id}} | Refine",
-      "show": "Chi tiết khách hàng #{{id}} | Refine",
-      "clone": "Nhân bản khách hàng #{{id}} | Refine"
+      "list": "Khách hàng | Chicken",
+      "create": "Thêm khách hàng | Chicken",
+      "edit": "Sửa khách hàng #{{id}} | Chicken",
+      "show": "Chi tiết khách hàng #{{id}} | Chicken",
+      "clone": "Nhân bản khách hàng #{{id}} | Chicken"
     },
     "products": {
-      "list": "Sản phẩm | Refine",
-      "create": "Thêm sản phẩm | Refine",
-      "edit": "Sửa sản phẩm #{{id}} | Refine",
-      "show": "Chi tiết sản phẩm #{{id}} | Refine",
-      "clone": "Nhân bản sản phẩm #{{id}} | Refine"
+      "list": "Sản phẩm | Chicken",
+      "create": "Thêm sản phẩm | Chicken",
+      "edit": "Sửa sản phẩm #{{id}} | Chicken",
+      "show": "Chi tiết sản phẩm #{{id}} | Chicken",
+      "clone": "Nhân bản sản phẩm #{{id}} | Chicken"
     },
     "inventory-transactions": {
-      "list": "Giao dịch kho | Refine",
-      "create": "Giao dịch kho | Refine",
-      "edit": "Giao dịch kho #{{id}} | Refine",
-      "show": "Chi tiết giao dịch kho #{{id}} | Refine",
-      "clone": "Giao dịch kho | Refine"
+      "list": "Giao dịch kho | Chicken",
+      "create": "Giao dịch kho | Chicken",
+      "edit": "Giao dịch kho #{{id}} | Chicken",
+      "show": "Chi tiết giao dịch kho #{{id}} | Chicken",
+      "clone": "Giao dịch kho | Chicken"
     }
   },
   "product-categories": {

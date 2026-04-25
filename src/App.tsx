@@ -5,7 +5,6 @@ import { RefineKbar, RefineKbarProvider } from '@refinedev/kbar';
 import {
   ErrorComponent,
   ThemedLayout,
-  ThemedSider,
   useNotificationProvider,
 } from '@refinedev/antd';
 import '@refinedev/antd/dist/reset.css';
@@ -29,7 +28,7 @@ import routerProvider, {
 } from '@refinedev/react-router';
 import { App as AntdApp } from 'antd';
 import { BrowserRouter, Outlet, Route, Routes } from 'react-router';
-import { ShowRedirectDrawer } from './components';
+import { ShowRedirectDrawer, ThemedSider } from './components';
 import { Header } from './components/header';
 import { ColorModeContextProvider } from './contexts/color-mode';
 
