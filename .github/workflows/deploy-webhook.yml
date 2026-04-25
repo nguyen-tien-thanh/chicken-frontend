@@ -15,16 +15,14 @@ jobs:
       - name: Trigger n8n deploy webhook
         env:
           WEBHOOK_URL: https://n8n.tiralix.com/webhook/deploy
-          WEBHOOK_TOKEN: ${{ secrets.N8N_WEBHOOK_TOKEN }}
-          APP_NAME: chicken-frontend
         run: |
           curl --fail --show-error --silent \
             --request POST \
             --header "Content-Type: application/json" \
-            --header "Authorization: $WEBHOOK_TOKEN" \
             --data @- \
             "$WEBHOOK_URL" <<'EOF'
           {
+            "app": "chicken-frontend",
             "repository": "${{ github.repository }}",
             "ref": "${{ github.ref }}",
             "sha": "${{ github.sha }}",
