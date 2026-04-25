@@ -1,7 +1,7 @@
-import React from "react";
-import { Layout as AntdLayout, Typography, Avatar, Space, theme } from "antd";
-import { useGetIdentity } from "@refinedev/core";
-import type { RefineThemedLayoutHeaderProps } from "../types";
+import React from 'react';
+import { Layout as AntdLayout, Typography, Avatar, Space, theme } from 'antd';
+import { useGetIdentity } from '@refinedev/core';
+import type { RefineThemedLayoutHeaderProps } from '../types';
 
 export const ThemedHeader: React.FC<RefineThemedLayoutHeaderProps> = ({
   sticky,
@@ -18,15 +18,15 @@ export const ThemedHeader: React.FC<RefineThemedLayoutHeaderProps> = ({
 
   const headerStyles: React.CSSProperties = {
     backgroundColor: token.colorBgElevated,
-    display: "flex",
-    justifyContent: "flex-end",
-    alignItems: "center",
-    padding: "0px 24px",
-    height: "64px",
+    display: 'flex',
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+    padding: '0px 24px',
+    height: '64px',
   };
 
   if (sticky) {
-    headerStyles.position = "sticky";
+    headerStyles.position = 'sticky';
     headerStyles.top = 0;
     headerStyles.zIndex = 1;
   }

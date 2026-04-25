@@ -3,7 +3,7 @@ import type {
   RefineThemedLayoutHeaderProps,
   RefineThemedLayoutProps,
   RefineLayoutThemedTitleProps,
-} from "@refinedev/ui-types";
+} from '@refinedev/ui-types';
 
 type RefineThemedLayoutSiderProps = BaseRefineThemedLayoutSiderProps & {
   fixed?: boolean;
