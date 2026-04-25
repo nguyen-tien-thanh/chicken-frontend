@@ -15,18 +15,12 @@ axiosInstance.interceptors.request.use((config) => {
   return config;
 });
 
-// Bust browser HTTP cache on GETs so list/detail refetches after mutations are fresh.
+// Disable caching for mutating requests so responses are never stale.
 axiosInstance.interceptors.request.use((config) => {
-  if ((config.method ?? 'get').toLowerCase() !== 'get') {
-    return config;
+  const method = (config.method ?? 'get').toLowerCase();
+  if (['post', 'put', 'patch', 'delete'].includes(method)) {
+    config.headers['Cache-Control'] = 'no-store';
   }
-
-  const prev = config.params;
-  const base =
-    prev !== undefined && typeof prev === 'object' && !Array.isArray(prev)
-      ? (prev as Record<string, unknown>)
-      : {};
-  config.params = { ...base, _refineNocache: Date.now() };
 
   return config;
 });
