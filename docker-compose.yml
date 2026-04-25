@@ -7,7 +7,7 @@ services:
     container_name: chicken-frontend
     restart: always
     ports:
-      - '3000:3000'
+      - '3333:3000'
     env_file:
       - .env
     networks:
