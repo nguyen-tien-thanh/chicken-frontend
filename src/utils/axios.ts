@@ -21,9 +21,6 @@ axiosInstance.interceptors.request.use((config) => {
     return config;
   }
 
-  config.headers.set('Cache-Control', 'no-store');
-  config.headers.set('Pragma', 'no-cache');
-
   const prev = config.params;
   const base =
     prev !== undefined && typeof prev === 'object' && !Array.isArray(prev)

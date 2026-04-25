@@ -21,7 +21,7 @@ import dayjs from 'dayjs';
 import { useState } from 'react';
 import { useSearchParams } from 'react-router';
 
-import { InputMoney } from '@/components';
+import { FullScreenSpin, InputMoney } from '@/components';
 import type { IProduct, ISupplier } from '@/types';
 import { formatMoney } from '@/utils';
 
@@ -239,6 +239,10 @@ export const Create = () => {
       ),
     },
   ];
+
+  if (suppliersQuery.isLoading || productsQuery.isLoading) {
+    return <FullScreenSpin />;
+  }
 
   return (
     <AntdCreate saveButtonProps={saveButtonProps}>
