@@ -1091,7 +1091,22 @@
     temp "^0.9.4"
     tslib "^2.6.2"
 
-"@refinedev/core@^5.0.5", "@refinedev/core@^5.0.8":
+"@refinedev/core@^5.0.12":
+  version "5.0.12"
+  resolved "https://registry.npmjs.org/@refinedev/core/-/core-5.0.12.tgz#08d3619d1d9e7e003d5791465412ac15993b65d8"
+  integrity sha512-9y5Bi9Lb7XyJmM55b8rCeBTDRCBU41p47OymJldasLfrtpUm2EwI+27DjjNpHTOugymiZsIbLlPtHCPQIXBHcg==
+  dependencies:
+    "@refinedev/devtools-internal" "2.0.2"
+    "@tanstack/react-query" "^5.81.5"
+    lodash "^4.17.21"
+    lodash-es "^4.17.21"
+    papaparse "^5.3.0"
+    pluralize "^8.0.0"
+    qs "^6.10.1"
+    tslib "^2.6.2"
+    warn-once "^0.1.0"
+
+"@refinedev/core@^5.0.5":
   version "5.0.11"
   resolved "https://registry.npmjs.org/@refinedev/core/-/core-5.0.11.tgz#d6346bef1f6b4dc30dbadd3091efc8ac908a8b98"
   integrity sha512-As6cHwhHsIQ+qHX/JMaR6pLP6kED+63SoFSo0gFFUI2ZUejc/NuLHAkbjVTs+iOZzKEP9G/S778k0mZjYs7lMg==
