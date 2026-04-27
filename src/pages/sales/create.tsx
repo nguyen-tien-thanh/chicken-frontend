@@ -1,15 +1,21 @@
-import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
+import {
+  MinusCircleOutlined,
+  PlusOutlined,
+  UserAddOutlined,
+} from '@ant-design/icons';
 import { Create as AntdCreate, useForm } from '@refinedev/antd';
-import { useSelect } from '@refinedev/core';
+import { useCreate, useSelect } from '@refinedev/core';
 import type { FormProps } from 'antd';
 import {
   App,
   Button,
   Col,
   DatePicker,
+  Divider,
   Form,
   Input,
   InputNumber,
+  Modal,
   Row,
   Select,
   Space,
@@ -62,8 +68,13 @@ export const Create = () => {
   const customerIdFromQuery = searchParams.get('customerId') ?? undefined;
 
   const [lines, setLines] = useState<LineItem[]>([newRow()]);
+  const [createCustomerOpen, setCreateCustomerOpen] = useState(false);
+  const [customerSearchText, setCustomerSearchText] = useState('');
+  const [createCustomerForm] = Form.useForm();
 
-  const { formProps, saveButtonProps } = useForm({
+  const { mutate: createCustomer } = useCreate();
+
+  const { formProps, saveButtonProps, form } = useForm({
     resource: 'sales',
     defaultFormValues: {
       ...(customerIdFromQuery ? { customerId: customerIdFromQuery } : {}),
@@ -84,6 +95,27 @@ export const Create = () => {
       `${item.name ?? item.phone} (${item.phone})`,
     optionValue: (item: ICustomer) => item.id,
   });
+
+  function handleOpenCreateCustomer() {
+    createCustomerForm.setFieldsValue({ phone: customerSearchText, name: '' });
+    setCreateCustomerOpen(true);
+  }
+
+  function handleCreateCustomer() {
+    createCustomerForm.validateFields().then((values) => {
+      createCustomer(
+        { resource: 'customers', values },
+        {
+          onSuccess: (data) => {
+            form?.setFieldValue('customerId', data.data.id);
+            customersQuery.refetch();
+            setCreateCustomerOpen(false);
+            createCustomerForm.resetFields();
+          },
+        },
+      );
+    });
+  }
 
   const {
     options: productOptions,
@@ -259,12 +291,56 @@ export const Create = () => {
             options={customerOptions}
             loading={customersQuery.isFetching}
             showSearch
-            onSearch={onSearchCustomer}
+            onSearch={(v) => {
+              setCustomerSearchText(v);
+              onSearchCustomer(v);
+            }}
             filterOption={false}
             optionFilterProp="label"
             placeholder="Chọn khách hàng"
+            popupRender={(menu) => (
+              <>
+                {menu}
+                <Divider style={{ margin: '4px 0' }} />
+                <Button
+                  type="link"
+                  icon={<UserAddOutlined />}
+                  style={{ width: '100%', textAlign: 'left' }}
+                  onClick={handleOpenCreateCustomer}
+                >
+                  Tạo khách hàng mới
+                  {customerSearchText ? ` "${customerSearchText}"` : ''}
+                </Button>
+              </>
+            )}
           />
         </Form.Item>
+
+        <Modal
+          title="Tạo khách hàng mới"
+          open={createCustomerOpen}
+          onCancel={() => setCreateCustomerOpen(false)}
+          onOk={handleCreateCustomer}
+          okText="Tạo"
+          cancelText="Huỷ"
+          destroyOnHidden
+        >
+          <Form form={createCustomerForm} layout="vertical">
+            <Form.Item
+              label="Số điện thoại"
+              name="phone"
+              rules={[{ required: true, message: 'Nhập số điện thoại' }]}
+            >
+              <Input placeholder="0912345678" />
+            </Form.Item>
+            <Form.Item label="Tên khách hàng" name="name">
+              <Input placeholder="Tuỳ chọn" />
+            </Form.Item>
+            <Form.Item label="Địa chỉ" name="address">
+              <Input placeholder="Tuỳ chọn" />
+            </Form.Item>
+          </Form>
+        </Modal>
 
         <Row gutter={16}>
           <Col span={12}>
@@ -319,7 +395,23 @@ export const Create = () => {
             <Button
               type="primary"
               icon={<PlusOutlined />}
-              onClick={() => setLines((prev) => [...prev, newRow()])}
+              onClick={() =>
+                setLines((prev) => {
+                  const last = prev[prev.length - 1];
+                  return [
+                    ...prev,
+                    last
+                      ? {
+                          key: nextKey++,
+                          productId: last.productId,
+                          quantityUnit: last.quantityUnit,
+                          unitPrice: last.unitPrice,
+                          quantity: 1,
+                        }
+                      : newRow(),
+                  ];
+                })
+              }
             >
               Thêm dòng
             </Button>

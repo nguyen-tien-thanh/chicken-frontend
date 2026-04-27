@@ -331,7 +331,23 @@ export const Edit = () => {
             <Button
               type="primary"
               icon={<PlusOutlined />}
-              onClick={() => setLines((prev) => [...prev, newRow()])}
+              onClick={() =>
+                setLines((prev) => {
+                  const last = prev[prev.length - 1];
+                  return [
+                    ...prev,
+                    last
+                      ? {
+                          key: nextKey++,
+                          productId: last.productId,
+                          quantityUnit: last.quantityUnit,
+                          unitPrice: last.unitPrice,
+                          quantity: 1,
+                        }
+                      : newRow(),
+                  ];
+                })
+              }
             >
               Thêm dòng
             </Button>
