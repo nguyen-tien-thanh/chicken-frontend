@@ -21,6 +21,8 @@ import {
 } from '@/types';
 import { formatMoney } from '@/utils';
 
+import { SaleInvoiceModal } from './invoice-modal';
+
 const statusColor: Record<SaleStatus, string> = {
   PENDING: 'orange',
   PAID: 'green',
@@ -55,7 +57,9 @@ export const Show = () => {
         <Link to="/sales">
           <Button>Danh sách phiếu bán</Button>
         </Link>
+        <SaleInvoiceModal saleId={record?.id} />
       </Space>
+
       <Card size="small" styles={{ body: { padding: 0 } }}>
         <Descriptions bordered column={2} size="small">
           <Descriptions.Item label="Mã phiếu">
